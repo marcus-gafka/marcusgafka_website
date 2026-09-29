@@ -1,8 +1,15 @@
 // Everything personal about the site lives here. Empty links are hidden.
 export const profile = {
     name: "Marcus Gafka",
-    role: "Robotics & Mechanical Engineering · WPI '27",
-    tagline: "I design, build, and control robotic systems: mechanical design, controls, system integration, and testing. Seeking a full-time role starting mid-2027.",
+    /** Home page hero: "Hi, I'm <name>, a:" followed by these lines */
+    heroIntro: "Passionate engineer, roboticist, and designer",
+    /** Each line links to a sidebar section (id from sections.ts); its first word is highlighted on hover */
+    heroLinks: [
+        { text: "DEKA Research and NASA alum", section: "work" },
+        { text: "WPI Robotics and Mechanical Engineering student", section: "wpi" },
+        { text: "FRC Team 190 mentor and drive coach", section: "190" },
+        { text: "Tinkerer and forever student of life", section: "personal" },
+    ],
     /** Path under public/, e.g. "resume/Marcus_Gafka_Resume.pdf". Leave empty to hide. */
     resumePdf: "",
     heroImage: "assets/home/hero.jpg",

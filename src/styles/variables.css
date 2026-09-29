@@ -1,15 +1,17 @@
 :root {
-    --bg: #111111;
-    --panel: #1c171a;
-    --panel-2: #241d21;
+    /* Palette: #0c1618 #004643 #faf4d3 #f6be9a #d1ac00 */
+    --bg: #0c1618;        /* ink */
+    --panel: #0f2224;     /* surface: ink blended toward teal */
+    --panel-2: #004643;   /* teal: hover / active / tags */
 
-    --text: #ede6ea;
-    --muted: #9a8f95;
+    --text: #faf4d3;      /* cream */
+    --muted: #a7a692;     /* cream at ~65% on ink */
 
-    --accent: #e875a7;
-    --accent-strong: #c94f82;
+    --accent: #d1ac00;    /* gold: links, active nav, buttons */
+    --accent-hover: #e3bd12;
+    --accent-2: #f6be9a;  /* peach: labels, dates, greeting */
 
-    --border: #2c2529;
+    --border: #173437;
 
     --radius: 10px;
     --sidebar-width: 240px;

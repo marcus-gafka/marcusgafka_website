@@ -9,8 +9,6 @@ export interface Section {
     /** Sidebar label */
     label: string;
     title: string;
-    /** One line, shown on the home page tiles */
-    blurb: string;
     /** Shown at the top of the section page */
     intro: string;
     links?: Link[];
@@ -20,21 +18,18 @@ export interface Section {
 export const sections: Section[] = [
     {
         id: "work",
-        blurb: "Controls and robotics internships at DEKA and NASA JSC.",
         label: "Work",
         title: "Work Experience",
         intro: "Robotics and controls internships in industry and at NASA.",
     },
     {
         id: "wpi",
-        blurb: "Robotics and mechanical engineering team projects.",
         label: "WPI",
         title: "WPI Coursework",
         intro: "Team projects from the Robotics and Mechanical Engineering programs at Worcester Polytechnic Institute.",
     },
     {
         id: "190",
-        blurb: "Competition robots I've designed and built as a college mentor.",
         label: "190",
         title: "FRC Team 190",
         intro: "Since 2023 I've been a college mentor for FIRST Robotics Competition Team 190 at WPI, putting in about 400 hours a year plus travel to competitions. I design and build mechanisms side by side with high school students, and I'm currently the team's drive coach, responsible for match strategy, coordinating with alliance partners, and running the team on the field.",
@@ -45,7 +40,6 @@ export const sections: Section[] = [
     },
     {
         id: "personal",
-        blurb: "Things I build on my own time.",
         label: "Personal",
         title: "Personal Projects",
         intro: "Things I build on my own time.",

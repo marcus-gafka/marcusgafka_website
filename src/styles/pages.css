@@ -2,24 +2,59 @@
     padding: var(--space-4) 0 var(--space-5);
 }
 
-.hero-badge {
-    display: inline-block;
-    margin-bottom: var(--space-2);
-    padding: 4px 12px;
-    border-radius: 999px;
-    border: 1px solid var(--accent-strong);
-    color: var(--accent);
-    font-size: 0.85rem;
+.hero-greeting {
+    margin: 0 0 var(--space-1);
+    color: var(--accent-2);
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
-.hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+.hero-list {
+    list-style: none;
     margin: var(--space-3) 0;
+    padding: 0;
+    font-size: 1.15rem;
 }
 
-.projects-page h1,
+.hero-list li {
+    position: relative;
+    padding-left: 1.4em;
+    line-height: 1.5;
+}
+
+.hero-list li + li {
+    margin-top: var(--space-1);
+}
+
+.hero-list li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+}
+
+.hero-link {
+    display: inline-block;
+    color: var(--text);
+}
+
+.hero-link-first {
+    display: inline-block;
+    transition: font-size 0.2s ease, color 0.2s ease;
+}
+
+.hero-link:hover,
+.hero-link:focus-visible {
+    text-decoration: none;
+}
+
+.hero-link:hover .hero-link-first,
+.hero-link:focus-visible .hero-link-first {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--accent);
+}
+
 .featured h2 {
     margin-bottom: var(--space-3);
 }
@@ -82,38 +117,6 @@
     object-fit: cover;
     border-radius: var(--radius);
     border: 1px solid var(--border);
-}
-
-.section-tiles {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: var(--space-2);
-    margin-bottom: var(--space-5);
-}
-
-.section-tile {
-    padding: var(--space-3);
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    color: var(--text);
-    transition: border-color 0.15s ease;
-}
-
-.section-tile:hover {
-    border-color: var(--accent);
-    text-decoration: none;
-}
-
-.section-tile h3 {
-    margin-bottom: var(--space-1);
-    color: var(--accent);
-}
-
-.section-tile p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.9rem;
 }
 
 @media (max-width: 760px) {

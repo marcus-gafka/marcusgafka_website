@@ -1,9 +1,19 @@
 import { profile } from "../data/profile";
 import { projects } from "../data/projects/projects";
-import { sections } from "../data/sections";
 import { createProjectCard } from "../components/projectCard";
 import { createContactLinks } from "../components/contactLinks";
 import { escapeHtml } from "../utils/html";
+
+function heroLink(text: string, section: string): string {
+    const [first, ...rest] = text.split(" ");
+    return `
+        <li>
+            <a class="hero-link" href="#/${encodeURIComponent(section)}">
+                <span class="hero-link-first">${escapeHtml(first)}</span> ${escapeHtml(rest.join(" "))}
+            </a>
+        </li>
+    `;
+}
 
 export function renderHome(): HTMLElement {
     const page = document.createElement("div");
@@ -13,38 +23,20 @@ export function renderHome(): HTMLElement {
         ? `<img class="hero-image" src="${import.meta.env.BASE_URL}${profile.heroImage}" alt="Team 190's robot on the competition field" />`
         : "";
 
-    const resumeButton = profile.resumePdf
-        ? `<a href="#/resume" class="btn btn-secondary">View Resume</a>`
-        : "";
-
     page.innerHTML = `
         <section class="hero">
             <div class="hero-text">
-                <span class="hero-badge">${escapeHtml(profile.role)}</span>
-                <h1>${escapeHtml(profile.name)}</h1>
-                <p class="subtitle">${escapeHtml(profile.tagline)}</p>
-                <div class="hero-actions">
-                    <a href="#/work" class="btn btn-primary">See My Work</a>
-                    <a href="#/about" class="btn btn-secondary">About Me</a>
-                    ${resumeButton}
-                </div>
+                <p class="hero-greeting">Hi, I'm</p>
+                <h1>${escapeHtml(profile.name)}, a:</h1>
+                <ul class="hero-list">
+                    <li class="hero-intro">${escapeHtml(profile.heroIntro)}</li>
+                    ${profile.heroLinks.map(({ text, section }) => heroLink(text, section)).join("")}
+                </ul>
             </div>
             ${heroImage}
         </section>
     `;
     page.querySelector(".hero-text")?.appendChild(createContactLinks());
-
-    const sectionNav = document.createElement("section");
-    sectionNav.className = "section-tiles";
-    sectionNav.innerHTML = sections
-        .map(section => `
-            <a class="section-tile" href="#/${encodeURIComponent(section.id)}">
-                <h3>${escapeHtml(section.title)}</h3>
-                <p>${escapeHtml(section.blurb)}</p>
-            </a>
-        `)
-        .join("");
-    page.appendChild(sectionNav);
 
     const featured = projects.filter(project => project.featured);
     if (featured.length > 0) {
