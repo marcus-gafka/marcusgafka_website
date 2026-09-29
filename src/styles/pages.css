@@ -212,3 +212,29 @@
     border: 1px dashed var(--border);
     border-radius: var(--radius);
 }
+
+/* Phones: featured projects become a swipeable row, the next card peeking in */
+@media (max-width: 760px) {
+    .home .hero {
+        padding: 0 0 var(--space-4);
+    }
+
+    .home .featured .project-grid {
+        display: flex;
+        gap: var(--space-2);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        margin-right: -16px;
+        padding: 0 16px var(--space-2) 0;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .home .featured .project-card {
+        flex: 0 0 80%;
+        scroll-snap-align: start;
+    }
+
+    .home .project-card-image {
+        aspect-ratio: 16 / 10;
+    }
+}

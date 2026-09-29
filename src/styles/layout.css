@@ -40,6 +40,15 @@
     border: 2px solid var(--sidebar-text);
 }
 
+/* Only used on phones (see the max-width: 760px block) */
+.sidebar-menu {
+    display: contents;
+}
+
+.menu-toggle {
+    display: none;
+}
+
 .sidebar nav {
     display: flex;
     flex-direction: column;
@@ -117,45 +126,102 @@
     transform: none;
 }
 
+/* Phones: a sticky top bar with photo, name, and a ☰ menu */
 @media (max-width: 760px) {
     .layout {
         flex-direction: column;
     }
 
     .sidebar {
-        position: static;
+        position: sticky;
+        top: 0;
+        z-index: 10;
         height: auto;
         width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        gap: var(--space-2);
-        padding: var(--space-2) 16px;
+        gap: 0;
+        padding: var(--space-1) 16px;
+        overflow: visible;
         border-bottom: 3px solid var(--burgundy);
-    }
-
-    .sidebar nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .sidebar .contact-link {
-        display: none;
-    }
-
-    .sidebar .btn-email {
-        font-size: 0.9rem;
     }
 
     .brand {
         flex-direction: row;
         align-items: center;
+        font-size: 1.1rem;
     }
 
     .headshot {
         width: 40px;
         border-width: 1px;
+    }
+
+    .menu-toggle {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: none;
+        border-radius: var(--radius);
+        background: transparent;
+        color: var(--sidebar-text);
+        cursor: pointer;
+    }
+
+    .menu-toggle:hover {
+        background: var(--sidebar-hover);
+    }
+
+    .menu-toggle svg {
+        width: 26px;
+        height: 26px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+    .menu-toggle .icon-close,
+    .sidebar.menu-open .menu-toggle .icon-open {
+        display: none;
+    }
+
+    .sidebar.menu-open .menu-toggle .icon-close {
+        display: block;
+    }
+
+    .sidebar-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: var(--space-2);
+        padding: var(--space-2) 0 var(--space-3);
+    }
+
+    .sidebar.menu-open .sidebar-menu {
+        display: flex;
+    }
+
+    .sidebar nav {
+        flex-direction: column;
+    }
+
+    .nav-link {
+        padding: 10px 12px;
+        font-size: 1.05rem;
+    }
+
+    .sidebar .contact-links {
+        margin-top: 0;
+        padding: 0 12px;
+    }
+
+    .sidebar .contact-link {
+        display: none;
     }
 
     #content {

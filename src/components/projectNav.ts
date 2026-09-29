@@ -15,6 +15,16 @@ export function createProjectNav(section: Section, activeId?: string): HTMLEleme
     nav.className = "project-nav";
     nav.setAttribute("aria-label", `${section.title} projects`);
 
+    // Only shown on narrower screens, where the panel becomes a swipeable strip.
+    const label = document.createElement("p");
+    label.className = "project-nav-label";
+    label.textContent = activeId ? `More in ${section.title}` : "Jump to";
+    nav.appendChild(label);
+
+    const scroller = document.createElement("div");
+    scroller.className = "project-nav-scroller";
+    nav.appendChild(scroller);
+
     const projects = projectsInSection(section.id);
     const groups = section.groups
         ? section.groups.map(group => ({ title: group.title, items: projects.filter(p => p.group === group.id) }))
@@ -32,7 +42,17 @@ export function createProjectNav(section: Section, activeId?: string): HTMLEleme
         const list = document.createElement("ul");
         items.forEach(project => list.appendChild(createNavItem(project, project.id === activeId, !activeId)));
         block.appendChild(list);
-        nav.appendChild(block);
+        scroller.appendChild(block);
+    }
+
+    // In the strip, start scrolled to the current project instead of the first one.
+    if (activeId) {
+        requestAnimationFrame(() => {
+            const active = scroller.querySelector<HTMLElement>(".project-nav-item.active");
+            if (active && scroller.scrollWidth > scroller.clientWidth) {
+                scroller.scrollLeft = active.offsetLeft - scroller.offsetLeft - 16;
+            }
+        });
     }
 
     return nav;

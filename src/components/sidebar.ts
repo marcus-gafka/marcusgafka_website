@@ -34,6 +34,42 @@ export function createSidebar(): HTMLElement {
         nav.appendChild(link);
     }
 
-    sidebar.append(brand, nav, createContactLinks());
+    // On phones the nav and contact links collapse into a menu behind the ☰ button;
+    // on larger screens the wrapper is transparent and the sidebar looks as before.
+    const menu = document.createElement("div");
+    menu.className = "sidebar-menu";
+    menu.id = "sidebar-menu";
+    menu.append(nav, createContactLinks());
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "menu-toggle";
+    toggle.setAttribute("aria-controls", menu.id);
+    toggle.innerHTML = `
+        <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    `;
+
+    const setOpen = (open: boolean) => {
+        sidebar.classList.toggle("menu-open", open);
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    setOpen(false);
+
+    toggle.addEventListener("click", () => setOpen(!sidebar.classList.contains("menu-open")));
+    // Close after choosing a page, or with Escape.
+    menu.addEventListener("click", event => {
+        if ((event.target as HTMLElement).closest("a")) setOpen(false);
+    });
+    window.addEventListener("hashchange", () => setOpen(false));
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && sidebar.classList.contains("menu-open")) {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+
+    sidebar.append(brand, toggle, menu);
     return sidebar;
 }
