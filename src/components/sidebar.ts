@@ -1,11 +1,11 @@
 import { profile } from "../data/profile";
+import { sections } from "../data/sections";
 import { createContactLinks } from "./contactLinks";
 
 const navItems = [
     { section: "home", label: "Home", href: "#/" },
-    { section: "projects", label: "Projects", href: "#/projects" },
+    ...sections.map(section => ({ section: section.id, label: section.label, href: `#/${section.id}` })),
     { section: "about", label: "About", href: "#/about" },
-    { section: "resume", label: "Resume", href: "#/resume" },
 ];
 
 export function createSidebar(): HTMLElement {

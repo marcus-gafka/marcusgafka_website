@@ -12,4 +12,11 @@ describe("renderMarkdown", () => {
         const el = renderMarkdown("```python\nprint('hi')\n```");
         expect(el.querySelector("pre code")?.classList.contains("hljs")).toBe(true);
     });
+
+    it("opens external links in a new tab but keeps in-site links in place", () => {
+        const el = renderMarkdown("[ext](https://example.com) [int](#/about)");
+        const [ext, int] = el.querySelectorAll("a");
+        expect(ext.target).toBe("_blank");
+        expect(int.target).toBe("");
+    });
 });

@@ -1,20 +1,21 @@
 import { renderHome } from "./pages/home";
-import { renderProjects } from "./pages/projects";
+import { renderSection } from "./pages/section";
 import { renderProjectDetail } from "./pages/projectDetail";
 import { renderAbout } from "./pages/about";
 import { renderResume } from "./pages/resume";
 import { renderNotFound } from "./pages/notFound";
+import { findSection } from "./data/sections";
 import { findProject } from "./data/projects/projects";
 import { profile } from "./data/profile";
 
 export interface Route {
-    /** Top-level section used to highlight the nav, e.g. "projects" */
+    /** Top-level section used to highlight the nav, e.g. "wpi" */
     section: string;
     page: HTMLElement;
     title?: string;
 }
 
-/** "#/projects/foo" -> ["projects", "foo"] */
+/** "#/wpi/rbe3002" -> ["wpi", "rbe3002"] */
 export function parseHash(hash: string): string[] {
     return hash
         .replace(/^#\/?/, "")
@@ -23,28 +24,33 @@ export function parseHash(hash: string): string[] {
         .map(decodeURIComponent);
 }
 
-export function resolveRoute(hash: string): Route {
-    const [section = "home", id] = parseHash(hash);
+const notFound = (): Route => ({ section: "", page: renderNotFound(), title: "Not Found" });
 
-    switch (section) {
-        case "home":
-            return { section, page: renderHome() };
-        case "projects": {
-            if (!id) {
-                return { section, page: renderProjects(), title: "Projects" };
-            }
-            const project = findProject(id);
-            return project
-                ? { section, page: renderProjectDetail(project), title: project.title }
-                : { section, page: renderNotFound(), title: "Not Found" };
-        }
-        case "about":
-            return { section, page: renderAbout(), title: "About" };
-        case "resume":
-            return { section, page: renderResume(), title: "Resume" };
-        default:
-            return { section: "", page: renderNotFound(), title: "Not Found" };
+export function resolveRoute(hash: string): Route {
+    const [sectionId = "home", id] = parseHash(hash);
+
+    if (sectionId === "home") {
+        return { section: sectionId, page: renderHome() };
     }
+    if (sectionId === "about") {
+        return { section: sectionId, page: renderAbout(), title: "About" };
+    }
+    if (sectionId === "resume") {
+        return { section: "about", page: renderResume(), title: "Resume" };
+    }
+
+    const section = findSection(sectionId);
+    if (!section) {
+        return notFound();
+    }
+    if (!id) {
+        return { section: section.id, page: renderSection(section), title: section.title };
+    }
+
+    const project = findProject(section.id, id);
+    return project
+        ? { section: section.id, page: renderProjectDetail(project, section), title: project.title }
+        : notFound();
 }
 
 export function handleRoute(): void {

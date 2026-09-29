@@ -7,7 +7,6 @@ const converter = new showdown.Converter({
     ghCodeBlocks: true,
     tasklists: true,
     strikethrough: true,
-    openLinksInNewWindow: true,
 });
 
 export function renderMarkdown(source: string): HTMLElement {
@@ -17,6 +16,16 @@ export function renderMarkdown(source: string): HTMLElement {
 
     container.querySelectorAll<HTMLElement>("pre code").forEach(block => {
         hljs.highlightElement(block);
+    });
+
+    // External links open in a new tab; in-site (#/...) links stay put.
+    container.querySelectorAll<HTMLAnchorElement>("a[href^='http']").forEach(link => {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+    });
+
+    container.querySelectorAll("img").forEach(img => {
+        img.loading = "lazy";
     });
 
     return container;

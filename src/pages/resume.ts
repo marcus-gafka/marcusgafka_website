@@ -4,6 +4,14 @@ export function renderResume(): HTMLElement {
     const page = document.createElement("div");
     page.className = "resume-page";
 
+    if (!profile.resumePdf) {
+        page.innerHTML = `
+            <h1>Resume</h1>
+            <p class="subtitle">Resume available on request. Meanwhile, <a href="#/about">About</a> covers my education, experience, and skills.</p>
+        `;
+        return page;
+    }
+
     const pdfUrl = `${import.meta.env.BASE_URL}${profile.resumePdf}`;
 
     page.innerHTML = `

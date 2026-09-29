@@ -5,7 +5,7 @@ import { createTechTags } from "./techTags";
 export function createProjectCard(project: Project): HTMLElement {
     const card = document.createElement("a");
     card.className = "project-card";
-    card.href = `#/projects/${encodeURIComponent(project.id)}`;
+    card.href = `#/${encodeURIComponent(project.section)}/${encodeURIComponent(project.id)}`;
 
     if (project.image) {
         const img = document.createElement("img");
@@ -19,7 +19,7 @@ export function createProjectCard(project: Project): HTMLElement {
     const body = document.createElement("div");
     body.className = "project-card-body";
     body.innerHTML = `
-        <span class="project-date">${escapeHtml(project.date)}</span>
+        ${project.date ? `<span class="project-date">${escapeHtml(project.date)}</span>` : ""}
         <h3>${escapeHtml(project.title)}</h3>
         <p>${escapeHtml(project.summary)}</p>
     `;

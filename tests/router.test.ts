@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { handleRoute, parseHash, resolveRoute } from "../src/router";
 import { projects } from "../src/data/projects/projects";
+import { sections } from "../src/data/sections";
 
 describe("parseHash", () => {
     it("splits a hash into path segments", () => {
-        expect(parseHash("#/projects/example-project")).toEqual(["projects", "example-project"]);
+        expect(parseHash("#/wpi/rbe3002")).toEqual(["wpi", "rbe3002"]);
     });
 
     it("treats an empty hash as no segments", () => {
@@ -18,20 +19,34 @@ describe("resolveRoute", () => {
         expect(resolveRoute("").section).toBe("home");
     });
 
-    it("renders a project detail page by id", () => {
-        const project = projects[0];
-        const route = resolveRoute(`#/projects/${project.id}`);
-        expect(route.section).toBe("projects");
-        expect(route.page.querySelector("h1")?.textContent).toBe(project.title);
+    it.each(sections.map(section => section.id))("renders the %s section page", id => {
+        const route = resolveRoute(`#/${id}`);
+        expect(route.section).toBe(id);
+        expect(route.page.classList.contains("section-page")).toBe(true);
     });
 
-    it("shows not found for an unknown project", () => {
-        const route = resolveRoute("#/projects/does-not-exist");
-        expect(route.page.classList.contains("not-found")).toBe(true);
+    it("renders every project's detail page under its section", () => {
+        for (const project of projects) {
+            const route = resolveRoute(`#/${project.section}/${project.id}`);
+            expect(route.section).toBe(project.section);
+            expect(route.page.querySelector("h1")?.textContent).toBe(project.title);
+        }
+    });
+
+    it("shows not found for a project under the wrong section", () => {
+        const project = projects.find(p => p.section !== "work")!;
+        expect(resolveRoute(`#/work/${project.id}`).page.classList.contains("not-found")).toBe(true);
     });
 
     it("shows not found for an unknown page", () => {
         expect(resolveRoute("#/nope").page.classList.contains("not-found")).toBe(true);
+    });
+
+    it("shows an empty state for a section with no projects", () => {
+        const empty = sections.find(s => !projects.some(p => p.section === s.id));
+        if (empty) {
+            expect(resolveRoute(`#/${empty.id}`).page.querySelector(".empty-state")).not.toBeNull();
+        }
     });
 });
 
@@ -39,17 +54,17 @@ describe("handleRoute", () => {
     beforeEach(() => {
         document.body.innerHTML = `
             <a class="nav-link" data-section="home"></a>
-            <a class="nav-link" data-section="about"></a>
+            <a class="nav-link" data-section="wpi"></a>
             <main id="content"></main>
         `;
     });
 
-    it("mounts the page and highlights the active nav link", () => {
-        window.location.hash = "#/about";
+    it("keeps the section highlighted on a project page", () => {
+        window.location.hash = "#/wpi/rbe3002";
         handleRoute();
 
-        expect(document.querySelector("#content .about-page")).not.toBeNull();
-        expect(document.querySelector('[data-section="about"]')?.classList.contains("active")).toBe(true);
+        expect(document.querySelector("#content .project-detail")).not.toBeNull();
+        expect(document.querySelector('[data-section="wpi"]')?.classList.contains("active")).toBe(true);
         expect(document.querySelector('[data-section="home"]')?.classList.contains("active")).toBe(false);
     });
 });
