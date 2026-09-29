@@ -17,8 +17,8 @@ Maintained the Space Exploration Vehicle (SEV) and led the design of a new door 
 Led the design and manufacturing of dynamic trophies for the Space City VEX Signature Event.
 
 <div class="figure-row no-crop">
-<figure class="video-clip"><video src="/assets/projects/nasa-jsc/trophy-in-motion.mp4" poster="/assets/projects/nasa-jsc/trophy-in-motion-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The finished trophy in motion"></video><figcaption>The finished trophy in motion</figcaption></figure>
 <figure class="video-clip"><video src="/assets/projects/nasa-jsc/trophy-cad-motion-study.mp4" poster="/assets/projects/nasa-jsc/trophy-cad-motion-study-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Motion study in CAD"></video><figcaption>Motion study in CAD</figcaption></figure>
+<figure><img src="/assets/projects/nasa-jsc/trophy-early-prototype.jpg" alt="Early prototype of the trophy with a High Stakes 2024–2025 plate"><figcaption>Early prototype</figcaption></figure>
 </div>
 
 Each trophy is built to be made in batches and reused season after season:
@@ -31,7 +31,7 @@ Each trophy is built to be made in batches and reused season after season:
 - Documented in a 20-page build manual: full parts list, ordering sheet, and a 21-step assembly guide
 - Featured in FUN Robotics Network's video [Incredible Trophies | Space City Signature](https://www.youtube.com/watch?v=PdHmzXaJPoI)
 
-<figure><img src="/assets/projects/nasa-jsc/trophy-exploded-view.png" alt="Exploded view of the trophy: aluminum stand, gear train, rocket, and polycarbonate plates"><figcaption>Exploded view of the trophy</figcaption></figure>
+<figure><img src="/assets/projects/nasa-jsc/trophy-exploded-view.png" alt="Exploded view of the trophy: aluminum stand, gear train, rocket, and polycarbonate plates"><figcaption>Exploded view of the final design</figcaption></figure>
 
 <div class="figure-row no-crop">
 <figure><img src="/assets/projects/nasa-jsc/trophy-gear-train.png" alt="Assembly step: gear train on the back plate"><figcaption>Gear train</figcaption></figure>
@@ -40,11 +40,8 @@ Each trophy is built to be made in batches and reused season after season:
 </div>
 
 <div class="figure-row no-crop">
+<figure class="video-clip"><video src="/assets/projects/nasa-jsc/trophy-in-motion.mp4" poster="/assets/projects/nasa-jsc/trophy-in-motion-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The finished trophy in motion"></video><figcaption>The finished trophy in motion</figcaption></figure>
 <figure><img src="/assets/projects/nasa-jsc/trophy-push-back-awards.jpg" alt="Two Push Back 2025–2026 trophies with Build Award and Excellence Award plates"><figcaption>Push Back 2025–26 Build and Excellence Awards</figcaption></figure>
-<figure><img src="/assets/projects/nasa-jsc/trophy-high-stakes-closeup.jpg" alt="Close-up of a High Stakes 2024–2025 trophy"><figcaption>A High Stakes 2024–25 trophy</figcaption></figure>
 </div>
 
-<div class="figure-row">
-<figure><img src="/assets/projects/nasa-jsc/trophy-batch-row.jpg" alt="A row of finished trophies lined up on a table"><figcaption>A batch lined up for the event</figcaption></figure>
-<figure><img src="/assets/projects/nasa-jsc/trophy-batch-table.jpg" alt="Dozens of finished trophies arranged on a table in a gym"><figcaption>Ready for the awards ceremony</figcaption></figure>
-</div>
+<figure><img src="/assets/projects/nasa-jsc/trophy-all-44.jpg" alt="All 44 finished trophies arranged on a table in a gym"><figcaption>All 44 trophies, ready for the event</figcaption></figure>
