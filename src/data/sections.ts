@@ -1,3 +1,5 @@
+import { withoutDrafts } from "../utils/drafts";
+
 export interface Link {
     label: string;
     url: string;
@@ -12,7 +14,7 @@ export interface Group {
 export interface TextPost {
     id: string;
     title: string;
-    /** Markdown; empty shows "Coming soon." */
+    /** Markdown; while empty it's a draft: "Coming soon." locally, hidden on the live site */
     body: string;
     /** Group it opens (see `groups`); omit to show it at the top of the feed */
     group?: string;
@@ -81,6 +83,11 @@ export const sections: Section[] = [
         intro: "Things I build on my own time.",
     },
 ];
+
+/** A section's paragraph posts, without empty drafts on the live site */
+export function visibleTextPosts(section: Section): TextPost[] {
+    return withoutDrafts(section.textPosts ?? [], post => !post.body.trim());
+}
 
 export function findSection(id: string): Section | undefined {
     return sections.find(section => section.id === id);

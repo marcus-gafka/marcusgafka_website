@@ -1,4 +1,5 @@
 import type { Link } from "../sections";
+import { withoutDrafts } from "../../utils/drafts";
 
 import dekaMd from "./deka/Deka.md?raw";
 import nasaMd from "./nasa-jsc/NasaJsc.md?raw";
@@ -33,7 +34,7 @@ export interface Project {
     group?: string;
     /** "YYYY-MM" when it finished; the home page features the 3 most recent */
     sortDate?: string;
-    /** No write-up yet: listed in its section but never featured */
+    /** No write-up yet: shown locally as a reminder, hidden on the live site, never featured */
     draft?: boolean;
 }
 
@@ -46,7 +47,7 @@ function placeholder(fields: Pick<Project, "id" | "section" | "title"> & Partial
 
 // Within a section (and group), dated projects are shown newest first; undated
 // ones follow in the order listed here.
-export const projects: Project[] = [
+export const allProjects: Project[] = [
     // ---- Work ----
     {
         id: "deka",
@@ -153,10 +154,13 @@ export const projects: Project[] = [
         section: "wpi",
         group: "completed",
         title: "IQP – Interactive Qualifying Project",
-        summary: "\"Buildings of Venice, Italy\": a quarter-long project abroad in Venice.",
-        role: "Study abroad",
-        technologies: ["Research", "Fieldwork"],
+        summary: "The Buildings of Venice: Venice's first building-by-building estimate of residential, tourist, and vacant units and population, built from city data and fieldwork on site.",
+        date: "B-Term 2025",
+        role: "Team of 4 · Venice, Italy",
+        technologies: ["ArcGIS Pro", "Survey123", "Python", "GIS", "Linear Regression", "Fieldwork"],
         content: iqpMd,
+        image: "assets/projects/iqp/residential-use-3d.jpg",
+        sortDate: "2025-12",
     },
     placeholder({ id: "me3902", section: "wpi", group: "completed", title: "ME3902 – Project-Based Engineering Experimentation" }),
     {
@@ -248,6 +252,9 @@ export const projects: Project[] = [
     placeholder({ id: "whiteboard-art-robot", section: "personal", title: "Whiteboard Art Robot" }),
     placeholder({ id: "frc-motor-controller", section: "personal", title: "FRC Motor Controller" }),
 ];
+
+/** What the site shows: everything locally, only finished projects on the live site */
+export const projects: Project[] = withoutDrafts(allProjects, project => !!project.draft);
 
 /** Newest first by sortDate; undated projects go last, in their listed order. */
 export function sortNewestFirst(list: Project[]): Project[] {

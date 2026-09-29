@@ -1,4 +1,4 @@
-import type { Section, TextPost } from "../data/sections";
+import { visibleTextPosts, type Section, type TextPost } from "../data/sections";
 import { projectsInSection, type Project } from "../data/projects/projects";
 import { createProjectNav } from "../components/projectNav";
 import { createTechTags } from "../components/techTags";
@@ -29,7 +29,7 @@ export function renderSection(section: Section): HTMLElement {
     page.appendChild(main);
 
     const projects = projectsInSection(section.id);
-    const textPosts = section.textPosts ?? [];
+    const textPosts = visibleTextPosts(section);
     if (projects.length === 0 && textPosts.length === 0) {
         const empty = document.createElement("p");
         empty.className = "empty-state";

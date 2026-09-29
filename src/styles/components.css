@@ -189,6 +189,8 @@
 }
 
 .markdown-body .figure-row {
+    /* Start below any floated figure instead of squeezing beside it */
+    clear: both;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--space-2);
@@ -197,6 +199,20 @@
 
 .markdown-body .figure-row img {
     aspect-ratio: 4 / 3;
+}
+
+/* Rows of screenshots or charts: show each image whole instead of cropping */
+.markdown-body .figure-row.no-crop {
+    align-items: start;
+}
+
+.markdown-body .figure-row.no-crop img {
+    aspect-ratio: auto;
+    object-fit: contain;
+    width: auto;
+    max-width: 100%;
+    max-height: 420px;
+    margin: 0 auto;
 }
 
 /* A figure floated beside the bullet list that follows it */
