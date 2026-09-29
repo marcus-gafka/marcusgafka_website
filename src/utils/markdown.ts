@@ -1,5 +1,6 @@
 import showdown from "showdown";
-import hljs from "highlight.js";
+// Common languages only; import more from "highlight.js/lib/languages/*" if needed.
+import hljs from "highlight.js/lib/common";
 
 const converter = new showdown.Converter({
     tables: true,
