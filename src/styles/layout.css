@@ -225,6 +225,6 @@
     }
 
     #content {
-        padding: var(--space-4) 16px;
+        padding: var(--space-3) 16px var(--space-4);
     }
 }

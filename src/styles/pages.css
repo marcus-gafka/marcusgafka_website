@@ -213,10 +213,55 @@
     border-radius: var(--radius);
 }
 
-/* Phones: featured projects become a swipeable row, the next card peeking in */
+/*
+ * Phones and touch screens can't hover, so the hero lines are plain text there
+ * (no highlight, not tappable). Laptops keep the hover links.
+ */
+@media (max-width: 760px), (hover: none) {
+    .hero-link {
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+/*
+ * Phones: tighter hero so everything through the "Featured Projects" title fits
+ * on the first screen, even on an iPhone SE; featured cards become a swipeable row.
+ */
 @media (max-width: 760px) {
     .home .hero {
-        padding: 0 0 var(--space-4);
+        padding: 0 0 var(--space-2);
+    }
+
+    .hero-greeting {
+        margin-bottom: 2px;
+        font-size: 1rem;
+    }
+
+    .home .hero h1 {
+        margin-bottom: var(--space-1);
+    }
+
+    .hero-list {
+        --dash-gap: 1.3rem;
+        margin: var(--space-2) 0;
+        font-size: 1.02rem;
+    }
+
+    .hero-list li {
+        line-height: calc(1.02rem * 1.4);
+    }
+
+    .hero-list li + li {
+        margin-top: 4px;
+    }
+
+    .hero-lead::before {
+        font-size: 1.02rem;
+    }
+
+    .home .featured h2 {
+        margin-bottom: var(--space-2);
     }
 
     .home .featured .project-grid {
