@@ -7,6 +7,7 @@ import { renderNotFound } from "./pages/notFound";
 import { findSection } from "./data/sections";
 import { findProject } from "./data/projects/projects";
 import { profile } from "./data/profile";
+import { trackPageView } from "./utils/analytics";
 
 export interface Route {
     /** Top-level section used to highlight the nav, e.g. "wpi" */
@@ -66,6 +67,7 @@ export function handleRoute(): void {
     window.scrollTo(0, 0);
 
     document.title = title ? `${title} | ${profile.name}` : profile.name;
+    trackPageView();
 
     document.querySelectorAll<HTMLAnchorElement>(".nav-link").forEach(link => {
         link.classList.toggle("active", link.dataset.section === section);

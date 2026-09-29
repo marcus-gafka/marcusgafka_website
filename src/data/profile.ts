@@ -40,4 +40,6 @@ export const profile = {
         linkedin: "",
         email: "msgafka@gmail.com",
     },
+    /** GoatCounter site code (the "xyz" in xyz.goatcounter.com). Empty disables analytics. */
+    goatcounterCode: "marcusgafka",
 };

@@ -3,6 +3,7 @@ import "highlight.js/styles/github-dark.css";
 
 import { createSidebar } from "./components/sidebar";
 import { initRouter } from "./router";
+import { initAnalytics } from "./utils/analytics";
 
 const app = document.getElementById("app");
 
@@ -19,4 +20,5 @@ content.id = "content";
 layout.append(createSidebar(), content);
 app.appendChild(layout);
 
+initAnalytics();
 initRouter();
