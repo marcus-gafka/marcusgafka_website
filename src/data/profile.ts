@@ -5,9 +5,9 @@ export const profile = {
     heroIntro: "Passionate engineer, roboticist, and designer",
     /** Each line links to a sidebar section (id from sections.ts); its first word is highlighted on hover */
     heroLinks: [
-        { text: "DEKA Research and NASA alum", section: "work" },
+        { text: "Former employee @ DEKA Research and NASA", section: "work" },
         { text: "WPI Robotics and Mechanical Engineering student", section: "wpi" },
-        { text: "FRC Team 190 mentor and drive coach", section: "190" },
+        { text: "FRC Team 190 Mentor and Drive Coach", section: "190" },
         { text: "Tinkerer and forever student of life", section: "personal" },
     ],
     /** Path under public/, e.g. "resume/Marcus_Gafka_Resume.pdf". Leave empty to hide. */
