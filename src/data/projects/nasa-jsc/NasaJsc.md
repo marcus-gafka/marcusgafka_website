@@ -14,6 +14,8 @@ Maintained the Space Exploration Vehicle (SEV) and led the design of a new door 
 
 Led the design and manufacturing of dynamic trophies for the Space City VEX Signature Event.
 
+![Incredible Trophies: FUN Robotics Network's feature on the Space City Signature Event trophies](https://www.youtube.com/watch?v=PdHmzXaJPoI)
+
 <figure><img src="/assets/projects/nasa-jsc/trophy-exploded-view.png" alt="Exploded view of the trophy: aluminum stand, gear train, rocket, and polycarbonate plates"><figcaption>Exploded view of the trophy</figcaption></figure>
 
 Each trophy is built to be made in batches and reused season after season:

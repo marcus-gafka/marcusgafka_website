@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { renderMarkdown } from "../src/utils/markdown";
+import { renderMarkdown, youTubeId } from "../src/utils/markdown";
 
 describe("renderMarkdown", () => {
     it("converts markdown to HTML", () => {
@@ -18,5 +18,30 @@ describe("renderMarkdown", () => {
         const [ext, int] = el.querySelectorAll("a");
         expect(ext.target).toBe("_blank");
         expect(int.target).toBe("");
+    });
+});
+
+describe("YouTube embeds", () => {
+    it("recognizes the common YouTube URL forms", () => {
+        expect(youTubeId("https://www.youtube.com/watch?v=PdHmzXaJPoI")).toBe("PdHmzXaJPoI");
+        expect(youTubeId("https://youtu.be/072Up5i1lFc")).toBe("072Up5i1lFc");
+        expect(youTubeId("https://www.youtube.com/shorts/072Up5i1lFc")).toBe("072Up5i1lFc");
+        expect(youTubeId("https://www.youtube.com/watch?t=5&v=PdHmzXaJPoI")).toBe("PdHmzXaJPoI");
+        expect(youTubeId("https://example.com/photo.jpg")).toBeNull();
+    });
+
+    it("turns an image-style YouTube line into an embedded player with a caption", () => {
+        const el = renderMarkdown("Intro\n\n![My caption](https://www.youtube.com/watch?v=PdHmzXaJPoI)\n\nAfter");
+        const iframe = el.querySelector(".video-embed iframe");
+        expect(iframe?.getAttribute("src")).toBe("https://www.youtube-nocookie.com/embed/PdHmzXaJPoI");
+        expect(iframe?.getAttribute("title")).toBe("My caption");
+        expect(el.querySelector(".video-embed figcaption")?.textContent).toBe("My caption");
+        expect(el.querySelectorAll("p")).toHaveLength(2);
+    });
+
+    it("leaves normal images alone", () => {
+        const el = renderMarkdown("![A photo](photo.jpg)");
+        expect(el.querySelector("img")?.getAttribute("src")).toBe("photo.jpg");
+        expect(el.querySelector("iframe")).toBeNull();
     });
 });
