@@ -1,21 +1,43 @@
 // Everything personal about the site lives here. Empty links are hidden.
+
+export interface HeroLink {
+    text: string;
+    section: string;
+    /** Leading words to highlight; defaults to the first word */
+    lead?: string;
+}
+
 export const profile = {
     name: "Marcus Gafka",
-    /** Home page hero: "Hi, I'm <name>, a:" followed by these lines */
-    heroIntro: "Passionate engineer, roboticist, and designer",
-    /** Each line links to a sidebar section (id from sections.ts); its first word is highlighted on hover */
+    /** Sidebar photo, a path under public/ */
+    headshot: "assets/profile/headshot.jpg",
+    /** Close crop of the face, used as the round avatar on phones */
+    headshotSmall: "assets/profile/headshot-face.jpg",
+    /** Home page hero: "Hi! I'm <name>, a:" followed by these lines */
+    heroIntro: "Passionate engineer, designer, roboticist, and hobbyist",
+    /**
+     * Each line links to a sidebar section (id from sections.ts). On hover its
+     * lead (the first word, or `lead` if given) grows and turns the accent color.
+     */
     heroLinks: [
-        { text: "Former employee @ DEKA Research and NASA", section: "work" },
-        { text: "WPI Robotics and Mechanical Engineering student", section: "wpi" },
-        { text: "FRC Team 190 Mentor and Drive Coach", section: "190" },
-        { text: "Tinkerer and forever student of life", section: "personal" },
-    ],
+        { text: "Intern at DEKA Research and NASA JSC", section: "work" },
+        {
+            text: "Worcester Polytechnic Institute Robotics and Mechanical Engineering student",
+            lead: "Worcester Polytechnic Institute",
+            section: "wpi",
+        },
+        {
+            text: "First Robotics Competition Team 190 Mentor and Drive Coach",
+            lead: "First Robotics Competition",
+            section: "190",
+        },
+        { text: "Tinkerer, maker, and curious problem solver", section: "personal" },
+    ] as HeroLink[],
     /** Path under public/, e.g. "resume/Marcus_Gafka_Resume.pdf". Leave empty to hide. */
     resumePdf: "",
-    heroImage: "assets/home/hero.jpg",
     links: {
-        github: "https://github.com/marcus-gafka",
+        github: "",
         linkedin: "",
-        email: "",
+        email: "msgafka@gmail.com",
     },
 };

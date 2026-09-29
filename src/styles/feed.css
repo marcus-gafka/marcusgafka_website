@@ -1,0 +1,247 @@
+/*
+ * Section and project pages: main column + right-hand project panel. The page
+ * spans the full content area so the panel always sits against the window's
+ * right edge; the main column stays centered in the space left of it.
+ */
+.page.with-aside {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--aside-width);
+    gap: var(--space-4);
+    align-items: start;
+    max-width: none;
+    /*
+     * Pull the page over #content's bottom padding so the grid row, and with
+     * it the sticky panel, reaches the very bottom of the document.
+     */
+    margin: 0 0 calc(-1 * var(--space-4));
+}
+
+.with-aside > .main-column {
+    width: 100%;
+    max-width: var(--feed-width);
+    margin: 0 auto;
+    /* Take over #content's bottom padding (see .page.with-aside) */
+    padding-bottom: var(--space-4);
+    container-type: inline-size;
+}
+
+/* ---- Blog feed ---- */
+.feed {
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: var(--space-3);
+}
+
+.post:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+/* Group headings inside the feed mirror the right panel's groups */
+.feed-group-title {
+    margin: var(--space-5) 0 0;
+    padding-bottom: var(--space-1);
+    border-bottom: 2px solid var(--burgundy);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.feed > .feed-group-title:first-child {
+    margin-top: 0;
+}
+
+.feed-group-title + .post {
+    border-top: none;
+}
+
+/* Posts without an image use the full width */
+.post:not(:has(.post-image)) {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.post-text .post-title {
+    margin-top: 0;
+    color: var(--accent);
+}
+
+.post-text .markdown-body > :first-child {
+    margin-top: 0;
+}
+
+.post-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.post-image:hover img {
+    transform: scale(1.02);
+    border-color: var(--accent);
+}
+
+.post-title {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: 1.5rem;
+}
+
+.post-title a {
+    color: var(--accent);
+}
+
+.post-summary {
+    margin: 0;
+    color: var(--text);
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-weight: 600;
+}
+
+/* Flash when jumped to from the right panel */
+.post-highlight {
+    animation: post-flash 1.6s ease;
+}
+
+@keyframes post-flash {
+    0%, 30% {
+        background: var(--panel-2);
+        box-shadow: 0 0 0 var(--space-2) var(--panel-2);
+    }
+    100% {
+        background: transparent;
+        box-shadow: 0 0 0 var(--space-2) transparent;
+    }
+}
+
+/* ---- Right-hand project panel ---- */
+/* Full-height column flush with the window's right edge, mirroring the sidebar */
+.project-nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* Cancel #content's padding so the panel reaches the top and right edges */
+    margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) 0 0;
+    padding: var(--space-4) var(--space-3);
+    overflow-y: auto;
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+}
+
+.project-nav-group + .project-nav-group {
+    margin-top: var(--space-3);
+}
+
+.project-nav h3 {
+    margin: 0 0 var(--space-2);
+    padding-bottom: var(--space-1);
+    border-bottom: 2px solid var(--burgundy);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.project-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.project-nav-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1);
+    border-radius: var(--radius);
+    color: var(--text);
+}
+
+.project-nav-item:hover {
+    background: var(--panel-2);
+    text-decoration: none;
+}
+
+.project-nav-item.active {
+    background: var(--panel-2);
+    box-shadow: inset 3px 0 0 var(--burgundy);
+}
+
+.project-nav-item.active .project-nav-title {
+    color: var(--accent);
+}
+
+.project-nav-thumb {
+    flex-shrink: 0;
+    width: 64px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.project-nav-thumb-empty {
+    display: grid;
+    place-items: center;
+    background: var(--plum);
+    color: var(--text);
+    font-weight: 700;
+}
+
+.project-nav-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.project-nav-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.project-nav-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* Narrower screens: drop the right panel and stack posts */
+@media (max-width: 1100px) {
+    .page.with-aside {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .project-nav {
+        display: none;
+    }
+}
+
+/* Stack a post's photo above its text whenever the feed column itself is narrow */
+@container (max-width: 600px) {
+    .post {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .post-image img {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-highlight {
+        animation: none;
+    }
+}

@@ -3,6 +3,23 @@ export interface Link {
     url: string;
 }
 
+export interface Group {
+    id: string;
+    title: string;
+}
+
+/** A paragraph-only post shown in a section's feed but not in the right panel */
+export interface TextPost {
+    id: string;
+    title: string;
+    /** Markdown; empty shows "Coming soon." */
+    body: string;
+    /** Group it opens (see `groups`); omit to show it at the top of the feed */
+    group?: string;
+    /** Place it directly before this project's post instead of at the start of the group */
+    before?: string;
+}
+
 export interface Section {
     /** URL slug, e.g. #/wpi */
     id: string;
@@ -12,6 +29,9 @@ export interface Section {
     /** Shown at the top of the section page */
     intro: string;
     links?: Link[];
+    /** Optional sub-headings on the section page; projects pick one with `group` */
+    groups?: Group[];
+    textPosts?: TextPost[];
 }
 
 // Sidebar order. Home and About are added around these by the sidebar.
@@ -27,6 +47,13 @@ export const sections: Section[] = [
         label: "WPI",
         title: "WPI Coursework",
         intro: "Team projects from the Robotics and Mechanical Engineering programs at Worcester Polytechnic Institute.",
+        groups: [
+            { id: "current", title: "Current" },
+            { id: "completed", title: "Completed" },
+        ],
+        textPosts: [
+            { id: "art-in-engineering", title: "Art in Engineering", body: "", group: "completed", before: "ar1100" },
+        ],
     },
     {
         id: "190",
@@ -36,6 +63,15 @@ export const sections: Section[] = [
         links: [
             { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190" },
             { label: "YouTube", url: "https://www.youtube.com/@FRC190/videos" },
+        ],
+        groups: [
+            { id: "season", title: "Season Robots" },
+            { id: "offseason", title: "Off-Season Contributions" },
+            { id: "rrc", title: "WPI RRC" },
+        ],
+        textPosts: [
+            { id: "why-frc", title: "Why I Love FRC", body: "" },
+            { id: "what-is-rrc", title: "What Is the WPI RRC?", body: "", group: "rrc" },
         ],
     },
     {

@@ -4,12 +4,13 @@
 
 .hero-greeting {
     margin: 0 0 var(--space-1);
-    color: var(--accent-2);
+    color: var(--text);
     font-size: 1.1rem;
     font-weight: 600;
 }
 
 .hero-list {
+    --dash-gap: 1.6rem;
     list-style: none;
     margin: var(--space-3) 0;
     padding: 0;
@@ -17,20 +18,38 @@
 }
 
 .hero-list li {
-    position: relative;
-    padding-left: 1.4em;
-    line-height: 1.5;
+    padding-left: var(--dash-gap);
+    /*
+     * A fixed length (not a ratio) so the enlarged word on hover keeps the same
+     * line height; together with vertical-align: top on .hero-lead this keeps
+     * hovering from changing the hero's height and resizing anything below it.
+     */
+    line-height: calc(1.15rem * 1.5);
 }
 
 .hero-list li + li {
     margin-top: var(--space-1);
 }
 
-.hero-list li::before {
+/* The first word of each line; the dash hangs off it so the dash stays
+   vertically centered on that word even while it grows on hover. */
+.hero-lead {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.hero-lead::before {
     content: "–";
     position: absolute;
-    left: 0;
-    color: var(--accent-2);
+    left: calc(-1 * var(--dash-gap));
+    top: 50%;
+    transform: translateY(-50%);
+    /* Fixed size and weight so the dash doesn't grow with the word */
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--text);
 }
 
 .hero-link {
@@ -57,6 +76,84 @@
 
 .featured h2 {
     margin-bottom: var(--space-3);
+}
+
+/* Home cards stay compact: no tags, two-line blurb */
+.home .project-card .tech-tags {
+    display: none;
+}
+
+.home .project-card-body p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+/*
+ * On laptop-sized and larger screens the home page fills exactly one screen:
+ * the featured row takes whatever height is left and its photos flex to fit.
+ * 1140px is the narrowest window where all three featured cards sit in one row.
+ */
+@media (min-width: 1140px) and (min-height: 560px) {
+    .page.home {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 2 * var(--space-4));
+    }
+
+    .home .hero {
+        padding: 0 0 var(--space-3);
+    }
+
+    .home .featured {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home .featured .project-grid {
+        flex: 1;
+        min-height: 0;
+        grid-auto-rows: 1fr;
+    }
+
+    .home .project-card {
+        min-height: 0;
+    }
+
+    .home .project-card-image {
+        flex: 1 1 0;
+        min-height: 0;
+        aspect-ratio: auto;
+    }
+
+    /* Same two-line title height on every card so the photos line up */
+    .home .project-card-body h3 {
+        min-height: 2.4em;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+    }
+}
+
+/* Shorter laptop screens: drop the blurb so the photos keep a useful size */
+@media (min-width: 1140px) and (max-height: 760px) {
+    .home .project-card-body {
+        padding: var(--space-2) var(--space-3);
+    }
+
+    .home .project-card-body p {
+        display: none;
+    }
+
+    .home .featured h2 {
+        margin-bottom: var(--space-2);
+    }
 }
 
 .back-link {
@@ -101,28 +198,6 @@
 .not-found {
     text-align: center;
     padding-top: var(--space-5);
-}
-
-/* Home */
-.home .hero {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    align-items: center;
-    gap: var(--space-4);
-}
-
-.hero-image {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-}
-
-@media (max-width: 760px) {
-    .home .hero {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* Section pages */

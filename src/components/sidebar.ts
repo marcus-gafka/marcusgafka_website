@@ -15,7 +15,14 @@ export function createSidebar(): HTMLElement {
     const brand = document.createElement("a");
     brand.className = "brand";
     brand.href = "#/";
-    brand.textContent = profile.name;
+    brand.innerHTML = `
+        <picture>
+            <source media="(max-width: 760px)" srcset="${import.meta.env.BASE_URL}${profile.headshotSmall}" />
+            <img class="headshot" src="${import.meta.env.BASE_URL}${profile.headshot}" alt="" />
+        </picture>
+        <span class="brand-name"></span>
+    `;
+    brand.querySelector(".brand-name")!.textContent = profile.name;
 
     const nav = document.createElement("nav");
     for (const item of navItems) {

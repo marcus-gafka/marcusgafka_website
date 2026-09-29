@@ -6,6 +6,7 @@ import stackUpMd from "./stack-up-redundancy/StackUpRedundancy.md?raw";
 import funkyMd from "./funky/Funky.md?raw";
 import snapbackMd from "./snapback/Snapback.md?raw";
 import emberMd from "./ember/Ember.md?raw";
+import iqpMd from "./iqp/IQP.md?raw";
 import rbe3002Md from "./rbe3002/RBE3002.md?raw";
 import rbe3001Md from "./rbe3001/RBE3001.md?raw";
 import rbe2002Md from "./rbe2002/RBE2002.md?raw";
@@ -28,15 +29,28 @@ export interface Project {
     links?: Link[];
     /** Card image, a path under public/ */
     image?: string;
-    /** Shown on the home page */
-    featured?: boolean;
+    /** Sub-heading within the section (see `groups` in sections.ts) */
+    group?: string;
+    /** "YYYY-MM" when it finished; the home page features the 3 most recent */
+    sortDate?: string;
+    /** No write-up yet: listed in its section but never featured */
+    draft?: boolean;
 }
 
-// Projects appear in this order within each section.
+const COMING_SOON = "*Write-up coming soon.*";
+
+/** A titled entry with no write-up yet */
+function placeholder(fields: Pick<Project, "id" | "section" | "title"> & Partial<Project>): Project {
+    return { summary: "Write-up coming soon.", technologies: [], content: COMING_SOON, draft: true, ...fields };
+}
+
+// Within a section (and group), dated projects are shown newest first; undated
+// ones follow in the order listed here.
 export const projects: Project[] = [
     // ---- Work ----
     {
         id: "deka",
+        sortDate: "2026-08",
         section: "work",
         title: "Controls Engineering Intern: DEKA Research & Development",
         summary: "Closed-loop stepper motor control, frequency-response characterization, and sensor filtering for prototype testing.",
@@ -47,6 +61,7 @@ export const projects: Project[] = [
     },
     {
         id: "nasa-jsc",
+        sortDate: "2025-08",
         section: "work",
         title: "Robotics Academy / University Intern: NASA Johnson Space Center",
         summary: "Lunar rover mock-up construction, Space Exploration Vehicle maintenance, and mechanism design across three summers.",
@@ -57,8 +72,11 @@ export const projects: Project[] = [
     },
 
     // ---- FRC 190 ----
+    placeholder({ id: "doom-spiral-turnover", section: "190", group: "season", title: "Doom Spiral / Turnover", date: "2026 Season", sortDate: "2026-04" }),
     {
         id: "stack-up-redundancy",
+        group: "season",
+        sortDate: "2025-04",
         section: "190",
         title: "Stack Up / Redundancy",
         summary: "2025 in-season robots. Led the Funnel and Stick subsystems; 3x district event winner and ranked 1st in New England.",
@@ -67,15 +85,18 @@ export const projects: Project[] = [
         technologies: ["CAD", "Mechanism Design", "Strategy"],
         content: stackUpMd,
         image: "assets/projects/stack-up-redundancy/robot.jpg",
-        featured: true,
         links: [
             { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190/2025" },
             { label: "Development Video", url: "https://youtu.be/072Up5i1lFc" },
             { label: "Worlds Match Q106", url: "https://www.youtube.com/watch?v=1SiRO1gNYcQ" },
         ],
     },
+    placeholder({ id: "v3", section: "190", group: "offseason", title: "V3", date: "2025 Off-Season", sortDate: "2025-10" }),
+    placeholder({ id: "whiplash", section: "190", group: "offseason", title: "Whiplash", date: "2024 Off-Season", sortDate: "2024-11" }),
     {
         id: "funky",
+        group: "offseason",
+        sortDate: "2024-12",
         section: "190",
         title: "Funky",
         summary: "A modular test-platform robot for prototyping software and mechanisms ahead of the 2025 season.",
@@ -87,6 +108,8 @@ export const projects: Project[] = [
     },
     {
         id: "snapback",
+        group: "season",
+        sortDate: "2024-04",
         section: "190",
         title: "Snapback",
         summary: "2024 in-season robot. Led the Intake and Centralizer subsystems; World Championship Curie Division winner.",
@@ -95,7 +118,6 @@ export const projects: Project[] = [
         technologies: ["CAD", "Pneumatics", "Mechanism Design"],
         content: snapbackMd,
         image: "assets/projects/snapback/robot.jpg",
-        featured: true,
         links: [
             { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190/2024" },
             { label: "Intake Development Video", url: "https://youtu.be/Epo1W_Z9uko" },
@@ -104,6 +126,8 @@ export const projects: Project[] = [
     },
     {
         id: "ember",
+        group: "offseason",
+        sortDate: "2023-10",
         section: "190",
         title: "Ember",
         summary: "An experimental swerve-drive robot with a ground cube intake, taken from idea to competing in three weeks.",
@@ -118,18 +142,35 @@ export const projects: Project[] = [
         ],
     },
 
+    placeholder({ id: "trophies", section: "190", group: "rrc", title: "Trophies" }),
+
     // ---- WPI ----
+    placeholder({ id: "mqp", section: "wpi", group: "current", title: "MQP – Major Qualifying Project – FloorJet, a Mobile Floor-Painting Robot" }),
+    placeholder({ id: "rbe4540", section: "wpi", group: "current", title: "RBE4540 – Vision-Based Robotic Manipulation" }),
+    placeholder({ id: "rbe4701", section: "wpi", group: "current", title: "RBE4701 – Artificial Intelligence for Robotics" }),
+    {
+        id: "iqp",
+        section: "wpi",
+        group: "completed",
+        title: "IQP – Interactive Qualifying Project",
+        summary: "\"Buildings of Venice, Italy\": a quarter-long project abroad in Venice.",
+        role: "Study abroad",
+        technologies: ["Research", "Fieldwork"],
+        content: iqpMd,
+    },
+    placeholder({ id: "me3902", section: "wpi", group: "completed", title: "ME3902 – Project-Based Engineering Experimentation" }),
     {
         id: "rbe3002",
+        group: "completed",
+        sortDate: "2025-05",
         section: "wpi",
-        title: "RBE3002: Autonomous Mapping & Navigation",
+        title: "RBE3002 – Unified Robotics IV: Navigation",
         summary: "Programmed a TurtleBot3 with ROS to explore, map, and localize in an unknown arena. Finished in 6 of 15 allotted minutes.",
         date: "D-Term 2025",
         role: "Team of 4",
         technologies: ["ROS", "Python", "Linux", "Git", "Path Planning"],
         content: rbe3002Md,
         image: "assets/projects/rbe3002/mapping.jpg",
-        featured: true,
         links: [
             { label: "Lab Report", url: "https://docs.google.com/document/d/1mDyvq1uskRRFaA24FyfPsW9sb2k_1Rg79t1RZo6ixO8/edit?usp=sharing" },
             { label: "Code Release", url: "https://github.com/RBE300X-Lab/RBE3002_D25_Team10/releases/tag/final-release" },
@@ -137,8 +178,10 @@ export const projects: Project[] = [
     },
     {
         id: "rbe3001",
+        group: "completed",
+        sortDate: "2025-03",
         section: "wpi",
-        title: "RBE3001: Vision-Guided Robot Arm",
+        title: "RBE3001 – Unified Robotics III: Manipulation",
         summary: "Forward and inverse kinematics for a 4-DOF arm that uses a camera to find and sort balls by color.",
         date: "C-Term 2025",
         role: "Team of 4",
@@ -154,8 +197,9 @@ export const projects: Project[] = [
     },
     {
         id: "rbe2002",
+        group: "completed",
         section: "wpi",
-        title: "RBE2002: Autonomous Trash Collection Robot",
+        title: "RBE2002 – Unified Robotics II: Sensing and Perception in Robotics",
         summary: "PID control, line following, AprilTag tracking, and state machines on a Pololu Romi. Worked on the first attempt.",
         role: "Team of 3",
         technologies: ["C++", "PID Control", "OpenMV", "State Machines"],
@@ -166,10 +210,12 @@ export const projects: Project[] = [
             { label: "Code Release", url: "https://github.com/ElliotScher/WPI-RBE-2002/releases/tag/final-release" },
         ],
     },
+    placeholder({ id: "rbe2001", section: "wpi", group: "completed", title: "RBE2001 – Unified Robotics I: Mechanical Applications in Robotics" }),
     {
         id: "rbe1001",
+        group: "completed",
         section: "wpi",
-        title: "RBE1001: Competition Robot",
+        title: "RBE1001 – Introduction to Robotics",
         summary: "Designed, built, and programmed a VEX robot in Python that won the class-wide competition.",
         role: "Team of 3",
         technologies: ["Python", "VEX", "Sensors", "State Machines"],
@@ -182,8 +228,9 @@ export const projects: Project[] = [
     },
     {
         id: "me3310",
+        group: "completed",
         section: "wpi",
-        title: "ME3310: Oven Door Opener Mechanism",
+        title: "ME3310 – Kinematics of Mechanisms",
         summary: "A foot-pedal-actuated six-bar linkage, prototyped at 1:3 scale for under $30 and pitched Shark Tank style.",
         role: "Team of 4",
         technologies: ["Linkage Synthesis", "CAD", "Laser Cutting", "3D Printing"],
@@ -193,10 +240,34 @@ export const projects: Project[] = [
             { label: "Final Report", url: "https://docs.google.com/document/d/1sKprMgE6_HIPDpT7_m2_Se-KNmE6mpFDl1LxfM_augk/edit?usp=sharing" },
         ],
     },
+    placeholder({ id: "ar1100", section: "wpi", group: "completed", title: "AR1100 – Essentials of Art" }),
+    placeholder({ id: "ar2750", section: "wpi", group: "completed", title: "AR2750 – Topics in Studio Art" }),
+
+    // ---- Personal ----
+    placeholder({ id: "portfolio-website", section: "personal", title: "Personal Portfolio Website" }),
+    placeholder({ id: "whiteboard-art-robot", section: "personal", title: "Whiteboard Art Robot" }),
+    placeholder({ id: "frc-motor-controller", section: "personal", title: "FRC Motor Controller" }),
 ];
 
+/** Newest first by sortDate; undated projects go last, in their listed order. */
+export function sortNewestFirst(list: Project[]): Project[] {
+    return [...list].sort((a, b) => {
+        if (a.sortDate && b.sortDate) return b.sortDate.localeCompare(a.sortDate);
+        if (a.sortDate) return -1;
+        if (b.sortDate) return 1;
+        return 0;
+    });
+}
+
+/** Most recent dated projects with write-ups (Work excluded), newest first */
+export function recentProjects(count: number): Project[] {
+    return sortNewestFirst(projects.filter(project => project.section !== "work" && project.sortDate && !project.draft))
+        .slice(0, count);
+}
+
+/** A section's projects, newest first */
 export function projectsInSection(sectionId: string): Project[] {
-    return projects.filter(project => project.section === sectionId);
+    return sortNewestFirst(projects.filter(project => project.section === sectionId));
 }
 
 export function findProject(sectionId: string, id: string): Project | undefined {

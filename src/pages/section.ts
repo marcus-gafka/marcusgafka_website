@@ -1,36 +1,112 @@
-import type { Section } from "../data/sections";
-import { projectsInSection } from "../data/projects/projects";
-import { createProjectCard } from "../components/projectCard";
+import type { Section, TextPost } from "../data/sections";
+import { projectsInSection, type Project } from "../data/projects/projects";
+import { createProjectNav } from "../components/projectNav";
+import { createTechTags } from "../components/techTags";
 import { createLinkList } from "../components/linkList";
+import { renderMarkdown } from "../utils/markdown";
 import { escapeHtml } from "../utils/html";
 
+/**
+ * A section as a blog: posts in the middle (grouped like the right panel, newest
+ * first within each group), project thumbnails on the right. Text posts appear
+ * only in the feed: at the top, at the start of their group, or before a given project.
+ */
 export function renderSection(section: Section): HTMLElement {
     const page = document.createElement("div");
-    page.className = "section-page";
-    page.innerHTML = `
+    page.className = "section-page with-aside";
+
+    const main = document.createElement("div");
+    main.className = "main-column";
+    main.innerHTML = `
         <header class="section-header">
             <h1>${escapeHtml(section.title)}</h1>
             <p class="subtitle">${escapeHtml(section.intro)}</p>
         </header>
     `;
-
     if (section.links?.length) {
-        page.querySelector(".section-header")?.appendChild(createLinkList(section.links));
+        main.querySelector(".section-header")?.appendChild(createLinkList(section.links));
     }
+    page.appendChild(main);
 
     const projects = projectsInSection(section.id);
-    if (projects.length === 0) {
+    const textPosts = section.textPosts ?? [];
+    if (projects.length === 0 && textPosts.length === 0) {
         const empty = document.createElement("p");
         empty.className = "empty-state";
         empty.textContent = "Coming soon.";
-        page.appendChild(empty);
+        main.appendChild(empty);
         return page;
     }
 
-    const grid = document.createElement("div");
-    grid.className = "project-grid";
-    projects.forEach(project => grid.appendChild(createProjectCard(project)));
-    page.appendChild(grid);
+    const feed = document.createElement("div");
+    feed.className = "feed";
+    textPosts.filter(post => !post.group).forEach(post => feed.appendChild(createTextPost(post)));
 
+    if (section.groups) {
+        for (const group of section.groups) {
+            const groupPosts = textPosts.filter(post => post.group === group.id);
+            const groupProjects = projects.filter(project => project.group === group.id);
+            if (groupPosts.length === 0 && groupProjects.length === 0) {
+                continue;
+            }
+            const heading = document.createElement("h2");
+            heading.className = "feed-group-title";
+            heading.textContent = group.title;
+            feed.appendChild(heading);
+            groupPosts.filter(post => !post.before).forEach(post => feed.appendChild(createTextPost(post)));
+            groupProjects.forEach(project => {
+                groupPosts.filter(post => post.before === project.id).forEach(post => feed.appendChild(createTextPost(post)));
+                feed.appendChild(createPost(project));
+            });
+        }
+    } else {
+        projects.forEach(project => feed.appendChild(createPost(project)));
+    }
+    main.appendChild(feed);
+
+    if (projects.length > 0) {
+        page.appendChild(createProjectNav(section));
+    }
     return page;
+}
+
+function createTextPost(textPost: TextPost): HTMLElement {
+    const post = document.createElement("article");
+    post.className = "post post-text";
+    post.id = `note-${textPost.id}`;
+    post.innerHTML = `<h2 class="post-title">${escapeHtml(textPost.title)}</h2>`;
+    post.appendChild(renderMarkdown(textPost.body.trim() || "*Coming soon.*"));
+    return post;
+}
+
+function createPost(project: Project): HTMLElement {
+    const href = `#/${encodeURIComponent(project.section)}/${encodeURIComponent(project.id)}`;
+    const meta = [project.date, project.role].filter(Boolean).map(value => escapeHtml(value!)).join(" · ");
+
+    const post = document.createElement("article");
+    post.className = "post";
+    post.id = `post-${project.id}`;
+    post.innerHTML = `
+        ${project.image ? `
+            <a class="post-image" href="${href}" tabindex="-1" aria-hidden="true">
+                <img src="${import.meta.env.BASE_URL}${project.image}" alt="" loading="lazy" />
+            </a>` : ""}
+        <div class="post-body">
+            ${meta ? `<span class="project-date">${meta}</span>` : ""}
+            <h2 class="post-title"><a href="${href}">${escapeHtml(project.title)}</a></h2>
+            <p class="post-summary">${escapeHtml(project.summary)}</p>
+        </div>
+    `;
+
+    const body = post.querySelector(".post-body")!;
+    if (project.technologies.length > 0) {
+        body.appendChild(createTechTags(project.technologies));
+    }
+    const more = document.createElement("a");
+    more.className = "read-more";
+    more.href = href;
+    more.innerHTML = `Read more <span aria-hidden="true">&rarr;</span>`;
+    body.appendChild(more);
+
+    return post;
 }
