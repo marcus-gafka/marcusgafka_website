@@ -21,12 +21,29 @@ function escapeAttribute(value: string): string {
     return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+/** A short, silent, looping clip (like a moving photo) for a video file on the site */
+export function videoClipHtml(src: string, caption = "", poster = ""): string {
+    return [
+        `<figure class="video-clip">`,
+        `<video src="${escapeAttribute(src)}"${poster ? ` poster="${escapeAttribute(poster)}"` : ""}`,
+        ` autoplay muted loop playsinline preload="metadata"`,
+        caption ? ` aria-label="${escapeAttribute(caption)}"` : "",
+        `></video>`,
+        caption ? `<figcaption>${escapeAttribute(caption)}</figcaption>` : "",
+        `</figure>`,
+    ].join("");
+}
+
 /**
- * `![Caption](https://www.youtube.com/watch?v=...)` on its own line becomes an
- * embedded player, so videos are written the same way as images.
+ * Videos are written the same way as images, on their own line:
+ * `![Caption](clip.mp4)` becomes a looping clip hosted on the site, and
+ * `![Caption](https://www.youtube.com/watch?v=...)` becomes an embedded player.
  */
 function embedVideos(source: string): string {
     return source.replace(/^!\[([^\]]*)\]\((\S+)\)[ \t]*$/gm, (line, caption: string, url: string) => {
+        if (/\.(mp4|webm)$/i.test(url)) {
+            return videoClipHtml(url, caption);
+        }
         const id = youTubeId(url);
         if (!id) {
             return line;
@@ -61,6 +78,14 @@ export function renderMarkdown(source: string): HTMLElement {
     container.querySelectorAll("img").forEach(img => {
         img.loading = "lazy";
     });
+
+    // Respect "reduce motion": no autoplaying clips, show play controls instead.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+        container.querySelectorAll<HTMLVideoElement>("video[autoplay]").forEach(video => {
+            video.removeAttribute("autoplay");
+            video.controls = true;
+        });
+    }
 
     return container;
 }

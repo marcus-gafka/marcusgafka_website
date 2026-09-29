@@ -70,6 +70,7 @@ export const allProjects: Project[] = [
         role: "Robotics Academy Intern / University Intern · Houston, TX",
         technologies: ["Mechanical Design", "Fabrication", "Swerve Drive", "Sheet Metal", "3D Printing"],
         content: nasaMd,
+        image: "assets/projects/nasa-jsc/sev-door-handle.jpg",
     },
 
     // ---- FRC 190 ----

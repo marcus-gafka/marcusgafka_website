@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { renderMarkdown, youTubeId } from "../src/utils/markdown";
+import { renderMarkdown, videoClipHtml, youTubeId } from "../src/utils/markdown";
 
 describe("renderMarkdown", () => {
     it("converts markdown to HTML", () => {
@@ -43,5 +43,21 @@ describe("YouTube embeds", () => {
         const el = renderMarkdown("![A photo](photo.jpg)");
         expect(el.querySelector("img")?.getAttribute("src")).toBe("photo.jpg");
         expect(el.querySelector("iframe")).toBeNull();
+    });
+});
+
+describe("video clips", () => {
+    it("turns an image-style .mp4 line into a silent looping clip", () => {
+        const el = renderMarkdown("![Rocket in motion](/assets/clip.mp4)");
+        const video = el.querySelector<HTMLVideoElement>(".video-clip video");
+        expect(video?.getAttribute("src")).toBe("/assets/clip.mp4");
+        for (const attr of ["autoplay", "muted", "loop", "playsinline"]) {
+            expect(video?.hasAttribute(attr), attr).toBe(true);
+        }
+        expect(el.querySelector(".video-clip figcaption")?.textContent).toBe("Rocket in motion");
+    });
+
+    it("adds a poster image when given one", () => {
+        expect(videoClipHtml("/a.mp4", "Cap", "/a.jpg")).toContain('poster="/a.jpg"');
     });
 });

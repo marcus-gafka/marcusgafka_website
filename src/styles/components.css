@@ -283,3 +283,29 @@
     height: 100%;
     border: 0;
 }
+
+/* Short looping clips hosted on the site */
+.markdown-body .video-clip {
+    clear: both;
+    margin: var(--space-3) 0;
+}
+
+.markdown-body figure video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: #000;
+}
+
+.markdown-body .figure-row .video-clip {
+    margin: 0;
+}
+
+.markdown-body .figure-row.no-crop video {
+    width: auto;
+    max-width: 100%;
+    max-height: 420px;
+    margin: 0 auto;
+}
