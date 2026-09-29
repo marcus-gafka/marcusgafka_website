@@ -1,0 +1,22 @@
+import showdown from "showdown";
+import hljs from "highlight.js";
+
+const converter = new showdown.Converter({
+    tables: true,
+    ghCodeBlocks: true,
+    tasklists: true,
+    strikethrough: true,
+    openLinksInNewWindow: true,
+});
+
+export function renderMarkdown(source: string): HTMLElement {
+    const container = document.createElement("div");
+    container.className = "markdown-body";
+    container.innerHTML = converter.makeHtml(source);
+
+    container.querySelectorAll<HTMLElement>("pre code").forEach(block => {
+        hljs.highlightElement(block);
+    });
+
+    return container;
+}

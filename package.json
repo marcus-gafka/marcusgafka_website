@@ -1,0 +1,23 @@
+{
+  "name": "marcusgafka-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/showdown": "^2.0.6",
+    "happy-dom": "^14.12.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.8"
+  },
+  "dependencies": {
+    "highlight.js": "^11.11.1",
+    "showdown": "^2.1.0"
+  }
+}
