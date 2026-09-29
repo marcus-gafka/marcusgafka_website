@@ -68,7 +68,7 @@ export const allProjects: Project[] = [
         summary: "Lunar rover mock-up construction, Space Exploration Vehicle maintenance, and mechanism design across three summers.",
         date: "Summers 2023–2025",
         role: "Robotics Academy Intern / University Intern · Houston, TX",
-        technologies: ["Mechanical Design", "Fabrication", "Swerve Drive"],
+        technologies: ["Mechanical Design", "Fabrication", "Swerve Drive", "Sheet Metal", "3D Printing"],
         content: nasaMd,
     },
 

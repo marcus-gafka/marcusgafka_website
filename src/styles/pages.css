@@ -252,8 +252,9 @@
         line-height: calc(1.02rem * 1.4);
     }
 
+    /* Space between bullets (line spacing within a bullet stays tight) */
     .hero-list li + li {
-        margin-top: 4px;
+        margin-top: var(--space-2);
     }
 
     .hero-lead::before {
