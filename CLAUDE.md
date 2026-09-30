@@ -62,6 +62,7 @@ planning" / "reread planning" = read it and sync to the site.
     (seamless: rounded border like images, no controls/fullscreen/PiP, not tappable; `makeSeamless()` in markdown.ts
     applies to every `.video-clip video`, including hand-written HTML)
   - `![Caption](youtube URL)` → YouTube embed (Markdown renderer handles it directly)
+  - `> text` blockquote → highlighted note/callout box (e.g. the DEKA NDA note)
 - Planning references original filenames (e.g. `trophies/IMG_9703.MOV`); site copies get
   descriptive names in `public/assets/projects/<id>/`.
 - Media tools (not installed system-wide): make a venv in the scratchpad and
