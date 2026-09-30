@@ -6,11 +6,16 @@ Three summers (2023, 2024, 2025) at NASA Johnson Space Center in Houston, TX, as
 
 Led construction of a high-fidelity lunar rover mock-up: assembled the rover chassis, electronic housings, operator interfaces, and differential-swerve modules.
 
+<figure><img src="/assets/projects/nasa-jsc/lunar-rover-mockup.jpg" alt="Six-wheeled lunar rover mock-up chassis with an American flag at sunset"><figcaption>The lunar rover mock-up</figcaption></figure>
+
 ## Space Exploration Vehicle Door Latch
 
 Maintained the Space Exploration Vehicle (SEV) and led the design of a new door latch mechanism.
 
+<div class="figure-row no-crop">
+<figure><img src="/assets/projects/nasa-jsc/sev-exterior.jpg" alt="Marcus and a colleague standing in front of the Space Exploration Vehicle"><figcaption>The Space Exploration Vehicle</figcaption></figure>
 <figure><img src="/assets/projects/nasa-jsc/sev-door-handle.jpg" alt="Gold NASA door handle mounted on the white door of the Space Exploration Vehicle"><figcaption>The new SEV door handle</figcaption></figure>
+</div>
 
 ## Trophy Development
 
