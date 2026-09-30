@@ -81,10 +81,11 @@ export const sections: Section[] = [
             { id: "honor-society", title: "Robotics Honor Society (Rho Beta Epsilon)" },
             { id: "current", title: "Coursework · Current" },
             { id: "completed", title: "Coursework · Completed" },
+            { id: "art", title: "Art" },
         ],
         textPosts: [
             { id: "scholarship", title: "WPI FRC Scholarship", body: scholarshipMd, group: "scholarship" },
-            { id: "art-in-engineering", title: "Art in Engineering", body: "", group: "completed", before: "ar1100" },
+            { id: "art-in-engineering", title: "Art in Engineering", body: "", group: "art" },
         ],
     },
     {

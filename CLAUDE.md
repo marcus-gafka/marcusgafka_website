@@ -109,7 +109,8 @@ planning" / "reread planning" = read it and sync to the site.
   the athletics logo online is copyrighted/fair-use only, don't pull it) + hero highlight cards →
   Scholarship (paragraph post with both 2023 submission videos, FRC + VEX, from
   youtube.com/@marcusgafka) → Robotics Honor Society (Rho Beta Epsilon) → Coursework · Current →
-  Coursework · Completed. Competitive Robotics is reverse-chronological
+  Coursework · Completed → Art ("Art in Engineering" paragraph + one entry per art project from any
+  art class; `planning/wpi/art-project/` is the template to copy). Competitive Robotics is reverse-chronological
   by group: FRC 190 season → FRC 190 off-season → WPI RRC → high school FRC 118 → VEX 2373M →
   "Where It Started" (early/BEST). Honor society entry has no `sortDate` so it's never featured.
 - Palette: bg `#0f0e0e`, text `#fbf5f3`, accent sage `#8daa9d` (headings/links/hover word),
@@ -127,7 +128,7 @@ planning" / "reread planning" = read it and sync to the site.
   copied CSS so the fade-in doesn't blank screenshots.
 
 ## Open items (as of 2026-09-29)
-- Many placeholders (drafts) await write-ups: MQP, RBE4540/4701, ME3902, RBE2001, AR1100/2750,
+- Many placeholders (drafts) await write-ups: MQP, RBE4540/4701, ME3902, RBE2001, art projects,
   Doom Spiral/Turnover, V3, Whiplash, Trophies (RRC), FRC 118, VEX 2373M, BEST, all Personal
   projects, paragraph posts (Why I Love FRC, What Is the WPI RRC?, Early Robotics Interest,
   Art in Engineering).

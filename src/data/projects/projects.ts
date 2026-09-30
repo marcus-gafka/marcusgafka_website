@@ -274,8 +274,8 @@ export const allProjects: Project[] = [
             { label: "Final Report", url: "https://docs.google.com/document/d/1sKprMgE6_HIPDpT7_m2_Se-KNmE6mpFDl1LxfM_augk/edit?usp=sharing" },
         ],
     },
-    placeholder({ id: "ar1100", section: "wpi", group: "completed", title: "AR1100 – Essentials of Art" }),
-    placeholder({ id: "ar2750", section: "wpi", group: "completed", title: "AR2750 – Topics in Studio Art" }),
+    // Art: one entry per art project (from any art class). Copy this for each new one.
+    placeholder({ id: "art-project", section: "wpi", group: "art", title: "Art Project", role: "Course: AR____" }),
 
     // ---- Personal ----
     placeholder({ id: "portfolio-website", section: "personal", title: "Personal Portfolio Website" }),

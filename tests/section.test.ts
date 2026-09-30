@@ -129,9 +129,9 @@ describe("section highlights", () => {
         expect(renderSection(wpi).querySelector(".section-header .subtitle")).toBeNull();
     });
 
-    it("shows WPI groups in order: scholarship, honor society, current, completed", () => {
+    it("shows WPI groups in order: scholarship, honor society, current, completed, art", () => {
         const wpi = sections.find(s => s.id === "wpi")!;
-        expect(wpi.groups!.map(g => g.id)).toEqual(["scholarship", "honor-society", "current", "completed"]);
+        expect(wpi.groups!.map(g => g.id)).toEqual(["scholarship", "honor-society", "current", "completed", "art"]);
     });
 
     it("embeds both scholarship submission videos side by side", () => {
