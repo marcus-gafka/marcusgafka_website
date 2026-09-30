@@ -59,6 +59,7 @@ export const allProjects: Project[] = [
         role: "Controls Engineering Intern · Manchester, NH",
         technologies: ["Arduino", "Python", "Kalman Filtering", "Controls"],
         content: dekaMd,
+        image: "assets/projects/deka/deka-card.jpg",
     },
     {
         id: "nasa-jsc",

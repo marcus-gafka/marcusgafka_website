@@ -309,3 +309,10 @@
     max-height: 420px;
     margin: 0 auto;
 }
+
+/* Logos: shown at a modest size, centered, not stretched to full width */
+.markdown-body figure.logo img {
+    width: auto;
+    max-width: min(100%, 420px);
+    margin: 0 auto;
+}

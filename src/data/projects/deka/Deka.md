@@ -2,6 +2,8 @@
 
 Summer 2026 controls engineering internship at DEKA Research & Development in Manchester, NH.
 
+<figure class="logo"><img src="/assets/projects/deka/deka-logo.jpg" alt="DEKA Research &amp; Development Corp. logo"></figure>
+
 ## What I Did
 
 - Developed an Arduino-based platform with magnetic encoder feedback to validate closed-loop stepper motor control for testing prototypes
