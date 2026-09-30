@@ -371,3 +371,14 @@
     font-size: 1.05em;
     color: var(--text);
 }
+
+/* A small logo floated beside a page's opening text */
+.markdown-body .figure-inline.logo-inline {
+    width: min(180px, 35%);
+}
+
+.markdown-body .figure-inline.logo-inline img {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}

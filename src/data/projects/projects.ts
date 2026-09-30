@@ -182,6 +182,8 @@ export const allProjects: Project[] = [
         role: "Elected officer",
         technologies: ["Leadership", "Interviewing", "Recruitment"],
         content: rhoBetaEpsilonMd,
+        image: "assets/projects/rho-beta-epsilon/card.jpg",
+        links: [{ label: "Rho Beta Epsilon", url: "https://mywpi.wpi.edu/RBE/" }],
     },
     // Draft until Marcus reviews it and adds his role; hidden on the live site.
     placeholder({
