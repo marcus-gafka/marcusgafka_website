@@ -11,6 +11,11 @@ DEKA/NASA intern). Live at https://marcusgafka.com. Modeled on a friend's repo i
 - **Work on `dev`; only `live` deploys.** Don't push to `live` unless Marcus says to publish
   ("push"/"publish"/"merge to live").
 - Strip metadata (GPS!) from phone photos before they go in `public/` — re-save via Pillow.
+- The site's resume (`public/resume/Marcus_Gafka_Resume.pdf`) is a **redacted copy** of
+  `planning/MarcusResume_*.pdf`: home + school addresses and cell phone removed with real
+  PyMuPDF redaction (`apply_redactions`, text deleted, not covered), contact line rebuilt as
+  centered `email | linkedin.com/in/marcus-gafka` links, metadata cleared. Verify with
+  `pdftotext` that no address/phone text remains. Never publish the original.
 - Force-pushes / history rewrites are blocked by the permission classifier; give Marcus the
   command to run with `!` instead.
 

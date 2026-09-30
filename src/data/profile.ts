@@ -34,10 +34,10 @@ export const profile = {
         { text: "Tinkerer, maker, and curious problem solver", section: "personal" },
     ] as HeroLink[],
     /** Path under public/, e.g. "resume/Marcus_Gafka_Resume.pdf". Leave empty to hide. */
-    resumePdf: "",
+    resumePdf: "resume/Marcus_Gafka_Resume.pdf",
     links: {
         github: "",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/marcus-gafka/",
         youtube: "https://www.youtube.com/@marcusgafka",
         email: "msgafka@gmail.com",
     },
