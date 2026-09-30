@@ -205,10 +205,11 @@
     margin-bottom: var(--space-4);
 }
 
-/* Section title with optional logos to its right */
+/* Section title on the left, optional logos pinned to the top-right of the column */
 .section-title-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: var(--space-3);
 }
 
