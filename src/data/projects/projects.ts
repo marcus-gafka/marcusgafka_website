@@ -346,6 +346,11 @@ export function sortNewestFirst(list: Project[]): Project[] {
     });
 }
 
+/** Projects by id, in the given order; unknown or hidden (draft) ids are skipped */
+export function projectsById(ids: string[]): Project[] {
+    return ids.map(id => projects.find(project => project.id === id)).filter((p): p is Project => !!p);
+}
+
 /** Most recent dated projects with write-ups (Work excluded), newest first */
 export function recentProjects(count: number): Project[] {
     return sortNewestFirst(projects.filter(project => project.section !== "work" && project.sortDate && !project.draft))

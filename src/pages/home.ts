@@ -1,5 +1,5 @@
 import { profile, type HeroLink } from "../data/profile";
-import { recentProjects } from "../data/projects/projects";
+import { projectsById } from "../data/projects/projects";
 import { createProjectCard } from "../components/projectCard";
 import { escapeHtml } from "../utils/html";
 
@@ -62,7 +62,7 @@ export function renderHome(): HTMLElement {
         </section>
     `;
 
-    const featured = recentProjects(3);
+    const featured = projectsById(profile.featured);
     if (featured.length > 0) {
         const section = document.createElement("section");
         section.className = "featured";

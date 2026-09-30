@@ -64,3 +64,13 @@ describe("profile", () => {
         }
     });
 });
+
+describe("featured projects", () => {
+    it("shows the hand-picked projects, in order", () => {
+        const titles = [...renderHome().querySelectorAll(".featured .project-card h3")].map(h => h.textContent);
+        expect(titles).toHaveLength(profile.featured.length);
+        expect(titles[0]).toContain("DEKA");
+        expect(titles[1]).toContain("NASA");
+        expect(titles[2]).toContain("IQP");
+    });
+});

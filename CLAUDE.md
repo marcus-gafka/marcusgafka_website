@@ -87,13 +87,13 @@ planning" / "reread planning" = read it and sync to the site.
 - `src/router.ts` — hash routes: `#/` home, `#/<section>`, `#/<section>/<project-id>`,
   `#/about`, `#/resume`; sets title, highlights nav, reports page views.
 - `src/data/`
-  - `profile.ts` — name, headshots, hero text (`heroIntro`, `heroLinks`: optional multi-word
+  - `profile.ts` — `featured` = hand-picked home Featured Projects (ids); name, headshots, hero text (`heroIntro`, `heroLinks`: optional multi-word
     `lead` for the dash bullet, and `highlight` = words anywhere that grow on hover, default lead), email, GoatCounter code, resume path (empty).
   - `sections.ts` — sidebar sections, their groups, `highlights`, `textPosts`,
     `sectionAliases`, `logos`; `visibleTextPosts()`. Long paragraph posts can live in
     `src/data/<section>/*.md` (e.g. `wpi/scholarship.md`).
   - `projects/projects.ts` — `allProjects` (full entries + `placeholder({...})` drafts),
-    `projects` (drafts filtered), `sortNewestFirst`, `recentProjects` (home featured = 3
+    `projects` (drafts filtered), `sortNewestFirst`, `recentProjects` (newest dated projects; home uses `profile.featured` instead) (was: 3
     newest non-work, non-draft), `projectsInSection`, `findProject`.
   - `about.md` — About page Markdown.
 - `src/pages/` — `home.ts` (hero + featured), `section.ts` (blog feed grouped like the right
