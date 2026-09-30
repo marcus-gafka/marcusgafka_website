@@ -94,7 +94,7 @@ planning" / "reread planning" = read it and sync to the site.
   panel, newest first; text posts), `projectDetail.ts` (write-up + right panel), `about.ts`,
   `resume.ts`, `notFound.ts`.
 - `src/components/` — `sidebar.ts` (headshot, nav, phone ☰ menu), `projectNav.ts` (right
-  panel; becomes "Jump to"/"More in…" swipe strip ≤1100px), `projectCard.ts` (home cards),
+  panel; becomes "Jump to"/"More in…" swipe strip ≤1100px; "Jump to" hidden on phones ≤760px), `projectCard.ts` (home cards),
   `contactLinks.ts` ("Email me" link), `linkList.ts`, `techTags.ts`.
 - `src/utils/` — `markdown.ts` (showdown, highlight.js, YouTube + video-clip embeds,
   reduced-motion), `drafts.ts`, `analytics.ts`, `html.ts` (escapeHtml).

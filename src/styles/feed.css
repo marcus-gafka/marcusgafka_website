@@ -340,6 +340,13 @@
     }
 }
 
+/* Phones: no "Jump to" strip on section pages (project pages keep "More in ...") */
+@media (max-width: 760px) {
+    .section-page .project-nav {
+        display: none;
+    }
+}
+
 /* Phones: stack each post's photo above its text */
 @media (max-width: 640px) {
     .post {
