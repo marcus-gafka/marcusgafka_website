@@ -129,8 +129,24 @@ describe("section highlights", () => {
         expect(renderSection(wpi).querySelector(".section-header .subtitle")).toBeNull();
     });
 
-    it("shows WPI groups in order: honor society, current, completed", () => {
+    it("shows WPI groups in order: scholarship, honor society, current, completed", () => {
         const wpi = sections.find(s => s.id === "wpi")!;
-        expect(wpi.groups!.map(g => g.id)).toEqual(["honor-society", "current", "completed"]);
+        expect(wpi.groups!.map(g => g.id)).toEqual(["scholarship", "honor-society", "current", "completed"]);
+    });
+
+    it("embeds both scholarship submission videos side by side", () => {
+        const wpi = sections.find(s => s.id === "wpi")!;
+        const post = renderSection(wpi).querySelector("#note-scholarship")!;
+        const srcs = [...post.querySelectorAll(".figure-row iframe")].map(f => f.getAttribute("src"));
+        expect(srcs).toEqual([
+            "https://www.youtube-nocookie.com/embed/nL_hcSbydXM",
+            "https://www.youtube-nocookie.com/embed/kTsBi09B_vU",
+        ]);
+    });
+
+    it("shows the WPI logo beside the title", () => {
+        const wpi = sections.find(s => s.id === "wpi")!;
+        const img = renderSection(wpi).querySelector<HTMLImageElement>(".section-logos img");
+        expect(img?.getAttribute("src")).toContain("wpi-wordmark.svg");
     });
 });

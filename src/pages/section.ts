@@ -19,7 +19,12 @@ export function renderSection(section: Section): HTMLElement {
     main.className = "main-column";
     main.innerHTML = `
         <header class="section-header">
-            <h1>${escapeHtml(section.title)}</h1>
+            <div class="section-title-row">
+                <h1>${escapeHtml(section.title)}</h1>
+                ${section.logos?.length ? `<div class="section-logos">${section.logos
+                    .map(logo => `<img src="${import.meta.env.BASE_URL}${logo.src}" alt="${escapeHtml(logo.alt)}" />`)
+                    .join("")}</div>` : ""}
+            </div>
             ${section.intro ? `<p class="subtitle">${escapeHtml(section.intro)}</p>` : ""}
         </header>
     `;

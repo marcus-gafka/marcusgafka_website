@@ -350,3 +350,8 @@
 .markdown-body blockquote > :last-child {
     margin-bottom: 0;
 }
+
+/* YouTube embeds side by side in a figure row */
+.markdown-body .figure-row .video-embed {
+    margin: 0;
+}

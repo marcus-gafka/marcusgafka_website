@@ -79,7 +79,8 @@ planning" / "reread planning" = read it and sync to the site.
   - `profile.ts` — name, headshots, hero text (`heroIntro`, `heroLinks` with optional
     multi-word `lead` that highlights on hover), email, GoatCounter code, resume path (empty).
   - `sections.ts` — sidebar sections, their groups, `highlights`, `textPosts`,
-    `sectionAliases`; `visibleTextPosts()`.
+    `sectionAliases`, `logos`; `visibleTextPosts()`. Long paragraph posts can live in
+    `src/data/<section>/*.md` (e.g. `wpi/scholarship.md`).
   - `projects/projects.ts` — `allProjects` (full entries + `placeholder({...})` drafts),
     `projects` (drafts filtered), `sortNewestFirst`, `recentProjects` (home featured = 3
     newest non-work, non-draft), `projectsInSection`, `findProject`.
@@ -99,8 +100,11 @@ planning" / "reread planning" = read it and sync to the site.
 - `README.md` — human-facing overview (may lag behind this file).
 
 ## Design decisions (keep unless Marcus changes them)
-- Section structure: WPI = hero highlight cards → Robotics Honor Society (Rho Beta Epsilon) →
-  Coursework · Current → Coursework · Completed. Competitive Robotics is reverse-chronological
+- Section structure: WPI = title + logo row (WPI wordmark; Gompei pending a file from Marcus —
+  the athletics logo online is copyrighted/fair-use only, don't pull it) + hero highlight cards →
+  Scholarship (paragraph post with both 2023 submission videos, FRC + VEX, from
+  youtube.com/@marcusgafka) → Robotics Honor Society (Rho Beta Epsilon) → Coursework · Current →
+  Coursework · Completed. Competitive Robotics is reverse-chronological
   by group: FRC 190 season → FRC 190 off-season → WPI RRC → high school FRC 118 → VEX 2373M →
   "Where It Started" (early/BEST). Honor society entry has no `sortDate` so it's never featured.
 - Palette: bg `#0f0e0e`, text `#fbf5f3`, accent sage `#8daa9d` (headings/links/hover word),

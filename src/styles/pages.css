@@ -205,6 +205,30 @@
     margin-bottom: var(--space-4);
 }
 
+/* Section title with an optional row of logos underneath */
+.section-title-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+}
+
+.section-title-row h1 {
+    margin: 0;
+}
+
+.section-logos {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.section-logos img {
+    display: block;
+    height: 56px;
+    width: auto;
+}
+
 /* Section hero facts (e.g. WPI: scholarship, double major, GPA) */
 .section-highlights {
     display: grid;

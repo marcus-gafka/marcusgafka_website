@@ -1,4 +1,5 @@
 import { withoutDrafts } from "../utils/drafts";
+import scholarshipMd from "./wpi/scholarship.md?raw";
 
 export interface Link {
     label: string;
@@ -28,6 +29,12 @@ export interface Highlight {
     label: string;
 }
 
+/** A logo shown beside a section's title */
+export interface Logo {
+    src: string;
+    alt: string;
+}
+
 export interface Section {
     /** URL slug, e.g. #/wpi */
     id: string;
@@ -38,6 +45,8 @@ export interface Section {
     intro: string;
     /** Optional hero facts shown as cards under the intro */
     highlights?: Highlight[];
+    /** Optional logos beside the title, paths under public/ */
+    logos?: Logo[];
     links?: Link[];
     /** Optional sub-headings on the section page; projects pick one with `group` */
     groups?: Group[];
@@ -57,6 +66,9 @@ export const sections: Section[] = [
         label: "WPI",
         title: "Worcester Polytechnic Institute",
         intro: "",
+        logos: [
+            { src: "assets/wpi/wpi-wordmark.svg", alt: "WPI" },
+        ],
         highlights: [
             { value: "Full tuition", label: "Sole recipient of WPI's merit-based FRC scholarship" },
             { value: "Double major", label: "B.S. Robotics Engineering & B.S. Mechanical Engineering" },
@@ -65,11 +77,13 @@ export const sections: Section[] = [
             { value: "New Member Officer", label: "Rho Beta Epsilon Robotics Honor Society" },
         ],
         groups: [
+            { id: "scholarship", title: "Scholarship" },
             { id: "honor-society", title: "Robotics Honor Society (Rho Beta Epsilon)" },
             { id: "current", title: "Coursework · Current" },
             { id: "completed", title: "Coursework · Completed" },
         ],
         textPosts: [
+            { id: "scholarship", title: "WPI FRC Scholarship", body: scholarshipMd, group: "scholarship" },
             { id: "art-in-engineering", title: "Art in Engineering", body: "", group: "completed", before: "ar1100" },
         ],
     },
