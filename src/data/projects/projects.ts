@@ -9,6 +9,7 @@ import snapbackMd from "./snapback/Snapback.md?raw";
 import emberMd from "./ember/Ember.md?raw";
 import iqpMd from "./iqp/IQP.md?raw";
 import mqpMd from "./mqp/MQP.md?raw";
+import me3902Md from "./me3902/ME3902.md?raw";
 import rbe4540Md from "./rbe4540/RBE4540.md?raw";
 import rbe4701Md from "./rbe4701/RBE4701.md?raw";
 import frc118Md from "./frc-118/FRC118.md?raw";
@@ -203,7 +204,7 @@ export const allProjects: Project[] = [
         role: "In progress",
         technologies: ["Grasp Analysis", "ROS 2", "Gazebo", "OpenCV", "Visual Servoing", "Python"],
         content: rbe4540Md,
-        image: "assets/projects/rbe4540/grasp-optimal-configs.jpg",
+        image: "assets/projects/rbe4540/grasp-sweep-poster.jpg",
     }),
     placeholder({
         id: "rbe4701",
@@ -229,7 +230,19 @@ export const allProjects: Project[] = [
         image: "assets/projects/iqp/residential-use-3d.jpg",
         sortDate: "2025-12",
     },
-    placeholder({ id: "me3902", section: "wpi", group: "completed", title: "ME3902 – Project-Based Engineering Experimentation" }),
+    placeholder({
+        id: "me3902",
+        section: "wpi",
+        group: "completed",
+        title: "ME3902 – Project-Based Engineering Experimentation",
+        summary: "A dual-axis solar tracker that finds the sun with a photoresistor ring and optimizes tilt from panel voltage, built on a Raspberry Pi Pico 2.",
+        date: "D-Term 2026",
+        sortDate: "2026-05",
+        role: "Team of 2",
+        technologies: ["Raspberry Pi Pico", "MicroPython", "Stepper Motors", "Sensors", "3D Printing"],
+        content: me3902Md,
+        image: "assets/projects/me3902/cover.jpg",
+    }),
     {
         id: "rbe3002",
         group: "completed",

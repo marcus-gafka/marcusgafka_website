@@ -72,6 +72,8 @@ planning" / "reread planning" = read it and sync to the site.
   - `> text` blockquote → highlighted note/callout box (e.g. the DEKA NDA note)
   - Math: `$...$` inline, `$$...$$` display (KaTeX, lazy-loaded only on pages with math;
     a lone `$30` stays text). Course pages describe concepts learned, never specific homework.
+    Every WPI coursework page except the IQP must fit in ~2 screens: measured page height
+    ≤ ~1,650px at 1440×800 (drafts build). Prefer concepts over equations; one strong visual row.
 - Planning references original filenames (e.g. `trophies/IMG_9703.MOV`); site copies get
   descriptive names in `public/assets/projects/<id>/`.
 - Media tools (not installed system-wide): make a venv in the scratchpad and
