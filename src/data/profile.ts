@@ -38,6 +38,7 @@ export const profile = {
     links: {
         github: "",
         linkedin: "",
+        youtube: "",
         email: "msgafka@gmail.com",
     },
     /** GoatCounter site code (the "xyz" in xyz.goatcounter.com). Empty disables analytics. */
