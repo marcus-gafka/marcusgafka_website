@@ -21,7 +21,7 @@ export function renderProjectDetail(project: Project, section: Section): HTMLEle
         <header class="project-header">
             <span class="project-date">${meta.join(" · ")}</span>
             <h1>${escapeHtml(project.title)}</h1>
-            <p class="subtitle">${escapeHtml(project.summary)}</p>
+            ${project.hideSummaryOnPage ? "" : `<p class="subtitle">${escapeHtml(project.summary)}</p>`}
         </header>
     `;
 

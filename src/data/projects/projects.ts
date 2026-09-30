@@ -28,6 +28,8 @@ export interface Project {
     title: string;
     summary: string;
     date?: string;
+    /** Don't repeat the summary under the title on the project's own page (cards still show it) */
+    hideSummaryOnPage?: boolean;
     /** Your role on the project */
     role?: string;
     technologies: string[];
@@ -72,10 +74,11 @@ export const allProjects: Project[] = [
         sortDate: "2025-08",
         section: "work",
         title: "Robotics Academy / University Intern: NASA Johnson Space Center",
-        summary: "Lunar rover mock-up construction, Space Exploration Vehicle maintenance, and mechanism design across three summers.",
+        summary: "Space Exploration Vehicle maintenance, a new door latch design, and dynamic trophies for the Space City VEX event, across three summers.",
+        hideSummaryOnPage: true,
         date: "Summers 2023–2025",
         role: "Robotics Academy Intern / University Intern · Houston, TX",
-        technologies: ["Mechanical Design", "Fabrication", "Swerve Drive", "Sheet Metal", "3D Printing"],
+        technologies: ["Mechanical Design", "Fabrication", "Sheet Metal", "3D Printing"],
         content: nasaMd,
         image: "assets/projects/nasa-jsc/sev-door-handle.jpg",
     },
