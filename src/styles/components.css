@@ -358,3 +358,16 @@
 .markdown-body .figure-row .video-embed {
     margin: 0;
 }
+
+/* Math (KaTeX): display equations scroll sideways on narrow screens instead of overflowing */
+.markdown-body .math-display {
+    margin: var(--space-3) 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--space-1) 0;
+}
+
+.markdown-body .katex {
+    font-size: 1.05em;
+    color: var(--text);
+}

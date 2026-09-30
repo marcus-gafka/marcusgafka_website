@@ -9,6 +9,8 @@ import snapbackMd from "./snapback/Snapback.md?raw";
 import emberMd from "./ember/Ember.md?raw";
 import iqpMd from "./iqp/IQP.md?raw";
 import mqpMd from "./mqp/MQP.md?raw";
+import rbe4540Md from "./rbe4540/RBE4540.md?raw";
+import rbe4701Md from "./rbe4701/RBE4701.md?raw";
 import frc118Md from "./frc-118/FRC118.md?raw";
 import rhoBetaEpsilonMd from "./rho-beta-epsilon/RhoBetaEpsilon.md?raw";
 import rbe3002Md from "./rbe3002/RBE3002.md?raw";
@@ -190,8 +192,30 @@ export const allProjects: Project[] = [
         content: mqpMd,
         image: "assets/projects/mqp/cover.jpg",
     }),
-    placeholder({ id: "rbe4540", section: "wpi", group: "current", title: "RBE4540 – Vision-Based Robotic Manipulation" }),
-    placeholder({ id: "rbe4701", section: "wpi", group: "current", title: "RBE4701 – Artificial Intelligence for Robotics" }),
+    // Drafts until Marcus reviews them; hidden on the live site.
+    placeholder({
+        id: "rbe4540",
+        section: "wpi",
+        group: "current",
+        title: "RBE4540 – Vision-Based Robotic Manipulation",
+        summary: "The theory behind robotic grasping: grasp matrices, grasp quality metrics, vision-based feature detection, and visual servoing, in ROS 2 and Gazebo.",
+        date: "A-Term 2026",
+        role: "In progress",
+        technologies: ["Grasp Analysis", "ROS 2", "Gazebo", "OpenCV", "Visual Servoing", "Python"],
+        content: rbe4540Md,
+        image: "assets/projects/rbe4540/grasp-optimal-configs.jpg",
+    }),
+    placeholder({
+        id: "rbe4701",
+        section: "wpi",
+        group: "current",
+        title: "RBE4701 – Artificial Intelligence for Robotics",
+        summary: "Search, adversarial reasoning, Markov decision processes, and reinforcement learning, applied to a Bomberman AI that escapes monsters with A* and value iteration.",
+        date: "A-Term 2026",
+        role: "In progress",
+        technologies: ["Python", "A*", "Minimax", "MDPs", "Value Iteration", "Reinforcement Learning"],
+        content: rbe4701Md,
+    }),
     {
         id: "iqp",
         section: "wpi",

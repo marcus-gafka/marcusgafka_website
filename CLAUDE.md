@@ -70,6 +70,8 @@ planning" / "reread planning" = read it and sync to the site.
     applies to every `.video-clip video`, including hand-written HTML)
   - `![Caption](youtube URL)` → YouTube embed (Markdown renderer handles it directly)
   - `> text` blockquote → highlighted note/callout box (e.g. the DEKA NDA note)
+  - Math: `$...$` inline, `$$...$$` display (KaTeX, lazy-loaded only on pages with math;
+    a lone `$30` stays text). Course pages describe concepts learned, never specific homework.
 - Planning references original filenames (e.g. `trophies/IMG_9703.MOV`); site copies get
   descriptive names in `public/assets/projects/<id>/`.
 - Media tools (not installed system-wide): make a venv in the scratchpad and

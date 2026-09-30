@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { renderMarkdown, videoClipHtml, youTubeId } from "../src/utils/markdown";
+import { extractMath, renderMarkdown, renderMath, videoClipHtml, youTubeId } from "../src/utils/markdown";
 
 describe("renderMarkdown", () => {
     it("converts markdown to HTML", () => {
@@ -77,5 +77,29 @@ describe("seamless clips", () => {
         const video = renderMarkdown(html).querySelector<HTMLVideoElement>("video")!;
         expect(video.hasAttribute("disableremoteplayback")).toBe(true);
         expect(video.tabIndex).toBe(-1);
+    });
+});
+
+describe("math", () => {
+    it("pulls out display and inline math but leaves escaped dollars alone", () => {
+        const { text, math } = extractMath("Cost \\$30. Inline $x_i^2$ and\n\n$$G = [G_1 \\; G_2]$$");
+        expect(math).toEqual([
+            { tex: "G = [G_1 \\; G_2]", display: true },
+            { tex: "x_i^2", display: false },
+        ]);
+        expect(text).toContain("\\$30");
+    });
+
+    it("leaves a lone dollar amount as text", () => {
+        const el = renderMarkdown("A prototype for under $30 and a $5 part");
+        expect(el.textContent).toContain("under $30 and a $5 part");
+        expect(el.querySelector(".math")).toBeNull();
+    });
+
+    it("typesets math with KaTeX", async () => {
+        const el = renderMarkdown("Energy $E = mc^2$\n\n$$\\sigma_{min}(G)$$");
+        await renderMath(el);
+        expect(el.querySelectorAll(".katex").length).toBe(2);
+        expect(el.querySelector(".math-display .katex-display")).not.toBeNull();
     });
 });
