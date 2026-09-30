@@ -123,6 +123,12 @@ describe("section highlights", () => {
         expect(cards[0].querySelector("strong")?.textContent).toBe(wpi.highlights![0].value);
     });
 
+    it("omits the intro paragraph when a section has none", () => {
+        const wpi = sections.find(s => s.id === "wpi")!;
+        expect(wpi.intro).toBe("");
+        expect(renderSection(wpi).querySelector(".section-header .subtitle")).toBeNull();
+    });
+
     it("shows WPI groups in order: honor society, current, completed", () => {
         const wpi = sections.find(s => s.id === "wpi")!;
         expect(wpi.groups!.map(g => g.id)).toEqual(["honor-society", "current", "completed"]);

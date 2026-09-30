@@ -34,7 +34,7 @@ export interface Section {
     /** Sidebar label */
     label: string;
     title: string;
-    /** Shown at the top of the section page */
+    /** Shown at the top of the section page; leave empty for none */
     intro: string;
     /** Optional hero facts shown as cards under the intro */
     highlights?: Highlight[];
@@ -56,7 +56,7 @@ export const sections: Section[] = [
         id: "wpi",
         label: "WPI",
         title: "Worcester Polytechnic Institute",
-        intro: "B.S. Robotics Engineering and B.S. Mechanical Engineering, Class of 2027. Honor society leadership, then my coursework projects, newest first.",
+        intro: "",
         highlights: [
             { value: "Full tuition", label: "Sole recipient of WPI's merit-based FRC scholarship" },
             { value: "Double major", label: "B.S. Robotics Engineering & B.S. Mechanical Engineering" },

@@ -20,7 +20,7 @@ export function renderSection(section: Section): HTMLElement {
     main.innerHTML = `
         <header class="section-header">
             <h1>${escapeHtml(section.title)}</h1>
-            <p class="subtitle">${escapeHtml(section.intro)}</p>
+            ${section.intro ? `<p class="subtitle">${escapeHtml(section.intro)}</p>` : ""}
         </header>
     `;
     const header = main.querySelector(".section-header")!;
