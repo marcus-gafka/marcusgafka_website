@@ -59,6 +59,8 @@
 
 .hero-link-first {
     display: inline-block;
+    /* Top-aligned like the lead, so growing words never shift the line */
+    vertical-align: top;
     transition: font-size 0.2s ease, color 0.2s ease;
 }
 

@@ -16,11 +16,22 @@ describe("home hero", () => {
         expect(links).toHaveLength(profile.heroLinks.length);
 
         links.forEach((link, i) => {
-            const { text, section, lead } = profile.heroLinks[i];
+            const { text, section, lead, highlight } = profile.heroLinks[i];
             const [leadText] = splitLead(text, lead);
             expect(link.getAttribute("href")).toBe(`#/${section}`);
-            expect(link.querySelector(".hero-link-first")?.textContent).toBe(leadText);
+            const grown = [...link.querySelectorAll(".hero-link-first")].map(el => el.textContent);
+            expect(grown).toEqual(highlight ?? [leadText]);
         });
+    });
+
+    it("highlights only DEKA and NASA on the work line", () => {
+        const link = renderHome().querySelector<HTMLAnchorElement>('.hero-link[href="#/work"]')!;
+        expect(link.textContent!.replace(/\s+/g, " ").trim()).toBe("DEKA Research and NASA JSC Intern");
+        expect([...link.querySelectorAll(".hero-link-first")].map(el => el.textContent)).toEqual(["DEKA", "NASA"]);
+    });
+
+    it("never highlights the intro line", () => {
+        expect(renderHome().querySelector(".hero-intro .hero-link-first")).toBeNull();
     });
 
     it("only uses a lead that the text actually starts with", () => {

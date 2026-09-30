@@ -3,8 +3,10 @@
 export interface HeroLink {
     text: string;
     section: string;
-    /** Leading words to highlight; defaults to the first word */
+    /** Leading words (the dash bullet hangs off them); defaults to the first word */
     lead?: string;
+    /** Words to bold and grow on hover, anywhere in the line; defaults to the lead */
+    highlight?: string[];
 }
 
 export const profile = {
@@ -17,10 +19,11 @@ export const profile = {
     heroIntro: "Passionate engineer, designer, roboticist, and hobbyist",
     /**
      * Each line links to a sidebar section (id from sections.ts). On hover its
-     * lead (the first word, or `lead` if given) grows and turns the accent color.
+     * highlighted words (`highlight`, else the lead: the first word or `lead`)
+     * grow, bold, and turn the accent color.
      */
     heroLinks: [
-        { text: "Intern at DEKA Research and NASA JSC", section: "work" },
+        { text: "DEKA Research and NASA JSC Intern", highlight: ["DEKA", "NASA"], section: "work" },
         {
             text: "Worcester Polytechnic Institute Robotics and Mechanical Engineering student",
             lead: "Worcester Polytechnic Institute",

@@ -10,6 +10,8 @@ DEKA/NASA intern). Live at https://marcusgafka.com. Modeled on a friend's repo i
   Before any commit, check `git status` and never use `git add -A` without looking.
 - **Work on `dev`; only `live` deploys.** Don't push to `live` unless Marcus says to publish
   ("push"/"publish"/"merge to live").
+- Logos on the dark site should be transparent PNGs (e.g. DEKA: white letters + glow, background
+  removed by un-mixing the glow against white); `figure.logo` has no border/background.
 - Strip metadata (GPS!) from phone photos before they go in `public/` — re-save via Pillow.
 - The site's resume (`public/resume/Marcus_Gafka_Resume.pdf`) is a **redacted copy** of
   `planning/MarcusResume_*.pdf`: home + school addresses and cell phone removed with real
@@ -81,8 +83,8 @@ planning" / "reread planning" = read it and sync to the site.
 - `src/router.ts` — hash routes: `#/` home, `#/<section>`, `#/<section>/<project-id>`,
   `#/about`, `#/resume`; sets title, highlights nav, reports page views.
 - `src/data/`
-  - `profile.ts` — name, headshots, hero text (`heroIntro`, `heroLinks` with optional
-    multi-word `lead` that highlights on hover), email, GoatCounter code, resume path (empty).
+  - `profile.ts` — name, headshots, hero text (`heroIntro`, `heroLinks`: optional multi-word
+    `lead` for the dash bullet, and `highlight` = words anywhere that grow on hover, default lead), email, GoatCounter code, resume path (empty).
   - `sections.ts` — sidebar sections, their groups, `highlights`, `textPosts`,
     `sectionAliases`, `logos`; `visibleTextPosts()`. Long paragraph posts can live in
     `src/data/<section>/*.md` (e.g. `wpi/scholarship.md`).
