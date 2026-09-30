@@ -188,7 +188,7 @@ export const allProjects: Project[] = [
         role: "Senior capstone · Team project",
         technologies: ["Conceptual Design", "Path Planning", "Image Processing", "Axiomatic Design", "Simulation"],
         content: mqpMd,
-        image: "assets/projects/mqp/airbrush-sim-raster.jpg",
+        image: "assets/projects/mqp/cover.jpg",
     }),
     placeholder({ id: "rbe4540", section: "wpi", group: "current", title: "RBE4540 – Vision-Based Robotic Manipulation" }),
     placeholder({ id: "rbe4701", section: "wpi", group: "current", title: "RBE4701 – Artificial Intelligence for Robotics" }),

@@ -60,11 +60,6 @@ To test the idea before building hardware, we simulated an airbrush-equipped rob
 
 <figure class="video-clip"><video src="/assets/projects/mqp/airbrush-sim.mp4" poster="/assets/projects/mqp/airbrush-sim-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Simulated airbrush robot painting an image"></video><figcaption>Simulated airbrush robot painting the image</figcaption></figure>
 
-<div class="figure-row no-crop">
-<figure><img src="/assets/projects/mqp/airbrush-sim-strokes.jpg" alt="Simulation: robot partway through filling the image with raster columns"><figcaption>Raster pass in progress</figcaption></figure>
-<figure><img src="/assets/projects/mqp/airbrush-sim-raster.jpg" alt="Simulation: image fully filled, with the outline strokes traced around it"><figcaption>Finished fill with the outline pass</figcaption></figure>
-</div>
-
 <figure><img src="/assets/projects/mqp/airbrush-size-study.png" alt="Row of simulated results for increasing airbrush sizes"><figcaption>Simulated output across airbrush sizes</figcaption></figure>
 
 ## Concept Generation
