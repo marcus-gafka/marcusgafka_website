@@ -20,7 +20,7 @@ Led the design and manufacturing of dynamic trophies for the Space City VEX Sign
 <figure><img src="/assets/projects/nasa-jsc/trophy-early-prototype.jpg" alt="Early prototype of the trophy with a High Stakes 2024–2025 plate"><figcaption>Early prototype</figcaption></figure>
 </div>
 
-Each trophy is built to be made in batches and reused season after season:
+Trophies are designed to be fabricated in batches, with a new set manufactured season after season:
 
 - Waterjet-cut and bent aluminum stand with front, back, and logo plates
 - 3D-printed gear train and rocket mounted on the front plate

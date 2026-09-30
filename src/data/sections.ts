@@ -90,7 +90,7 @@ export const sections: Section[] = [
     },
     {
         id: "robotics",
-        label: "Robotics",
+        label: "Competitive Robotics",
         title: "Competitive Robotics",
         intro: "The competition robots I've designed, built, driven, and mentored, newest first: from mentoring FIRST Robotics Competition Team 190 at WPI back to captaining FRC Team 118 and VEX Team 2373M in high school.",
         groups: [

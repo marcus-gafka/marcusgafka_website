@@ -209,7 +209,7 @@ export const allProjects: Project[] = [
         role: "In progress",
         technologies: ["Grasp Analysis", "ROS 2", "Gazebo", "OpenCV", "Visual Servoing", "Python"],
         content: rbe4540Md,
-        image: "assets/projects/rbe4540/grasp-sweep-poster.jpg",
+        image: "assets/projects/rbe4540/pick-and-place-poster.jpg",
     }),
     placeholder({
         id: "rbe4701",
@@ -227,7 +227,7 @@ export const allProjects: Project[] = [
         section: "wpi",
         group: "completed",
         title: "IQP – Interactive Qualifying Project",
-        summary: "The Buildings of Venice: Venice's first building-by-building estimate of residential, tourist, and vacant units and population, built from city data and fieldwork on site.",
+        summary: "The Buildings of Venice: Venice's first building-by-building estimate of residential, tourist, and vacant units as well as overall population, built from city data and fieldwork on site.",
         date: "B-Term 2025",
         role: "Team of 4 · Venice, Italy",
         technologies: ["ArcGIS Pro", "Survey123", "Python", "GIS", "Linear Regression", "Fieldwork"],
@@ -262,7 +262,6 @@ export const allProjects: Project[] = [
         image: "assets/projects/rbe3002/mapping.jpg",
         links: [
             { label: "Lab Report", url: "https://docs.google.com/document/d/1mDyvq1uskRRFaA24FyfPsW9sb2k_1Rg79t1RZo6ixO8/edit?usp=sharing" },
-            { label: "Code Release", url: "https://github.com/RBE300X-Lab/RBE3002_D25_Team10/releases/tag/final-release" },
         ],
     },
     {
@@ -280,7 +279,6 @@ export const allProjects: Project[] = [
         links: [
             { label: "Project Video", url: "https://www.youtube.com/watch?v=MtlLjE3h1JU" },
             { label: "Lab Report", url: "https://drive.google.com/file/d/12YIPqFAKuRZzJrVkINYRu_9DARkdS0A1/view?usp=sharing" },
-            { label: "Code Release", url: "https://github.com/RBE3001-C25/RBE3001_C25_Team_8/releases/tag/lab-5" },
             { label: "Desmos 3D Model", url: "https://www.desmos.com/3d/djowqpqfzz" },
         ],
     },
@@ -296,7 +294,6 @@ export const allProjects: Project[] = [
         image: "assets/projects/rbe2002/final-robot.jpg",
         links: [
             { label: "Development Video", url: "https://youtu.be/CzaxPlEQpvg" },
-            { label: "Code Release", url: "https://github.com/ElliotScher/WPI-RBE-2002/releases/tag/final-release" },
         ],
     },
     placeholder({ id: "rbe2001", section: "wpi", group: "completed", title: "RBE2001 – Unified Robotics I: Mechanical Applications in Robotics" }),

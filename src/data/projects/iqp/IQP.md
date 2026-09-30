@@ -76,7 +76,7 @@ The final model combines the 2021 census, water-meter records, building classifi
 
 ## My Role
 
-I co-wrote the abstract, introduction, background on Venice's infrastructure history and geography, the methodology for building the unified GIS dataset and field data collection, ethical considerations, and the findings on the unified dataset and residential occupancy, and I helped edit every chapter of the final report.
+On site in Venice, I did hands-on field data collection: walking islands with our Survey123 building survey to record floors, doorbells, and shutter condition building by building, and taking nighttime building-height measurements. I also co-wrote the abstract, introduction, background on Venice's infrastructure history and geography, the methodology for building the unified GIS dataset and field data collection, ethical considerations, and the findings on the unified dataset and residential occupancy, and I helped edit every chapter of the final report.
 
 **Tools:** ArcGIS Pro, ArcGIS Survey123, Python, spatial joins, linear regression
 
