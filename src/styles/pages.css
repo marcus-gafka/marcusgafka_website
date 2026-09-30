@@ -205,6 +205,38 @@
     margin-bottom: var(--space-4);
 }
 
+/* Section hero facts (e.g. WPI: scholarship, double major, GPA) */
+.section-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-2);
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+}
+
+.section-highlights li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-2) var(--space-3);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--burgundy);
+    border-radius: var(--radius);
+}
+
+.section-highlights strong {
+    font-size: 1.15rem;
+    line-height: 1.25;
+}
+
+.section-highlights span {
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--muted);
+}
+
 .empty-state {
     padding: var(--space-4);
     text-align: center;

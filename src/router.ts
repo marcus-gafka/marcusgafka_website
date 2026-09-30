@@ -4,7 +4,7 @@ import { renderProjectDetail } from "./pages/projectDetail";
 import { renderAbout } from "./pages/about";
 import { renderResume } from "./pages/resume";
 import { renderNotFound } from "./pages/notFound";
-import { findSection } from "./data/sections";
+import { findSection, sectionAliases } from "./data/sections";
 import { findProject } from "./data/projects/projects";
 import { profile } from "./data/profile";
 import { trackPageView } from "./utils/analytics";
@@ -57,6 +57,13 @@ export function resolveRoute(hash: string): Route {
 export function handleRoute(): void {
     const content = document.getElementById("content");
     if (!content) {
+        return;
+    }
+
+    // Old links (e.g. #/190/snapback) forward to the section's current URL.
+    const [first, ...rest] = parseHash(window.location.hash);
+    if (first && sectionAliases[first]) {
+        window.location.replace(`#/${[sectionAliases[first], ...rest].map(encodeURIComponent).join("/")}`);
         return;
     }
 

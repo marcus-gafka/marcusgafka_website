@@ -34,9 +34,9 @@ describe("trackPageView", () => {
     it("reports the current route as a path", () => {
         const count = vi.fn();
         window.goatcounter = { count };
-        window.location.hash = "#/190/snapback";
+        window.location.hash = "#/robotics/snapback";
         trackPageView();
-        expect(count).toHaveBeenCalledWith(expect.objectContaining({ path: "/190/snapback" }));
+        expect(count).toHaveBeenCalledWith(expect.objectContaining({ path: "/robotics/snapback" }));
     });
 
     it("is safe before the script has loaded", () => {

@@ -29,7 +29,7 @@ export const profile = {
         {
             text: "First Robotics Competition Team 190 Mentor and Drive Coach",
             lead: "First Robotics Competition",
-            section: "190",
+            section: "robotics",
         },
         { text: "Tinkerer, maker, and curious problem solver", section: "personal" },
     ] as HeroLink[],

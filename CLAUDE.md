@@ -45,8 +45,9 @@ npm run preview      # serve dist/
 Marcus writes everything in `planning/` (see `planning/README.md`). "Update the website from
 planning" / "reread planning" = read it and sync to the site.
 - `planning/<section>/_section.md` → `src/data/sections.ts` (title, sidebar label, intro,
-  links, groups). Folders: `home/`, `about/`, `work/`, `wpi/`, `frc-190/` (section id `190`),
-  `personal/`, plus `_unsorted/`, `_archive/`.
+  links, groups, `highlights` hero cards). Folders: `home/`, `about/`, `work/`, `wpi/`,
+  `robotics/` (Competitive Robotics, section id `robotics`; old `#/190` URLs redirect via
+  `sectionAliases`), `personal/`, plus `_unsorted/`, `_archive/`.
 - `planning/<section>/<project>/website.md` = exact site text. YAML header → the entry in
   `src/data/projects/projects.ts`; body → `src/data/projects/<id>/<Name>.md`.
   Header fields: `title, status (live|draft), group, date, sort (YYYY-MM), order, role,
@@ -76,7 +77,8 @@ planning" / "reread planning" = read it and sync to the site.
 - `src/data/`
   - `profile.ts` — name, headshots, hero text (`heroIntro`, `heroLinks` with optional
     multi-word `lead` that highlights on hover), email, GoatCounter code, resume path (empty).
-  - `sections.ts` — sidebar sections, their groups, `textPosts`; `visibleTextPosts()`.
+  - `sections.ts` — sidebar sections, their groups, `highlights`, `textPosts`,
+    `sectionAliases`; `visibleTextPosts()`.
   - `projects/projects.ts` — `allProjects` (full entries + `placeholder({...})` drafts),
     `projects` (drafts filtered), `sortNewestFirst`, `recentProjects` (home featured = 3
     newest non-work, non-draft), `projectsInSection`, `findProject`.
@@ -96,6 +98,10 @@ planning" / "reread planning" = read it and sync to the site.
 - `README.md` — human-facing overview (may lag behind this file).
 
 ## Design decisions (keep unless Marcus changes them)
+- Section structure: WPI = hero highlight cards → Robotics Honor Society (Rho Beta Epsilon) →
+  Coursework · Current → Coursework · Completed. Competitive Robotics is reverse-chronological
+  by group: FRC 190 season → FRC 190 off-season → WPI RRC → high school FRC 118 → VEX 2373M →
+  "Where It Started" (early/BEST). Honor society entry has no `sortDate` so it's never featured.
 - Palette: bg `#0f0e0e`, text `#fbf5f3`, accent sage `#8daa9d` (headings/links/hover word),
   details plum `#522b47` (tags) and burgundy `#7b0828` (rules, active-nav bar; never text).
   Sidebar is sage with black text; active nav = black pill, white text, burgundy bar.
@@ -112,8 +118,10 @@ planning" / "reread planning" = read it and sync to the site.
 
 ## Open items (as of 2026-09-29)
 - Many placeholders (drafts) await write-ups: MQP, RBE4540/4701, ME3902, RBE2001, AR1100/2750,
-  Doom Spiral/Turnover, V3, Whiplash, Trophies (190/RRC), all Personal projects, paragraph
-  posts (Why I Love FRC, What Is the WPI RRC?, Art in Engineering).
+  Doom Spiral/Turnover, V3, Whiplash, Trophies (RRC), FRC 118, VEX 2373M, BEST, all Personal
+  projects, paragraph posts (Why I Love FRC, What Is the WPI RRC?, Early Robotics Interest,
+  Art in Engineering).
+- WPI Dean's List isn't on the resume; ask Marcus for terms before adding a highlight.
 - Missing dates for IQP-adjacent courses (RBE2002, RBE1001, ME3310) → undated, sorted last.
 - NASA page: bullet says ordering sheet for 40 trophies but photo shows 44 — ask before changing.
 - Ask WPI IT to unblock the domain (ticket link on the block page, `http://marcusgafka.com`).

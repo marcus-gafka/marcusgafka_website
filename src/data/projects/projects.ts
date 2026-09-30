@@ -8,6 +8,7 @@ import funkyMd from "./funky/Funky.md?raw";
 import snapbackMd from "./snapback/Snapback.md?raw";
 import emberMd from "./ember/Ember.md?raw";
 import iqpMd from "./iqp/IQP.md?raw";
+import rhoBetaEpsilonMd from "./rho-beta-epsilon/RhoBetaEpsilon.md?raw";
 import rbe3002Md from "./rbe3002/RBE3002.md?raw";
 import rbe3001Md from "./rbe3001/RBE3001.md?raw";
 import rbe2002Md from "./rbe2002/RBE2002.md?raw";
@@ -74,13 +75,13 @@ export const allProjects: Project[] = [
         image: "assets/projects/nasa-jsc/sev-door-handle.jpg",
     },
 
-    // ---- FRC 190 ----
-    placeholder({ id: "doom-spiral-turnover", section: "190", group: "season", title: "Doom Spiral / Turnover", date: "2026 Season", sortDate: "2026-04" }),
+    // ---- Competitive Robotics (FRC 190, then high school and earlier) ----
+    placeholder({ id: "doom-spiral-turnover", section: "robotics", group: "season", title: "Doom Spiral / Turnover", date: "2026 Season", sortDate: "2026-04" }),
     {
         id: "stack-up-redundancy",
         group: "season",
         sortDate: "2025-04",
-        section: "190",
+        section: "robotics",
         title: "Stack Up / Redundancy",
         summary: "2025 in-season robots. Led the Funnel and Stick subsystems; 3x district event winner and ranked 1st in New England.",
         date: "2025 Season",
@@ -94,13 +95,13 @@ export const allProjects: Project[] = [
             { label: "Worlds Match Q106", url: "https://www.youtube.com/watch?v=1SiRO1gNYcQ" },
         ],
     },
-    placeholder({ id: "v3", section: "190", group: "offseason", title: "V3", date: "2025 Off-Season", sortDate: "2025-10" }),
-    placeholder({ id: "whiplash", section: "190", group: "offseason", title: "Whiplash", date: "2024 Off-Season", sortDate: "2024-11" }),
+    placeholder({ id: "v3", section: "robotics", group: "offseason", title: "V3", date: "2025 Off-Season", sortDate: "2025-10" }),
+    placeholder({ id: "whiplash", section: "robotics", group: "offseason", title: "Whiplash", date: "2024 Off-Season", sortDate: "2024-11" }),
     {
         id: "funky",
         group: "offseason",
         sortDate: "2024-12",
-        section: "190",
+        section: "robotics",
         title: "Funky",
         summary: "A modular test-platform robot for prototyping software and mechanisms ahead of the 2025 season.",
         date: "2024 Off-Season",
@@ -113,7 +114,7 @@ export const allProjects: Project[] = [
         id: "snapback",
         group: "season",
         sortDate: "2024-04",
-        section: "190",
+        section: "robotics",
         title: "Snapback",
         summary: "2024 in-season robot. Led the Intake and Centralizer subsystems; World Championship Curie Division winner.",
         date: "2024 Season",
@@ -131,7 +132,7 @@ export const allProjects: Project[] = [
         id: "ember",
         group: "offseason",
         sortDate: "2023-10",
-        section: "190",
+        section: "robotics",
         title: "Ember",
         summary: "An experimental swerve-drive robot with a ground cube intake, taken from idea to competing in three weeks.",
         date: "2023 Off-Season",
@@ -145,9 +146,24 @@ export const allProjects: Project[] = [
         ],
     },
 
-    placeholder({ id: "trophies", section: "190", group: "rrc", title: "Trophies" }),
+    placeholder({ id: "trophies", section: "robotics", group: "rrc", title: "Trophies" }),
+
+    placeholder({ id: "frc-118", section: "robotics", group: "frc-118", title: "FRC Team 118 Robonauts", date: "2019–2023", role: "Captain" }),
+    placeholder({ id: "vex-2373m", section: "robotics", group: "vex-2373m", title: "VEX Team 2373M", date: "2019–2023", role: "Captain" }),
+    placeholder({ id: "best-robotics", section: "robotics", group: "early", title: "BEST Robotics" }),
 
     // ---- WPI ----
+    {
+        id: "rho-beta-epsilon",
+        section: "wpi",
+        group: "honor-society",
+        title: "Rho Beta Epsilon: New Member Officer",
+        summary: "Elected New Member Officer of WPI's Robotics Engineering honor society: leading recruitment, interviews, and induction of new members.",
+        date: "September 2025 – present",
+        role: "Elected officer",
+        technologies: ["Leadership", "Interviewing", "Recruitment"],
+        content: rhoBetaEpsilonMd,
+    },
     placeholder({ id: "mqp", section: "wpi", group: "current", title: "MQP – Major Qualifying Project – FloorJet, a Mobile Floor-Painting Robot" }),
     placeholder({ id: "rbe4540", section: "wpi", group: "current", title: "RBE4540 – Vision-Based Robotic Manipulation" }),
     placeholder({ id: "rbe4701", section: "wpi", group: "current", title: "RBE4701 – Artificial Intelligence for Robotics" }),

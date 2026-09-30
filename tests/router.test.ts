@@ -68,3 +68,12 @@ describe("handleRoute", () => {
         expect(document.querySelector('[data-section="home"]')?.classList.contains("active")).toBe(false);
     });
 });
+
+describe("section aliases", () => {
+    it("forwards old #/190 links to #/robotics", () => {
+        document.body.innerHTML = `<main id="content"></main>`;
+        window.location.hash = "#/190/snapback";
+        handleRoute();
+        expect(window.location.hash).toBe("#/robotics/snapback");
+    });
+});

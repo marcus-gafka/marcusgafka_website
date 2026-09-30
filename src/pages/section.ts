@@ -23,8 +23,17 @@ export function renderSection(section: Section): HTMLElement {
             <p class="subtitle">${escapeHtml(section.intro)}</p>
         </header>
     `;
+    const header = main.querySelector(".section-header")!;
+    if (section.highlights?.length) {
+        const list = document.createElement("ul");
+        list.className = "section-highlights";
+        list.innerHTML = section.highlights
+            .map(h => `<li><strong>${escapeHtml(h.value)}</strong><span>${escapeHtml(h.label)}</span></li>`)
+            .join("");
+        header.appendChild(list);
+    }
     if (section.links?.length) {
-        main.querySelector(".section-header")?.appendChild(createLinkList(section.links));
+        header.appendChild(createLinkList(section.links));
     }
     page.appendChild(main);
 

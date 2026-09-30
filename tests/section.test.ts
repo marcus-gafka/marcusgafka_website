@@ -74,9 +74,10 @@ describe("section page", () => {
     });
 
     it("groups the right panel using the section's groups", () => {
-        const section = sections.find(s => s.id === "190")!;
+        const section = sections.find(s => s.id === "robotics")!;
         const headings = [...renderSection(section).querySelectorAll(".project-nav h3")].map(h => h.textContent);
-        expect(headings).toEqual(section.groups!.map(g => g.title));
+        const withProjectsInGroup = section.groups!.filter(g => projectsInSection(section.id).some(p => p.group === g.id));
+        expect(headings).toEqual(withProjectsInGroup.map(g => g.title));
     });
 
     describe("right panel click", () => {
@@ -111,5 +112,19 @@ describe("project page", () => {
         if (second) {
             expect(page.querySelector(`.project-nav a[href="#/${section.id}/${second.id}"]`)).not.toBeNull();
         }
+    });
+});
+
+describe("section highlights", () => {
+    it("renders the WPI hero facts as cards", () => {
+        const wpi = sections.find(s => s.id === "wpi")!;
+        const cards = renderSection(wpi).querySelectorAll(".section-highlights li");
+        expect(cards).toHaveLength(wpi.highlights!.length);
+        expect(cards[0].querySelector("strong")?.textContent).toBe(wpi.highlights![0].value);
+    });
+
+    it("shows WPI groups in order: honor society, current, completed", () => {
+        const wpi = sections.find(s => s.id === "wpi")!;
+        expect(wpi.groups!.map(g => g.id)).toEqual(["honor-society", "current", "completed"]);
     });
 });

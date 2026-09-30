@@ -4,7 +4,7 @@ Personal portfolio of Marcus Gafka (Robotics & Mechanical Engineering at WPI), b
 **Vite**, vanilla **TypeScript**, and plain CSS, and deployed to **GitHub Pages** at
 [marcusgafka.com](https://marcusgafka.com).
 
-The site is a small single-page app: a sidebar with the main sections (Home, Work, WPI, 190,
+The site is a small single-page app: a sidebar with the main sections (Home, Work, WPI, Robotics,
 Personal, About), a blog-style feed of projects for each section, a panel of project
 thumbnails on the right, and a dedicated page for every project.
 
@@ -60,7 +60,7 @@ Page views are counted with [GoatCounter](https://www.goatcounter.com/) (no cook
 │   ├── router.ts                  # hash routes: #/, #/<section>, #/<section>/<project>, #/about
 │   ├── data/
 │   │   ├── profile.ts             # name, headshot, home hero text, email, analytics code
-│   │   ├── sections.ts            # sidebar sections, their groups, paragraph-only posts
+│   │   ├── sections.ts            # sidebar sections, hero highlights, groups, paragraph posts
 │   │   ├── about.md               # About page
 │   │   └── projects/
 │   │       ├── projects.ts        # every project's details (title, date, tags, links, ...)
@@ -84,7 +84,7 @@ Content is written in Markdown and TypeScript data files:
 - **A project:**
   1. Write `src/data/projects/<id>/<Name>.md`.
   2. Import it in `src/data/projects/projects.ts` (with `?raw`) and add an entry: `id`,
-     `section` (`work`, `wpi`, `190`, `personal`), `group`, `title`, `summary`, `date`,
+     `section` (`work`, `wpi`, `robotics`, `personal`), `group`, `title`, `summary`, `date`,
      `sortDate` (`YYYY-MM`, newest first), `technologies`, `image`, `links`.
   3. Put media in `public/assets/projects/<id>/`.
   4. A `placeholder({...})` entry is a draft: listed locally, hidden on the live site.
