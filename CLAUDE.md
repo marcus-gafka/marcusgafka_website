@@ -58,7 +58,7 @@ planning" / "reread planning" = read it and sync to the site.
   - consecutive image lines → `<div class="figure-row">` (add `no-crop` for screenshots,
     charts, portrait photos, and videos)
   - `![Caption](clip.mov|mp4)` → transcoded silent looping clip `<figure class="video-clip">`
-    (seamless: no border/controls/fullscreen/PiP, not tappable; `makeSeamless()` in markdown.ts
+    (seamless: rounded border like images, no controls/fullscreen/PiP, not tappable; `makeSeamless()` in markdown.ts
     applies to every `.video-clip video`, including hand-written HTML)
   - `![Caption](youtube URL)` → YouTube embed (Markdown renderer handles it directly)
 - Planning references original filenames (e.g. `trophies/IMG_9703.MOV`); site copies get

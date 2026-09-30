@@ -290,13 +290,13 @@
     margin: var(--space-3) 0;
 }
 
-/* Seamless: no frame, border, or player chrome; the clip reads as part of the page */
+/* Seamless: no player chrome; rounded border matching the images */
 .markdown-body figure video {
     display: block;
     width: 100%;
     height: auto;
-    border: none;
-    border-radius: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     background: transparent;
     outline: none;
 }
