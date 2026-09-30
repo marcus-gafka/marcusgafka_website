@@ -382,3 +382,9 @@
     border-radius: 0;
     background: transparent;
 }
+
+/* A square/portrait clip shown large but centered, not stretched to the full column */
+.markdown-body .video-clip.centered video {
+    max-width: min(100%, 560px);
+    margin: 0 auto;
+}
