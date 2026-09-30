@@ -290,13 +290,28 @@
     margin: var(--space-3) 0;
 }
 
+/* Seamless: no frame, border, or player chrome; the clip reads as part of the page */
 .markdown-body figure video {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: #000;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    outline: none;
+}
+
+/* Autoplaying clips can't be tapped (no fullscreen / pause pop-ups on phones) */
+.markdown-body .video-clip video[autoplay] {
+    pointer-events: none;
+}
+
+/* Hide the iOS/Safari "start playback" overlay if autoplay is delayed (e.g. Low Power Mode) */
+.markdown-body .video-clip video[autoplay]::-webkit-media-controls,
+.markdown-body .video-clip video[autoplay]::-webkit-media-controls-start-playback-button,
+.markdown-body .video-clip video[autoplay]::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+    -webkit-appearance: none;
 }
 
 .markdown-body .figure-row .video-clip {

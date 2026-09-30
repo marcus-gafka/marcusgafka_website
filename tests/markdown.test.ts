@@ -61,3 +61,21 @@ describe("video clips", () => {
         expect(videoClipHtml("/a.mp4", "Cap", "/a.jpg")).toContain('poster="/a.jpg"');
     });
 });
+
+describe("seamless clips", () => {
+    it("strips all player chrome from clips", () => {
+        const video = renderMarkdown("![Clip](/assets/clip.mp4)").querySelector<HTMLVideoElement>("video")!;
+        expect(video.controls).toBe(false);
+        expect(video.muted).toBe(true);
+        expect(video.loop).toBe(true);
+        expect(video.hasAttribute("disablepictureinpicture")).toBe(true);
+        expect(video.getAttribute("controlslist")).toContain("nofullscreen");
+    });
+
+    it("also applies to clips written as HTML in a write-up", () => {
+        const html = '<figure class="video-clip"><video src="/a.mp4" autoplay muted loop playsinline></video></figure>';
+        const video = renderMarkdown(html).querySelector<HTMLVideoElement>("video")!;
+        expect(video.hasAttribute("disableremoteplayback")).toBe(true);
+        expect(video.tabIndex).toBe(-1);
+    });
+});
