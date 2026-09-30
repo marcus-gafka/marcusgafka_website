@@ -8,6 +8,7 @@ import funkyMd from "./funky/Funky.md?raw";
 import snapbackMd from "./snapback/Snapback.md?raw";
 import emberMd from "./ember/Ember.md?raw";
 import iqpMd from "./iqp/IQP.md?raw";
+import mqpMd from "./mqp/MQP.md?raw";
 import frc118Md from "./frc-118/FRC118.md?raw";
 import rhoBetaEpsilonMd from "./rho-beta-epsilon/RhoBetaEpsilon.md?raw";
 import rbe3002Md from "./rbe3002/RBE3002.md?raw";
@@ -176,7 +177,19 @@ export const allProjects: Project[] = [
         technologies: ["Leadership", "Interviewing", "Recruitment"],
         content: rhoBetaEpsilonMd,
     },
-    placeholder({ id: "mqp", section: "wpi", group: "current", title: "MQP – Major Qualifying Project – FloorJet, a Mobile Floor-Painting Robot" }),
+    // Draft until Marcus reviews it and adds his role; hidden on the live site.
+    placeholder({
+        id: "mqp",
+        section: "wpi",
+        group: "current",
+        title: "MQP – Major Qualifying Project – FloorJet, a Mobile Floor-Painting Robot",
+        summary: "A mobile robot that paints images onto floors: image-to-path software, a spray-painting nozzle, and precise localization. Year-long senior capstone, in progress.",
+        date: "2026–2027",
+        role: "Senior capstone · Team project",
+        technologies: ["Conceptual Design", "Path Planning", "Image Processing", "Axiomatic Design", "Simulation"],
+        content: mqpMd,
+        image: "assets/projects/mqp/airbrush-sim-raster.jpg",
+    }),
     placeholder({ id: "rbe4540", section: "wpi", group: "current", title: "RBE4540 – Vision-Based Robotic Manipulation" }),
     placeholder({ id: "rbe4701", section: "wpi", group: "current", title: "RBE4701 – Artificial Intelligence for Robotics" }),
     {
