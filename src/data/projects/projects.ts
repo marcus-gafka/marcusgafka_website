@@ -8,6 +8,7 @@ import funkyMd from "./funky/Funky.md?raw";
 import snapbackMd from "./snapback/Snapback.md?raw";
 import emberMd from "./ember/Ember.md?raw";
 import iqpMd from "./iqp/IQP.md?raw";
+import frc118Md from "./frc-118/FRC118.md?raw";
 import rhoBetaEpsilonMd from "./rho-beta-epsilon/RhoBetaEpsilon.md?raw";
 import rbe3002Md from "./rbe3002/RBE3002.md?raw";
 import rbe3001Md from "./rbe3001/RBE3001.md?raw";
@@ -148,7 +149,18 @@ export const allProjects: Project[] = [
 
     placeholder({ id: "trophies", section: "robotics", group: "rrc", title: "Trophies" }),
 
-    placeholder({ id: "frc-118", section: "robotics", group: "frc-118", title: "FRC Team 118 Robonauts", date: "2019–2023", role: "Captain" }),
+    // Draft: photos are in, write-up pending. Hidden on the live site until draft is removed.
+    placeholder({
+        id: "frc-118",
+        section: "robotics",
+        group: "frc-118",
+        title: "FRC Team 118 Robonauts",
+        date: "2019–2023",
+        role: "Captain",
+        summary: "Four seasons of robots: Mobius, Marauder, Horizon, and Echo. Write-up coming soon.",
+        content: frc118Md,
+        image: "assets/projects/frc-118/2023-echo.jpg",
+    }),
     placeholder({ id: "vex-2373m", section: "robotics", group: "vex-2373m", title: "VEX Team 2373M", date: "2019–2023", role: "Captain" }),
     placeholder({ id: "best-robotics", section: "robotics", group: "early", title: "BEST Robotics" }),
 
