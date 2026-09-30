@@ -100,7 +100,7 @@ planning" / "reread planning" = read it and sync to the site.
 - `README.md` — human-facing overview (may lag behind this file).
 
 ## Design decisions (keep unless Marcus changes them)
-- Section structure: WPI = title + logo row (WPI wordmark; Gompei pending a file from Marcus —
+- Section structure: WPI = title with logos to its right (WPI wordmark, sized to the title; Gompei pending a file from Marcus —
   the athletics logo online is copyrighted/fair-use only, don't pull it) + hero highlight cards →
   Scholarship (paragraph post with both 2023 submission videos, FRC + VEX, from
   youtube.com/@marcusgafka) → Robotics Honor Society (Rho Beta Epsilon) → Coursework · Current →
