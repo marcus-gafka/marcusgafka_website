@@ -1,6 +1,6 @@
 ## About Me
 
-I grew up in Houston’s Clear Lake area, just down the road from NASA’s Johnson Space Center. When rockets are part of the local scenery, building machines that move starts to feel like the obvious thing to do. That curiosity never really left—it’s what led me to robotics.
+I grew up in Houston’s Clear Lake area, just down the road from NASA’s Johnson Space Center. When rockets are part of the local scenery, building machines that move starts to feel like the obvious thing to do. That curiosity never really left, and it’s what led me to robotics.
 
 Robotics eventually took me halfway across the country to New England. I came to WPI on its FRC scholarship, where I’m pursuing degrees in Robotics Engineering and Mechanical Engineering and will graduate in May 2027.
 
