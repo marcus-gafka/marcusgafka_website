@@ -1,4 +1,5 @@
 import { profile, type HeroLink } from "../data/profile";
+import { findSection } from "../data/sections";
 import { projectsById } from "../data/projects/projects";
 import { createProjectCard } from "../components/projectCard";
 import { escapeHtml } from "../utils/html";
@@ -56,7 +57,7 @@ export function renderHome(): HTMLElement {
                 <h1>${escapeHtml(profile.name)}, a:</h1>
                 <ul class="hero-list">
                     <li class="hero-intro">${withLead(profile.heroIntro, { highlight: [] })}</li>
-                    ${profile.heroLinks.map(heroLink).join("")}
+                    ${profile.heroLinks.filter(link => findSection(link.section)).map(heroLink).join("")}
                 </ul>
             </div>
         </section>

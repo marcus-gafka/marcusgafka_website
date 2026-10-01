@@ -40,7 +40,7 @@ export interface Project {
     image?: string;
     /** Sub-heading within the section (see `groups` in sections.ts) */
     group?: string;
-    /** "YYYY-MM" when it finished; the home page features the 3 most recent */
+    /** "YYYY-MM" when it finished; orders the section feed newest first */
     sortDate?: string;
     /** No write-up yet: shown locally as a reminder, hidden on the live site, never featured */
     draft?: boolean;
@@ -73,7 +73,7 @@ export const allProjects: Project[] = [
         id: "nasa-jsc",
         sortDate: "2025-08",
         section: "work",
-        title: "Robotics Academy / University Intern: NASA Johnson Space Center",
+        title: "Robotics Academy Intern: NASA Johnson Space Center",
         summary: "Space Exploration Vehicle maintenance, a new door latch design, and dynamic trophies for the Space City VEX event, across three summers.",
         hideSummaryOnPage: true,
         date: "Summers 2023–2025",
@@ -156,18 +156,19 @@ export const allProjects: Project[] = [
 
     placeholder({ id: "trophies", section: "robotics", group: "rrc", title: "Trophies" }),
 
-    // Draft: photos are in, write-up pending. Hidden on the live site until draft is removed.
-    placeholder({
+    {
         id: "frc-118",
         section: "robotics",
         group: "frc-118",
         title: "FRC Team 118 Robonauts",
         date: "2019–2023",
-        role: "Captain",
-        summary: "Four seasons of robots: Mobius, Marauder, Horizon, and Echo. Write-up coming soon.",
+        role: "Team Captain & Drive Team",
+        summary: "I spent four seasons with the Robonauts, going from opening CAD for the first time to designing entire subsystems and captaining the team.",
+        technologies: ["CAD", "Mechanical Design", "Leadership", "Drive Team"],
         content: frc118Md,
         image: "assets/projects/frc-118/2023-echo.jpg",
-    }),
+        links: [{ label: "Robonauts Robots", url: "https://www.118robonauts.org/robots" }],
+    },
     placeholder({ id: "vex-2373m", section: "robotics", group: "vex-2373m", title: "VEX Team 2373M", date: "2019–2023", role: "Captain" }),
     placeholder({ id: "best-robotics", section: "robotics", group: "early", title: "BEST Robotics" }),
 
@@ -185,8 +186,7 @@ export const allProjects: Project[] = [
         image: "assets/projects/rho-beta-epsilon/card.jpg",
         links: [{ label: "Rho Beta Epsilon", url: "https://mywpi.wpi.edu/RBE/" }],
     },
-    // Draft until Marcus reviews it and adds his role; hidden on the live site.
-    placeholder({
+    {
         id: "mqp",
         section: "wpi",
         group: "current",
@@ -197,9 +197,8 @@ export const allProjects: Project[] = [
         technologies: ["Conceptual Design", "Path Planning", "Image Processing", "Axiomatic Design", "Simulation"],
         content: mqpMd,
         image: "assets/projects/mqp/cover.jpg",
-    }),
-    // Drafts until Marcus reviews them; hidden on the live site.
-    placeholder({
+    },
+    {
         id: "rbe4540",
         section: "wpi",
         group: "current",
@@ -210,8 +209,8 @@ export const allProjects: Project[] = [
         technologies: ["Grasp Analysis", "ROS 2", "Gazebo", "OpenCV", "Visual Servoing", "Python"],
         content: rbe4540Md,
         image: "assets/projects/rbe4540/pick-and-place-poster.jpg",
-    }),
-    placeholder({
+    },
+    {
         id: "rbe4701",
         section: "wpi",
         group: "current",
@@ -221,7 +220,8 @@ export const allProjects: Project[] = [
         role: "In progress",
         technologies: ["Python", "A*", "Minimax", "MDPs", "Value Iteration", "Reinforcement Learning"],
         content: rbe4701Md,
-    }),
+        image: "assets/projects/rbe4701/cover.jpg",
+    },
     {
         id: "iqp",
         section: "wpi",
@@ -351,12 +351,6 @@ export function sortNewestFirst(list: Project[]): Project[] {
 /** Projects by id, in the given order; unknown or hidden (draft) ids are skipped */
 export function projectsById(ids: string[]): Project[] {
     return ids.map(id => projects.find(project => project.id === id)).filter((p): p is Project => !!p);
-}
-
-/** Most recent dated projects with write-ups (Work excluded), newest first */
-export function recentProjects(count: number): Project[] {
-    return sortNewestFirst(projects.filter(project => project.section !== "work" && project.sortDate && !project.draft))
-        .slice(0, count);
 }
 
 /** A section's projects, newest first */

@@ -7,7 +7,7 @@ export function renderResume(): HTMLElement {
     if (!profile.resumePdf) {
         page.innerHTML = `
             <h1>Resume</h1>
-            <p class="subtitle">Resume available on request. Meanwhile, <a href="#/about">About</a> covers my education, experience, and skills.</p>
+            <p class="subtitle">Resume available on request. Meanwhile, <a href="#/about">About Me</a> covers my education, experience, and skills.</p>
         `;
         return page;
     }

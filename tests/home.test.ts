@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { renderHome, splitLead } from "../src/pages/home";
 import { profile } from "../src/data/profile";
 import { sections } from "../src/data/sections";
@@ -72,5 +72,29 @@ describe("featured projects", () => {
         expect(titles[0]).toContain("DEKA");
         expect(titles[1]).toContain("NASA");
         expect(titles[2]).toContain("IQP");
+    });
+});
+
+describe("live site (drafts hidden)", () => {
+    it("hides draft sections from the sidebar and their hero lines", async () => {
+        vi.resetModules();
+        vi.doMock("../src/utils/drafts", async importOriginal => {
+            const actual = await importOriginal<typeof import("../src/utils/drafts")>();
+            return {
+                ...actual,
+                SHOW_DRAFTS: false,
+                withoutDrafts: <T>(items: T[], isDraft: (item: T) => boolean) => actual.withoutDrafts(items, isDraft, false),
+            };
+        });
+        const { sections: liveSections } = await import("../src/data/sections");
+        const { renderHome: renderLiveHome } = await import("../src/pages/home");
+        const { createSidebar } = await import("../src/components/sidebar");
+
+        expect(liveSections.map(s => s.id)).not.toContain("personal");
+        expect(renderLiveHome().querySelector('.hero-link[href="#/personal"]')).toBeNull();
+        expect(createSidebar().querySelector('.nav-link[data-section="personal"]')).toBeNull();
+
+        vi.doUnmock("../src/utils/drafts");
+        vi.resetModules();
     });
 });

@@ -21,6 +21,10 @@ export interface TextPost {
     group?: string;
     /** Place it directly before this project's post instead of at the start of the group */
     before?: string;
+    /** Skip the post's own title when its group heading already says it */
+    hideTitle?: boolean;
+    /** Shown under the post as buttons */
+    links?: Link[];
 }
 
 /** A headline fact in a section's hero, e.g. { value: "3.94", label: "GPA" } */
@@ -51,10 +55,12 @@ export interface Section {
     /** Optional sub-headings on the section page; projects pick one with `group` */
     groups?: Group[];
     textPosts?: TextPost[];
+    /** Shown locally but hidden on the live site (sidebar, page, and home hero line) */
+    draft?: boolean;
 }
 
-// Sidebar order. Home and About are added around these by the sidebar.
-export const sections: Section[] = [
+// Sidebar order. Home and About Me are added around these by the sidebar.
+const allSections: Section[] = [
     {
         id: "work",
         label: "Work",
@@ -92,8 +98,9 @@ export const sections: Section[] = [
         id: "robotics",
         label: "Competitive Robotics",
         title: "Competitive Robotics",
-        intro: "The competition robots I've designed, built, driven, and mentored, newest first: from mentoring FIRST Robotics Competition Team 190 at WPI back to captaining FRC Team 118 and VEX Team 2373M in high school.",
+        intro: "The competition robots I've designed, built, driven, and mentored, newest first: from mentoring FIRST Robotics Competition Team 190 at WPI back to captaining FRC Team 118 in high school.",
         groups: [
+            { id: "frc-190", title: "FRC Team 190 · Mentor and Drive Coach" },
             { id: "season", title: "FRC Team 190 · Season Robots" },
             { id: "offseason", title: "FRC Team 190 · Off-Season" },
             { id: "rrc", title: "WPI Robotics Resource Center" },
@@ -102,17 +109,22 @@ export const sections: Section[] = [
             { id: "early", title: "Where It Started" },
         ],
         textPosts: [
-            { id: "why-frc", title: "Why I Love FRC", body: "" },
             {
                 id: "frc-190",
                 title: "FRC Team 190: Mentor & Drive Coach (2023–present)",
-                group: "season",
+                hideTitle: true,
+                group: "frc-190",
                 body: [
-                    "Since 2023 I've been a college mentor for FIRST Robotics Competition Team 190 at WPI, putting in about 400 hours a year plus travel to competitions. I design and build mechanisms side by side with high school students, and I'm currently the team's drive coach, responsible for match strategy, coordinating with alliance partners, and running the team on the field.",
+                    '<figure class="figure-inline"><img src="/assets/robotics/frc190-winner-banners.jpg" alt="Team 190 and alliance partners kneeling behind three blue FIRST Robotics Competition winner banners on the arena floor"><figcaption>Team 190 and our alliance with the winner banners</figcaption></figure>',
                     "",
-                    "[The Blue Alliance](https://www.thebluealliance.com/team/190) · [YouTube](https://www.youtube.com/@FRC190/videos)",
+                    "Since 2023 I've been a college mentor for FIRST Robotics Competition Team 190 at WPI, putting in about 400 hours a year plus travel to competitions. I design and build mechanisms side by side with high school students, and I'm currently the team's drive coach, responsible for match strategy, coordinating with alliance partners, and running the team on the field.",
                 ].join("\n"),
+                links: [
+                    { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190" },
+                    { label: "YouTube", url: "https://www.youtube.com/@FRC190/videos" },
+                ],
             },
+            { id: "why-frc", title: "Why I Love FRC", body: "", group: "season" },
             { id: "what-is-rrc", title: "What Is the WPI RRC?", body: "", group: "rrc" },
             { id: "early-interest", title: "Early Robotics Interest", body: "", group: "early" },
         ],
@@ -122,8 +134,12 @@ export const sections: Section[] = [
         label: "Personal",
         title: "Personal Projects",
         intro: "Things I build on my own time.",
+        draft: true,
     },
 ];
+
+/** Sections on the site, without draft sections on the live site */
+export const sections: Section[] = withoutDrafts(allSections, section => !!section.draft);
 
 /** A section's paragraph posts, without empty drafts on the live site */
 export function visibleTextPosts(section: Section): TextPost[] {

@@ -88,8 +88,14 @@ function createTextPost(textPost: TextPost): HTMLElement {
     const post = document.createElement("article");
     post.className = "post post-text";
     post.id = `note-${textPost.id}`;
-    post.innerHTML = `<h2 class="post-title">${escapeHtml(textPost.title)}</h2>`;
-    post.appendChild(renderMarkdown(textPost.body.trim() || "*Coming soon.*"));
+    if (!textPost.hideTitle) {
+        post.innerHTML = `<h2 class="post-title">${escapeHtml(textPost.title)}</h2>`;
+    }
+    // Links go inside the write-up so they sit beside a floated photo, not below it
+    const body = post.appendChild(renderMarkdown(textPost.body.trim() || "*Coming soon.*"));
+    if (textPost.links?.length) {
+        body.appendChild(createLinkList(textPost.links));
+    }
     return post;
 }
 

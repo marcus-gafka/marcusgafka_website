@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { projects, recentProjects } from "../src/data/projects/projects";
+import { projects } from "../src/data/projects/projects";
 import { sections } from "../src/data/sections";
 
 const publicDir = resolve(__dirname, "../public");
@@ -72,18 +72,5 @@ describe("projects data", () => {
             ];
             paths.forEach(path => expect(existsSync(`${publicDir}${path}`), `${project.id}: ${path}`).toBe(true));
         }
-    });
-});
-
-describe("recentProjects", () => {
-    it("returns the newest non-work, non-draft projects first", () => {
-        const recent = recentProjects(3);
-        expect(recent.length).toBeLessThanOrEqual(3);
-        recent.forEach(project => {
-            expect(project.section).not.toBe("work");
-            expect(project.draft).toBeFalsy();
-        });
-        const dates = recent.map(project => project.sortDate!);
-        expect([...dates].sort().reverse()).toEqual(dates);
     });
 });

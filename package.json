@@ -8,6 +8,8 @@
     "build": "tsc && vite build",
     "build:drafts": "tsc && VITE_SHOW_DRAFTS=true vite build",
     "preview": "vite preview",
+    "preview:live": "node scripts/preview.mjs live",
+    "preview:dev": "node scripts/preview.mjs dev",
     "test": "vitest run"
   },
   "devDependencies": {

@@ -34,7 +34,7 @@ export function resolveRoute(hash: string): Route {
         return { section: sectionId, page: renderHome() };
     }
     if (sectionId === "about") {
-        return { section: sectionId, page: renderAbout(), title: "About" };
+        return { section: sectionId, page: renderAbout(), title: "About Me" };
     }
     if (sectionId === "resume") {
         return { section: "about", page: renderResume(), title: "Resume" };

@@ -6,4 +6,4 @@ Robotics eventually took me halfway across the country to New England. I came to
 
 I’m interested in the part of robotics where mechanical systems, controls, software, and real-world uncertainty all collide. I like building machines that have to sense their environment, make decisions, move precisely, and keep working when things don’t go exactly as planned.
 
-After graduation, I’m looking for a full-time role in robotics or controls engineering. If you’re building something that has to sense, plan, decide, act, move, fail, recalibrate, recover, replan, and try again—and you’re tackling problems that don’t have easy answers—I’d love to talk.
+After graduation, I’m looking for a full-time role in robotics or controls engineering. If you’re tackling problems that don’t have easy answers, building something that has to sense, plan, decide, act, move, fail, recalibrate, recover, replan, and try again, I’d love to talk.

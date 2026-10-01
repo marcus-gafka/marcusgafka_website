@@ -28,10 +28,12 @@ Bundled npm 10 crashes on fresh installs (arborist "edgesOut"): use `npx npm@11 
 
 ```bash
 npm run dev          # localhost:5173, shows drafts/placeholders
-npm run test         # vitest (~65 tests, all must pass)
+npm run test         # vitest (~80 tests, all must pass)
 npm run build        # tsc + vite build → dist/ (production: drafts hidden)
 npm run build:drafts # production build that still shows drafts
 npm run preview      # serve dist/
+npm run preview:live # build + serve the `live` branch as deployed (drafts hidden), :4174
+npm run preview:dev  # build + serve the working copy with drafts, :4173
 ```
 
 ## Branches & deploy
@@ -39,7 +41,9 @@ npm run preview      # serve dist/
   deploys to GitHub Pages. `dev` → tests only. PRs to `live` run tests.
 - Publish: `git switch live && git merge dev && git push && git switch dev`.
 - Drafts (placeholder projects, empty paragraph posts) are in the code on both branches;
-  the production build hides them (`src/utils/drafts.ts`, `SHOW_DRAFTS`).
+  the production build hides them (`src/utils/drafts.ts`, `SHOW_DRAFTS`). A whole section can be a
+  draft (`draft: true` in sections.ts, currently Personal): hidden from the live sidebar, its URL
+  404s, and its home hero line is dropped.
 - Domain: GoDaddy DNS → GitHub Pages (A records 185.199.108–111.153, `www` CNAME →
   `marcus-gafka.github.io`), `public/CNAME`, HTTPS enforced. Repo:
   github.com/marcus-gafka/marcusgafka_website (public).
@@ -88,13 +92,13 @@ planning" / "reread planning" = read it and sync to the site.
   `#/about`, `#/resume`; sets title, highlights nav, reports page views.
 - `src/data/`
   - `profile.ts` — `featured` = hand-picked home Featured Projects (ids); name, headshots, hero text (`heroIntro`, `heroLinks`: optional multi-word
-    `lead` for the dash bullet, and `highlight` = words anywhere that grow on hover, default lead), email, GoatCounter code, resume path (empty).
+    `lead` for the dash bullet, and `highlight` = words anywhere that grow on hover, default lead), email, GoatCounter code, resume PDF path.
   - `sections.ts` — sidebar sections, their groups, `highlights`, `textPosts`,
     `sectionAliases`, `logos`; `visibleTextPosts()`. Long paragraph posts can live in
     `src/data/<section>/*.md` (e.g. `wpi/scholarship.md`).
   - `projects/projects.ts` — `allProjects` (full entries + `placeholder({...})` drafts),
-    `projects` (drafts filtered), `sortNewestFirst`, `recentProjects` (newest dated projects; home uses `profile.featured` instead) (was: 3
-    newest non-work, non-draft), `projectsInSection`, `findProject`.
+    `projects` (drafts filtered), `sortNewestFirst`, `projectsById` (home Featured, from
+    `profile.featured`), `projectsInSection`, `findProject`.
   - `about.md` — About page Markdown.
 - `src/pages/` — `home.ts` (hero + featured), `section.ts` (blog feed grouped like the right
   panel, newest first; text posts), `projectDetail.ts` (write-up + right panel), `about.ts`,
@@ -107,6 +111,8 @@ planning" / "reread planning" = read it and sync to the site.
 - `src/styles/` — `variables.css` (palette + sizes), `base.css`, `layout.css` (sidebar,
   phone top bar/menu), `components.css` (buttons, cards, tags, Markdown figures/videos),
   `pages.css` (hero, home one-screen fit, phone home), `feed.css` (posts, right panel/strip).
+- `scripts/preview.mjs` — `preview:live` exports the `live` branch with `git archive` into
+  `node_modules/.cache/preview/` (works from any branch, ignores uncommitted changes).
 - `tests/` — one file per area; `projects.test.ts` checks every image/video path exists.
 - `README.md` — human-facing overview (may lag behind this file).
 
@@ -124,7 +130,8 @@ planning" / "reread planning" = read it and sync to the site.
   Sidebar is sage with black text; active nav = black pill, white text, burgundy bar.
 - Home: hero lines link to sections; hovering grows/bolds the lead in sage. Line height is
   fixed so hover never shifts layout. ≥1140px wide the home page fills exactly one screen
-  (featured photos flex); on phones everything through "Featured Projects" fits one screen
+  (featured photos shrink via a subgrid so card titles/blurbs are never cut off; screens ≤760px tall
+  get a compact hero); on phones everything through "Featured Projects" fits one screen
   (tested down to iPhone SE 375×548). Hero lines aren't links on phones/touch.
 - Right panel: full-height, flush to the window's right edge, sticky; feed centered left of it.
 - Breakpoints: 760px (phone top bar + menu), 1100px (right panel → strip), 1140px (home

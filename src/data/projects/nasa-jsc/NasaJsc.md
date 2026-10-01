@@ -1,10 +1,14 @@
 ## Overview
 
-Three summers (2023, 2024, 2025) at NASA Johnson Space Center in Houston, TX, as a Robotics Academy Intern and University Intern.
+Three summers (2023, 2024, 2025) at NASA Johnson Space Center in Houston, TX: first as a NASA Robotics Academy High School Intern, then as a Robotics Academy University Intern. Alongside the two projects below, I worked on:
+
+- **Lunar Terrain Vehicle (LTV) Ground Test Unit (GTU):** assembled critical components of the new rover, including the chassis, electronics housings, human operator interfaces, and differential swerve wheel modules, and later led construction of a high-fidelity mock-up of the vehicle's aft section for the tool carrier assembly
+- **Space Exploration Vehicle (SEV) GTU:** maintained the vehicle for demonstrations and training
+- **Harmonic gearbox demonstrator:** led the design of a hand-powered harmonic gearbox that shows how this compact, high-ratio drive works and why it's valuable for space applications
 
 ## Space Exploration Vehicle Door Latch
 
-Maintained the Space Exploration Vehicle (SEV) and led the design of a new door latch mechanism.
+Managed the design, integration, and schedule for a new door handle and latching mechanism on the SEV GTU. The design puts a large emphasis on ruggedness so the vehicle can be tested at the desert field-test site, and the handle is sized for astronauts operating it in full suits during mock missions.
 
 <div class="figure-row no-crop">
 <figure><img src="/assets/projects/nasa-jsc/sev-exterior.jpg" alt="Marcus and a colleague standing in front of the Space Exploration Vehicle"><figcaption>The Space Exploration Vehicle</figcaption></figure>

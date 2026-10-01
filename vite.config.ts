@@ -5,5 +5,9 @@ export default defineConfig({
     base: "/",
     test: {
         environment: "happy-dom",
+        // main.ts adds the GoatCounter <script>; don't try to fetch it in tests
+        environmentOptions: {
+            happyDOM: { settings: { disableJavaScriptFileLoading: true, handleDisabledFileLoadingAsSuccess: true } },
+        },
     },
 });

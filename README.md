@@ -4,8 +4,8 @@ Personal portfolio of Marcus Gafka (Robotics & Mechanical Engineering at WPI), b
 **Vite**, vanilla **TypeScript**, and plain CSS, and deployed to **GitHub Pages** at
 [marcusgafka.com](https://marcusgafka.com).
 
-The site is a small single-page app: a sidebar with the main sections (Home, Work, WPI, Robotics,
-Personal, About), a blog-style feed of projects for each section, a panel of project
+The site is a small single-page app: a sidebar with the main sections (Home, Work, WPI, Competitive
+Robotics, Personal, About Me), a blog-style feed of projects for each section, a panel of project
 thumbnails on the right, and a dedicated page for every project.
 
 ## Local development
@@ -19,6 +19,8 @@ npm run test           # run the Vitest suite
 npm run build          # type-check + production build into dist/ (drafts hidden)
 npm run build:drafts   # production build that still includes drafts
 npm run preview        # serve dist/ locally (port 4173)
+npm run preview:live   # build + serve the `live` branch exactly as deployed (port 4174)
+npm run preview:dev    # build + serve your working copy with drafts shown (port 4173)
 ```
 
 To try the phone layout, open DevTools (F12) and toggle the device toolbar (Ctrl+Shift+M),

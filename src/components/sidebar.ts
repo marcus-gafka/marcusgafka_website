@@ -5,7 +5,7 @@ import { createContactLinks } from "./contactLinks";
 const navItems = [
     { section: "home", label: "Home", href: "#/" },
     ...sections.map(section => ({ section: section.id, label: section.label, href: `#/${section.id}` })),
-    { section: "about", label: "About", href: "#/about" },
+    { section: "about", label: "About Me", href: "#/about" },
 ];
 
 export function createSidebar(): HTMLElement {
