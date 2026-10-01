@@ -146,7 +146,7 @@ planning" / "reread planning" = read it and sync to the site.
   projects, paragraph posts (Why I Love FRC, What Is the WPI RRC?, Early Robotics Interest,
   Art in Engineering).
 - WPI Dean's List isn't on the resume; ask Marcus for terms before adding a highlight.
-- Missing dates for IQP-adjacent courses (RBE2002, RBE1001, ME3310) → undated, sorted last.
+- RBE2002, RBE1001, ME3310 show dates but have no `sortDate` (kept in hand-set order, sorted last).
 - NASA page: bullet says ordering sheet for 40 trophies but photo shows 44 — ask before changing.
 - Ask WPI IT to unblock the domain (ticket link on the block page, `http://marcusgafka.com`).
 - Old commit `10b56f4` with the resume may still be cached by GitHub (support purge request).
