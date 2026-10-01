@@ -168,7 +168,7 @@ export const allProjects: Project[] = [
         image: "assets/projects/ember/assembled.jpg",
         links: [
             { label: "Development Video", url: "https://youtu.be/5k3lEUqPrUw" },
-            { label: "Elims Match 6", url: "https://www.youtube.com/watch?v=wghaiO8E1y4" },
+            { label: "River Rage Match E6", url: "https://www.youtube.com/watch?v=wghaiO8E1y4" },
         ],
     },
 
