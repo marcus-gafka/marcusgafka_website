@@ -99,7 +99,7 @@ export const allProjects: Project[] = [
         image: "assets/projects/doom-spiral-turnover/robot.jpg",
         links: [
             { label: "Reveal Video", url: "https://www.youtube.com/watch?v=5UeYLmUpsrY" },
-            { label: "Worlds Elims Match 2", url: "https://www.thebluealliance.com/match/2026joh_sf2m1" },
+            { label: "Worlds Match E2", url: "https://www.thebluealliance.com/match/2026joh_sf2m1" },
         ],
     },
     {
