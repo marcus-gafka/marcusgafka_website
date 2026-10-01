@@ -50,9 +50,8 @@ describe("project strip label", () => {
         expect(createProjectNav(section).querySelector(".project-nav-label")?.textContent).toBe("Jump to");
     });
 
-    it("says More in <section> on project pages", () => {
+    it("never says More in <section> on project pages", () => {
         const first = projectsInSection(section.id)[0];
-        expect(createProjectNav(section, first.id).querySelector(".project-nav-label")?.textContent)
-            .toBe(`More in ${section.title}`);
+        expect(createProjectNav(section, first.id).textContent).not.toContain("More in");
     });
 });

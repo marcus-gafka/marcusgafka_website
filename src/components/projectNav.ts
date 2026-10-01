@@ -8,17 +8,17 @@ const HIGHLIGHT_MS = 1600;
  * Right-hand panel listing a section's projects as thumbnails, grouped when the
  * section has groups. On a section page (no activeId) clicking an item scrolls
  * to its post in the feed; on a project page the current project is highlighted
- * and items link to their own pages.
+ * and items link to their own pages. Project pages show it only on wide screens.
  */
 export function createProjectNav(section: Section, activeId?: string): HTMLElement {
     const nav = document.createElement("aside");
     nav.className = "project-nav";
     nav.setAttribute("aria-label", `${section.title} projects`);
 
-    // Only shown on narrower screens, where the panel becomes a swipeable strip.
+    // Only shown on narrower section pages, where the panel becomes a swipeable strip.
     const label = document.createElement("p");
     label.className = "project-nav-label";
-    label.textContent = activeId ? `More in ${section.title}` : "Jump to";
+    label.textContent = "Jump to";
     nav.appendChild(label);
 
     const scroller = document.createElement("div");
@@ -43,16 +43,6 @@ export function createProjectNav(section: Section, activeId?: string): HTMLEleme
         items.forEach(project => list.appendChild(createNavItem(project, project.id === activeId, !activeId)));
         block.appendChild(list);
         scroller.appendChild(block);
-    }
-
-    // In the strip, start scrolled to the current project instead of the first one.
-    if (activeId) {
-        requestAnimationFrame(() => {
-            const active = scroller.querySelector<HTMLElement>(".project-nav-item.active");
-            if (active && scroller.scrollWidth > scroller.clientWidth) {
-                scroller.scrollLeft = active.offsetLeft - scroller.offsetLeft - 16;
-            }
-        });
     }
 
     return nav;
