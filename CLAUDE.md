@@ -142,7 +142,7 @@ planning" / "reread planning" = read it and sync to the site.
 
 ## Open items (as of 2026-09-29)
 - Many placeholders (drafts) await write-ups: MQP, RBE4540/4701, ME3902, RBE2001, art projects,
-  Doom Spiral/Turnover, V3, Whiplash, Trophies (RRC), FRC 118, VEX 2373M, BEST, all Personal
+  V3, Whiplash, Trophies (RRC), FRC 118, VEX 2373M, BEST, all Personal
   projects, paragraph posts (Why I Love FRC, What Is the WPI RRC?, Early Robotics Interest,
   Art in Engineering).
 - WPI Dean's List isn't on the resume; ask Marcus for terms before adding a highlight.

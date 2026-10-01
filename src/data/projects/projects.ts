@@ -3,6 +3,7 @@ import { withoutDrafts } from "../../utils/drafts";
 
 import dekaMd from "./deka/Deka.md?raw";
 import nasaMd from "./nasa-jsc/NasaJsc.md?raw";
+import doomSpiralMd from "./doom-spiral-turnover/DoomSpiralTurnover.md?raw";
 import stackUpMd from "./stack-up-redundancy/StackUpRedundancy.md?raw";
 import funkyMd from "./funky/Funky.md?raw";
 import snapbackMd from "./snapback/Snapback.md?raw";
@@ -84,7 +85,23 @@ export const allProjects: Project[] = [
     },
 
     // ---- Competitive Robotics (FRC 190, then high school and earlier) ----
-    placeholder({ id: "doom-spiral-turnover", section: "robotics", group: "season", title: "Doom Spiral / Turnover", date: "2026 Season", sortDate: "2026-04" }),
+    {
+        id: "doom-spiral-turnover",
+        section: "robotics",
+        group: "season",
+        title: "Doom Spiral / Turnover",
+        date: "2026 Season",
+        sortDate: "2026-04",
+        role: "Prototyping Lead · V2 Hopper Lead · Drive Coach",
+        summary: "2026 in-season robots. Held many roles at once: Prototyping Lead, V2 Hopper Lead, and Drive Coach.",
+        technologies: ["Prototyping", "CAD", "Mechanism Design", "Leadership", "Strategy"],
+        content: doomSpiralMd,
+        image: "assets/projects/doom-spiral-turnover/robot.jpg",
+        links: [
+            { label: "Reveal Video", url: "https://www.youtube.com/watch?v=5UeYLmUpsrY" },
+            { label: "Worlds Elims Match 2", url: "https://www.thebluealliance.com/match/2026joh_sf2m1" },
+        ],
+    },
     {
         id: "stack-up-redundancy",
         group: "season",
@@ -100,6 +117,7 @@ export const allProjects: Project[] = [
         links: [
             { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190/2025" },
             { label: "Development Video", url: "https://youtu.be/072Up5i1lFc" },
+            { label: "Reveal Video", url: "https://www.youtube.com/watch?v=VCgq4vbTQ6M" },
             { label: "Worlds Match Q106", url: "https://www.youtube.com/watch?v=1SiRO1gNYcQ" },
         ],
     },

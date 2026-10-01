@@ -215,6 +215,33 @@
     margin: 0 auto;
 }
 
+/* Several clips or photos sharing one caption */
+.markdown-body .figure-group {
+    clear: both;
+    margin: var(--space-3) 0;
+}
+
+/* Two landscape clips stacked beside one portrait clip (listed last), same total height */
+.markdown-body .figure-mosaic {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: var(--space-2);
+}
+
+.markdown-body .figure-mosaic > .video-clip {
+    margin: 0;
+}
+
+.markdown-body .figure-mosaic > :last-child {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.markdown-body .figure-mosaic video {
+    height: 100%;
+    object-fit: cover;
+}
+
 /* A figure floated beside the bullet list that follows it */
 .markdown-body .figure-inline {
     float: right;
