@@ -15,7 +15,7 @@ export const profile = {
     headshot: "assets/profile/headshot.jpg",
     /** Close crop of the face, used as the round avatar on phones */
     headshotSmall: "assets/profile/headshot-face.jpg",
-    /** Home page hero: "Hi! I'm <name>, a:" followed by these lines */
+    /** Home page hero: "Hi! I'm <name>" followed by these lines */
     heroIntro: "Passionate engineer, designer, roboticist, and hobbyist",
     /**
      * Each line links to a sidebar section (id from sections.ts). On hover its

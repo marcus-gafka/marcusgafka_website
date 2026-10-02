@@ -54,7 +54,7 @@ export function renderHome(): HTMLElement {
         <section class="hero">
             <div class="hero-text">
                 <p class="hero-greeting">Hi! I'm</p>
-                <h1>${escapeHtml(profile.name)}, a:</h1>
+                <h1>${escapeHtml(profile.name)}</h1>
                 <ul class="hero-list">
                     <li class="hero-intro">${withLead(profile.heroIntro, { highlight: [] })}</li>
                     ${profile.heroLinks.filter(link => findSection(link.section)).map(heroLink).join("")}
