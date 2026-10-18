@@ -41,13 +41,24 @@ export function makeSeamless(video: HTMLVideoElement): void {
     video.addEventListener("loadeddata", () => void video.play().catch(() => {}), { once: true });
 }
 
-/** A short, silent, looping clip (like a moving photo) for a video file on the site */
-export function videoClipHtml(src: string, caption = "", poster = ""): string {
+/** A clip's still frame, saved next to it: "clip.mp4" -> "clip-poster.jpg" */
+export function clipPoster(src: string): string {
+    return src.replace(/\.(mp4|webm)$/i, "-poster.jpg");
+}
+
+/**
+ * A short, silent, looping clip (like a moving photo) for a video file on the site.
+ * `label` describes it for screen readers (defaults to the caption).
+ */
+export function videoClipHtml(
+    src: string,
+    { caption = "", label = caption, poster = "" }: { caption?: string; label?: string; poster?: string } = {},
+): string {
     return [
         `<figure class="video-clip">`,
         `<video src="${escapeHtml(src)}"${poster ? ` poster="${escapeHtml(poster)}"` : ""}`,
         ` autoplay muted loop playsinline preload="metadata"`,
-        caption ? ` aria-label="${escapeHtml(caption)}"` : "",
+        label ? ` aria-label="${escapeHtml(label)}"` : "",
         `></video>`,
         caption ? `<figcaption>${escapeHtml(caption)}</figcaption>` : "",
         `</figure>`,
@@ -55,20 +66,22 @@ export function videoClipHtml(src: string, caption = "", poster = ""): string {
 }
 
 /**
- * Videos are written the same way as images, on their own line:
- * `![Caption](clip.mp4)` becomes a looping clip hosted on the site, and
- * `![Caption](https://www.youtube.com/watch?v=...)` becomes an embedded player.
+ * Videos are written the same way as images, on their own line (also inside a
+ * figure-row <div>): `![Caption](clip.mp4)` becomes a looping clip hosted on the
+ * site, with its `-poster.jpg` still, and `![Caption](https://www.youtube.com/watch?v=...)`
+ * becomes an embedded player. An optional `"description"` after the URL is the
+ * clip's screen-reader label when it should differ from the caption (or there is none).
  */
 function embedVideos(source: string): string {
-    return source.replace(/^!\[([^\]]*)\]\((\S+)\)[ \t]*$/gm, (line, caption: string, url: string) => {
+    return source.replace(/^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)[ \t]*$/gm, (line, caption: string, url: string, label?: string) => {
         if (/\.(mp4|webm)$/i.test(url)) {
-            return videoClipHtml(url, caption);
+            return videoClipHtml(url, { caption, label: label || caption, poster: clipPoster(url) });
         }
         const id = youTubeId(url);
         if (!id) {
             return line;
         }
-        const title = escapeHtml(caption || "YouTube video");
+        const title = escapeHtml(label || caption || "YouTube video");
         return [
             `<figure class="video-embed">`,
             `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${title}" loading="lazy"`,

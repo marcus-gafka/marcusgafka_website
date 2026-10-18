@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { extractMath, renderMarkdown, renderMath, videoClipHtml, youTubeId } from "../src/utils/markdown";
+import { clipPoster, extractMath, renderMarkdown, renderMath, videoClipHtml, youTubeId } from "../src/utils/markdown";
 
 describe("renderMarkdown", () => {
     it("converts markdown to HTML", () => {
@@ -55,10 +55,26 @@ describe("video clips", () => {
             expect(video?.hasAttribute(attr), attr).toBe(true);
         }
         expect(el.querySelector(".video-clip figcaption")?.textContent).toBe("Rocket in motion");
+        expect(video?.getAttribute("aria-label")).toBe("Rocket in motion");
+        expect(video?.getAttribute("poster")).toBe("/assets/clip-poster.jpg");
+    });
+
+    it("uses a quoted description as the label, with or without a caption", () => {
+        const el = renderMarkdown('![Testing](/a.mp4 "Robot lifting a cube")\n\n![](/b.webm "Arm swinging")');
+        const [a, b] = el.querySelectorAll<HTMLVideoElement>(".video-clip video");
+        expect(a.getAttribute("aria-label")).toBe("Robot lifting a cube");
+        expect(b.getAttribute("aria-label")).toBe("Arm swinging");
+        expect([...el.querySelectorAll("figcaption")].map(c => c.textContent)).toEqual(["Testing"]);
+    });
+
+    it("works on lines inside a figure-row block", () => {
+        const el = renderMarkdown('<div class="figure-row">\n![Clip](/a.mp4)\n<figure><img src="/b.jpg" alt=""></figure>\n</div>');
+        expect(el.querySelector(".figure-row > .video-clip video")?.getAttribute("src")).toBe("/a.mp4");
     });
 
     it("adds a poster image when given one", () => {
-        expect(videoClipHtml("/a.mp4", "Cap", "/a.jpg")).toContain('poster="/a.jpg"');
+        expect(videoClipHtml("/a.mp4", { caption: "Cap", poster: "/a.jpg" })).toContain('poster="/a.jpg"');
+        expect(clipPoster("/x/clip.MP4")).toBe("/x/clip-poster.jpg");
     });
 });
 

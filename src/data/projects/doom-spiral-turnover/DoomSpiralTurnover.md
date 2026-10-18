@@ -13,9 +13,9 @@ In the 2026 season I held many roles on the team at the same time:
 
 <figure class="figure-group">
 <div class="figure-mosaic">
-<figure class="video-clip"><video src="/assets/projects/doom-spiral-turnover/indexer-prototype.mp4" poster="/assets/projects/doom-spiral-turnover/indexer-prototype-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Wooden hopper prototype feeding balls up through rollers"></video></figure>
-<figure class="video-clip"><video src="/assets/projects/doom-spiral-turnover/ball-dump-test.mp4" poster="/assets/projects/doom-spiral-turnover/ball-dump-test-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Boxes of balls dumped into a hopper prototype"></video></figure>
-<figure class="video-clip"><video src="/assets/projects/doom-spiral-turnover/hopper-test.mp4" poster="/assets/projects/doom-spiral-turnover/hopper-test-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Testing a hopper prototype with a bowl of balls"></video></figure>
+![](/assets/projects/doom-spiral-turnover/indexer-prototype.mp4 "Wooden hopper prototype feeding balls up through rollers")
+![](/assets/projects/doom-spiral-turnover/ball-dump-test.mp4 "Boxes of balls dumped into a hopper prototype")
+![](/assets/projects/doom-spiral-turnover/hopper-test.mp4 "Testing a hopper prototype with a bowl of balls")
 </div>
 <figcaption>Early hopper prototypes: turning a collection of balls into a single stream</figcaption>
 </figure>
@@ -27,7 +27,7 @@ In the 2026 season I held many roles on the team at the same time:
 
 <div class="figure-row no-crop">
 <figure><img src="/assets/projects/doom-spiral-turnover/hopper-v2-cad.jpg" alt="CAD of the V2 hopper system"><figcaption>V2 hopper system CAD</figcaption></figure>
-<figure class="video-clip"><video src="/assets/projects/doom-spiral-turnover/robot-intake-test.mp4" poster="/assets/projects/doom-spiral-turnover/robot-intake-test-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The first ball fed through the robot's hopper"></video><figcaption>The first ball going through</figcaption></figure>
+![The first ball going through](/assets/projects/doom-spiral-turnover/robot-intake-test.mp4 "The first ball fed through the robot's hopper")
 </div>
 
-<figure class="video-clip"><video src="/assets/projects/doom-spiral-turnover/driver-practice.mp4" poster="/assets/projects/doom-spiral-turnover/driver-practice-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Turnover collecting and scoring balls during driver practice"></video><figcaption>Pre-Worlds driver practice with the V2 robot, fully tuned for maximum throughput</figcaption></figure>
+![Pre-Worlds driver practice with the V2 robot, fully tuned for maximum throughput](/assets/projects/doom-spiral-turnover/driver-practice.mp4 "Turnover collecting and scoring balls during driver practice")

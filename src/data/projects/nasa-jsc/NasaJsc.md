@@ -20,7 +20,7 @@ Managed the design, integration, and schedule for a new door handle and latching
 Led the design and manufacturing of dynamic trophies for the Space City VEX Signature Event.
 
 <div class="figure-row no-crop">
-<figure class="video-clip"><video src="/assets/projects/nasa-jsc/trophy-cad-motion-study.mp4" poster="/assets/projects/nasa-jsc/trophy-cad-motion-study-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Motion study in CAD"></video><figcaption>Motion study in CAD</figcaption></figure>
+![Motion study in CAD](/assets/projects/nasa-jsc/trophy-cad-motion-study.mp4)
 <figure><img src="/assets/projects/nasa-jsc/trophy-early-prototype.jpg" alt="Early prototype of the trophy with a High Stakes 2024–2025 plate"><figcaption>Early prototype</figcaption></figure>
 </div>
 
@@ -43,7 +43,7 @@ Trophies are designed to be fabricated in batches, with a new set manufactured s
 </div>
 
 <div class="figure-row no-crop">
-<figure class="video-clip"><video src="/assets/projects/nasa-jsc/trophy-in-motion.mp4" poster="/assets/projects/nasa-jsc/trophy-in-motion-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The finished trophy in motion"></video><figcaption>The finished trophy in motion</figcaption></figure>
+![The finished trophy in motion](/assets/projects/nasa-jsc/trophy-in-motion.mp4)
 <figure><img src="/assets/projects/nasa-jsc/trophy-push-back-awards.jpg" alt="Two Push Back 2025–2026 trophies with Build Award and Excellence Award plates"><figcaption>Push Back 2025–26 Build and Excellence Awards</figcaption></figure>
 </div>
 

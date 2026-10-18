@@ -17,5 +17,5 @@ Research into floor-marking robots, robotic painting, and commercial systems sha
 
 Each shape is painted in two passes: **raster** strokes fill it, then **vector** strokes trace the outline for clean edges. Before building hardware, we simulated an airbrush robot doing exactly that to study how spray size affects print quality.
 
-<figure class="video-clip"><video src="/assets/projects/mqp/airbrush-sim.mp4" poster="/assets/projects/mqp/airbrush-sim-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Simulated airbrush robot painting an image"></video><figcaption>Simulated airbrush robot painting the image</figcaption></figure>
+![Simulated airbrush robot painting the image](/assets/projects/mqp/airbrush-sim.mp4 "Simulated airbrush robot painting an image")
 

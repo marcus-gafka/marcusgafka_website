@@ -3,7 +3,7 @@ import { profile } from "../../src/data/profile";
 import { sections, visibleTextPosts, type Section, type TextPost } from "../../src/data/sections";
 import type { Link } from "../../src/data/types";
 import { projectMeta, projectsInSection, type Project } from "../../src/data/projects/projects";
-import { renderMarkdown, youTubeId } from "../../src/utils/markdown";
+import { clipPoster, renderMarkdown, youTubeId } from "../../src/utils/markdown";
 import { escapeHtml } from "../../src/utils/html";
 import { projectHref } from "../../src/utils/urls";
 import aboutMd from "../../src/data/about.md?raw";
@@ -53,7 +53,7 @@ function body(md: string): HTMLElement {
     root.querySelectorAll("img").forEach(img => img.removeAttribute("loading"));
     root.querySelectorAll<HTMLVideoElement>("figure.video-clip video").forEach(video => {
         const src = video.getAttribute("src") || "";
-        const poster = video.getAttribute("poster") || src.replace(/\.(mp4|webm)$/i, "-poster.jpg");
+        const poster = video.getAttribute("poster") || clipPoster(src);
         const img = document.createElement("img");
         img.src = poster;
         img.alt = video.getAttribute("aria-label") || "";

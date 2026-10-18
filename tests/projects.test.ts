@@ -5,14 +5,16 @@ import { allProjects, projects, writeUpIds } from "../src/data/projects/projects
 import { sections } from "../src/data/sections";
 import { profile } from "../src/data/profile";
 import aboutMd from "../src/data/about.md?raw";
+import { clipPoster } from "../src/utils/markdown";
 
 const publicDir = resolve(__dirname, "../public");
 
-/** Site files a write-up points at: HTML src/poster attributes and Markdown images or clips */
+/** Site files a write-up points at: HTML src/poster attributes, Markdown images, and clips with their posters */
 function mediaPaths(markdown: string): string[] {
     return [
         ...[...markdown.matchAll(/\b(?:src|poster)="([^"]+)"/g)].map(match => match[1]),
-        ...[...markdown.matchAll(/!\[[^\]]*\]\(([^)\s]+)\)/g)].map(match => match[1]),
+        ...[...markdown.matchAll(/!\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g)]
+            .flatMap(([, path]) => (/\.(mp4|webm)$/i.test(path) ? [path, clipPoster(path)] : [path])),
     ].filter(path => !/^https?:/.test(path));
 }
 
@@ -105,7 +107,7 @@ describe("site media", () => {
     });
 
     it("finds paths in every form a write-up uses", () => {
-        const md = '<video src="/a.mp4" poster="/a-poster.jpg"></video>\n![Clip](/b.mp4)\n![Video](https://youtu.be/x)';
-        expect(mediaPaths(md)).toEqual(["/a.mp4", "/a-poster.jpg", "/b.mp4"]);
+        const md = '<video src="/a.mp4" poster="/a-poster.jpg"></video>\n![Clip](/b.mp4 "A clip")\n![](/c.jpg)\n![Video](https://youtu.be/x)';
+        expect(mediaPaths(md)).toEqual(["/a.mp4", "/a-poster.jpg", "/b.mp4", "/b-poster.jpg", "/c.jpg"]);
     });
 });
