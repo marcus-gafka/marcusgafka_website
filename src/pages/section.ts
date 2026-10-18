@@ -1,10 +1,11 @@
 import { visibleTextPosts, type Section, type TextPost } from "../data/sections";
-import { projectsInSection, type Project } from "../data/projects/projects";
+import { projectMeta, projectsInSection, type Project } from "../data/projects/projects";
 import { createProjectNav } from "../components/projectNav";
 import { createTechTags } from "../components/techTags";
 import { createLinkList } from "../components/linkList";
 import { renderMarkdown } from "../utils/markdown";
 import { escapeHtml } from "../utils/html";
+import { assetUrl, projectHref } from "../utils/urls";
 
 /**
  * A section as a blog: posts in the middle (grouped like the right panel, newest
@@ -22,7 +23,7 @@ export function renderSection(section: Section): HTMLElement {
             <div class="section-title-row">
                 <h1>${escapeHtml(section.title)}</h1>
                 ${section.logos?.length ? `<div class="section-logos">${section.logos
-                    .map(logo => `<img src="${import.meta.env.BASE_URL}${logo.src}" alt="${escapeHtml(logo.alt)}" />`)
+                    .map(logo => `<img src="${assetUrl(logo.src)}" alt="${escapeHtml(logo.alt)}" />`)
                     .join("")}</div>` : ""}
             </div>
             ${section.intro ? `<p class="subtitle">${escapeHtml(section.intro)}</p>` : ""}
@@ -100,8 +101,8 @@ function createTextPost(textPost: TextPost): HTMLElement {
 }
 
 function createPost(project: Project): HTMLElement {
-    const href = `#/${encodeURIComponent(project.section)}/${encodeURIComponent(project.id)}`;
-    const meta = [project.date, project.role].filter(Boolean).map(value => escapeHtml(value!)).join(" · ");
+    const href = projectHref(project);
+    const meta = escapeHtml(projectMeta(project));
 
     const post = document.createElement("article");
     post.className = "post";
@@ -109,7 +110,7 @@ function createPost(project: Project): HTMLElement {
     post.innerHTML = `
         ${project.image ? `
             <a class="post-image" href="${href}" tabindex="-1" aria-hidden="true">
-                <img src="${import.meta.env.BASE_URL}${project.image}" alt="" loading="lazy" />
+                <img src="${assetUrl(project.image)}" alt="" loading="lazy" />
             </a>` : ""}
         <div class="post-body">
             ${meta ? `<span class="project-date">${meta}</span>` : ""}
@@ -119,8 +120,9 @@ function createPost(project: Project): HTMLElement {
     `;
 
     const body = post.querySelector(".post-body")!;
-    if (project.technologies.length > 0) {
-        body.appendChild(createTechTags(project.technologies));
+    const tags = createTechTags(project.technologies);
+    if (tags) {
+        body.appendChild(tags);
     }
     const more = document.createElement("a");
     more.className = "read-more";

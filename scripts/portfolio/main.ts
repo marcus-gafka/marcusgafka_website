@@ -1,9 +1,11 @@
 // The portfolio PDF page: the live site's content (drafts hidden), laid out for print. Built by scripts/portfolio.mjs.
 import { profile } from "../../src/data/profile";
-import { sections, visibleTextPosts, type Section, type TextPost, type Link } from "../../src/data/sections";
-import { projectsInSection, type Project } from "../../src/data/projects/projects";
+import { sections, visibleTextPosts, type Section, type TextPost } from "../../src/data/sections";
+import type { Link } from "../../src/data/types";
+import { projectMeta, projectsInSection, type Project } from "../../src/data/projects/projects";
 import { renderMarkdown, youTubeId } from "../../src/utils/markdown";
 import { escapeHtml } from "../../src/utils/html";
+import { projectHref } from "../../src/utils/urls";
 import aboutMd from "../../src/data/about.md?raw";
 import "./print.css";
 
@@ -70,7 +72,7 @@ function body(md: string): HTMLElement {
 }
 
 function meta(project: Project): string {
-    return [project.date, project.role].filter(Boolean).map(v => escapeHtml(v!)).join(" · ");
+    return escapeHtml(projectMeta(project));
 }
 
 // ---- Cover ----
@@ -123,7 +125,7 @@ function projectPage(project: Project, groupTitle?: string): HTMLElement {
     <header>
         ${groupTitle ? `<p class="eyebrow">${escapeHtml(groupTitle)}</p>` : ""}
         <h1>${escapeHtml(project.title)}</h1>
-        <p class="meta">${meta(project)}${meta(project) ? " · " : ""}<a class="online" href="${SITE}/#/${project.section}/${project.id}">marcusgafka.com/#/${project.section}/${project.id}</a></p>
+        <p class="meta">${meta(project)}${meta(project) ? " · " : ""}<a class="online" href="${SITE}/${projectHref(project)}">marcusgafka.com/${projectHref(project)}</a></p>
         <p class="summary">${escapeHtml(project.summary)}</p>
         ${tags(project.technologies)}
     </header>

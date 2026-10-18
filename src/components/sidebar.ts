@@ -1,10 +1,11 @@
 import { profile } from "../data/profile";
 import { sections } from "../data/sections";
+import { assetUrl, sectionHref } from "../utils/urls";
 import { createContactLinks } from "./contactLinks";
 
 const navItems = [
     { section: "home", label: "Home", href: "#/" },
-    ...sections.map(section => ({ section: section.id, label: section.label, href: `#/${section.id}` })),
+    ...sections.map(section => ({ section: section.id, label: section.label, href: sectionHref(section.id) })),
     { section: "about", label: "About Me", href: "#/about" },
 ];
 
@@ -17,8 +18,8 @@ export function createSidebar(): HTMLElement {
     brand.href = "#/";
     brand.innerHTML = `
         <picture>
-            <source media="(max-width: 760px)" srcset="${import.meta.env.BASE_URL}${profile.headshotSmall}" />
-            <img class="headshot" src="${import.meta.env.BASE_URL}${profile.headshot}" alt="" />
+            <source media="(max-width: 760px)" srcset="${assetUrl(profile.headshotSmall)}" />
+            <img class="headshot" src="${assetUrl(profile.headshot)}" alt="" />
         </picture>
         <span class="brand-name"></span>
     `;

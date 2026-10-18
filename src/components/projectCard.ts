@@ -1,16 +1,17 @@
 import type { Project } from "../data/projects/projects";
 import { escapeHtml } from "../utils/html";
+import { assetUrl, projectHref } from "../utils/urls";
 import { createTechTags } from "./techTags";
 
 export function createProjectCard(project: Project): HTMLElement {
     const card = document.createElement("a");
     card.className = "project-card";
-    card.href = `#/${encodeURIComponent(project.section)}/${encodeURIComponent(project.id)}`;
+    card.href = projectHref(project);
 
     if (project.image) {
         const img = document.createElement("img");
         img.className = "project-card-image";
-        img.src = `${import.meta.env.BASE_URL}${project.image}`;
+        img.src = assetUrl(project.image);
         img.alt = "";
         img.loading = "lazy";
         card.appendChild(img);
@@ -23,7 +24,10 @@ export function createProjectCard(project: Project): HTMLElement {
         <h3>${escapeHtml(project.title)}</h3>
         <p>${escapeHtml(project.summary)}</p>
     `;
-    body.appendChild(createTechTags(project.technologies));
+    const tags = createTechTags(project.technologies);
+    if (tags) {
+        body.appendChild(tags);
+    }
 
     card.appendChild(body);
     return card;

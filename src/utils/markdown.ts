@@ -1,6 +1,7 @@
 import showdown from "showdown";
 // Common languages only; import more from "highlight.js/lib/languages/*" if needed.
 import hljs from "highlight.js/lib/common";
+import { escapeHtml } from "./html";
 
 const converter = new showdown.Converter({
     tables: true,
@@ -15,10 +16,6 @@ export function youTubeId(url: string): string | null {
         /^https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/,
     );
     return match ? match[1] : null;
-}
-
-function escapeAttribute(value: string): string {
-    return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 /**
@@ -48,11 +45,11 @@ export function makeSeamless(video: HTMLVideoElement): void {
 export function videoClipHtml(src: string, caption = "", poster = ""): string {
     return [
         `<figure class="video-clip">`,
-        `<video src="${escapeAttribute(src)}"${poster ? ` poster="${escapeAttribute(poster)}"` : ""}`,
+        `<video src="${escapeHtml(src)}"${poster ? ` poster="${escapeHtml(poster)}"` : ""}`,
         ` autoplay muted loop playsinline preload="metadata"`,
-        caption ? ` aria-label="${escapeAttribute(caption)}"` : "",
+        caption ? ` aria-label="${escapeHtml(caption)}"` : "",
         `></video>`,
-        caption ? `<figcaption>${escapeAttribute(caption)}</figcaption>` : "",
+        caption ? `<figcaption>${escapeHtml(caption)}</figcaption>` : "",
         `</figure>`,
     ].join("");
 }
@@ -71,13 +68,13 @@ function embedVideos(source: string): string {
         if (!id) {
             return line;
         }
-        const title = escapeAttribute(caption || "YouTube video");
+        const title = escapeHtml(caption || "YouTube video");
         return [
             `<figure class="video-embed">`,
             `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${title}" loading="lazy"`,
             ` allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"`,
             ` referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`,
-            caption ? `<figcaption>${escapeAttribute(caption)}</figcaption>` : "",
+            caption ? `<figcaption>${escapeHtml(caption)}</figcaption>` : "",
             `</figure>`,
         ].join("");
     });
@@ -107,7 +104,7 @@ function restoreMath(html: string, math: { tex: string; display: boolean }[]): s
 
 function mathHtml({ tex, display }: { tex: string; display: boolean }): string {
     const tag = display ? "div" : "span";
-    return `<${tag} class="math${display ? " math-display" : ""}" data-tex="${escapeAttribute(tex)}">${escapeAttribute(tex)}</${tag}>`;
+    return `<${tag} class="math${display ? " math-display" : ""}" data-tex="${escapeHtml(tex)}">${escapeHtml(tex)}</${tag}>`;
 }
 
 /** Typesets any math placeholders; KaTeX is only downloaded when a page has math. */

@@ -1,4 +1,4 @@
-import type { Link } from "../sections";
+import type { Link } from "../types";
 import { withoutDrafts } from "../../utils/drafts";
 
 import dekaMd from "./deka/Deka.md?raw";
@@ -377,6 +377,11 @@ export function projectsById(ids: string[]): Project[] {
 /** A section's projects, newest first */
 export function projectsInSection(sectionId: string): Project[] {
     return sortNewestFirst(projects.filter(project => project.section === sectionId));
+}
+
+/** "Summer 2026 · Controls Engineering Intern", or just whichever of date and role is set */
+export function projectMeta(project: Project): string {
+    return [project.date, project.role].filter(Boolean).join(" · ");
 }
 
 export function findProject(sectionId: string, id: string): Project | undefined {

@@ -1,10 +1,7 @@
 import { withoutDrafts } from "../utils/drafts";
+import type { Link } from "./types";
 import scholarshipMd from "./wpi/scholarship.md?raw";
-
-export interface Link {
-    label: string;
-    url: string;
-}
+import frc190Md from "./robotics/frc-190.md?raw";
 
 export interface Group {
     id: string;
@@ -114,11 +111,7 @@ const allSections: Section[] = [
                 title: "FRC Team 190: Mentor & Drive Coach (2023–present)",
                 hideTitle: true,
                 group: "frc-190",
-                body: [
-                    '<figure class="figure-inline"><img src="/assets/robotics/frc190-winner-banners.jpg" alt="Team 190 and alliance partners kneeling behind three blue FIRST Robotics Competition winner banners on the arena floor"><figcaption>Team 190 and our alliance with the winner banners</figcaption></figure>',
-                    "",
-                    "Since 2023 I've been a college mentor for FIRST Robotics Competition Team 190 at WPI, putting in about 400 hours a year plus travel to competitions. I design and build mechanisms side by side with high school students, and I'm currently the team's drive coach, responsible for match strategy, coordinating with alliance partners, and running the team on the field.",
-                ].join("\n"),
+                body: frc190Md,
                 links: [
                     { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190" },
                     { label: "YouTube", url: "https://www.youtube.com/@FRC190/videos" },

@@ -3,6 +3,7 @@ import { findSection } from "../data/sections";
 import { projectsById } from "../data/projects/projects";
 import { createProjectCard } from "../components/projectCard";
 import { escapeHtml } from "../utils/html";
+import { sectionHref } from "../utils/urls";
 
 /**
  * Splits off the lead: the given `lead` if the text starts with it, else the
@@ -41,7 +42,7 @@ function withLead(text: string, { lead, highlight }: { lead?: string; highlight?
 function heroLink({ text, section, lead, highlight }: HeroLink): string {
     return `
         <li>
-            <a class="hero-link" href="#/${encodeURIComponent(section)}">${withLead(text, { lead, highlight })}</a>
+            <a class="hero-link" href="${sectionHref(section)}">${withLead(text, { lead, highlight })}</a>
         </li>
     `;
 }

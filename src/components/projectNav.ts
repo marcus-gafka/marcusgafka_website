@@ -1,6 +1,7 @@
 import type { Section } from "../data/sections";
 import { projectsInSection, type Project } from "../data/projects/projects";
 import { escapeHtml } from "../utils/html";
+import { assetUrl, projectHref } from "../utils/urls";
 
 const HIGHLIGHT_MS = 1600;
 
@@ -52,14 +53,14 @@ function createNavItem(project: Project, active: boolean, scrollToPost: boolean)
     const item = document.createElement("li");
     const link = document.createElement("a");
     link.className = "project-nav-item";
-    link.href = `#/${encodeURIComponent(project.section)}/${encodeURIComponent(project.id)}`;
+    link.href = projectHref(project);
     if (active) {
         link.classList.add("active");
         link.setAttribute("aria-current", "page");
     }
 
     const thumb = project.image
-        ? `<img class="project-nav-thumb" src="${import.meta.env.BASE_URL}${project.image}" alt="" loading="lazy" />`
+        ? `<img class="project-nav-thumb" src="${assetUrl(project.image)}" alt="" loading="lazy" />`
         : `<span class="project-nav-thumb project-nav-thumb-empty" aria-hidden="true">${escapeHtml(project.title.charAt(0))}</span>`;
 
     link.innerHTML = `

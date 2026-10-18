@@ -2,6 +2,8 @@ import aboutMarkdown from "../data/about.md?raw";
 import { profile } from "../data/profile";
 import { renderMarkdown } from "../utils/markdown";
 import { SHOW_DRAFTS } from "../utils/drafts";
+import { assetUrl } from "../utils/urls";
+import { createButtonLink } from "../components/linkList";
 
 interface AboutLink {
     label: string;
@@ -17,8 +19,8 @@ export function aboutLinks(): { links: AboutLink[]; missing: string[] } {
         ["LinkedIn", linkedin, true],
         ["YouTube", youtube, true],
         ["Email", email ? `mailto:${email}` : "", false],
-        ["Resume", profile.resumePdf ? `${import.meta.env.BASE_URL}${profile.resumePdf}` : "", false],
-        ["Portfolio", profile.portfolioPdf ? `${import.meta.env.BASE_URL}${profile.portfolioPdf}` : "", true],
+        ["Resume", profile.resumePdf ? assetUrl(profile.resumePdf) : "", false],
+        ["Portfolio", profile.portfolioPdf ? assetUrl(profile.portfolioPdf) : "", true],
     ];
     return {
         links: candidates.filter(([, href]) => href).map(([label, href, external]) => ({ label, href, external })),
@@ -37,18 +39,7 @@ export function renderAbout(): HTMLElement {
     nav.setAttribute("aria-label", "Find me elsewhere");
 
     for (const { label, href, external } of links) {
-        const link = document.createElement("a");
-        link.className = "btn btn-secondary";
-        link.href = href;
-        link.textContent = label;
-        if (external) {
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-        }
-        if (label === "Resume") {
-            link.setAttribute("download", "");
-        }
-        nav.appendChild(link);
+        nav.appendChild(createButtonLink(label, href, { external, download: label === "Resume" }));
     }
 
     // Locally, show reminders for links that still need a URL.

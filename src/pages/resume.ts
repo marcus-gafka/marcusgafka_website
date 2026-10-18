@@ -1,4 +1,5 @@
 import { profile } from "../data/profile";
+import { assetUrl } from "../utils/urls";
 
 export function renderResume(): HTMLElement {
     const page = document.createElement("div");
@@ -12,7 +13,7 @@ export function renderResume(): HTMLElement {
         return page;
     }
 
-    const pdfUrl = `${import.meta.env.BASE_URL}${profile.resumePdf}`;
+    const pdfUrl = assetUrl(profile.resumePdf);
 
     page.innerHTML = `
         <div class="resume-header">
