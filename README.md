@@ -21,6 +21,7 @@ npm run build:drafts   # production build that still includes drafts
 npm run preview        # serve dist/ locally (port 4173)
 npm run preview:live   # build + serve the `live` branch exactly as deployed (port 4174)
 npm run preview:dev    # build + serve your working copy with drafts shown (port 4173)
+npm run portfolio      # PDF portfolio of the live content (needs google-chrome, pdftotext, gs)
 ```
 
 To try the phone layout, open DevTools (F12) and toggle the device toolbar (Ctrl+Shift+M),
@@ -50,27 +51,29 @@ Page views are counted with [GoatCounter](https://www.goatcounter.com/) (no cook
 ## Project layout
 
 ```text
-├── .github/workflows/deploy.yml   # CI: test on live/dev, deploy live to GitHub Pages
+├── .github/workflows/deploy.yml   # CI: type-check + test on live/dev, deploy live to GitHub Pages
 ├── public/
 │   ├── CNAME                      # custom domain
 │   ├── favicon.svg
+│   ├── resume/, portfolio/        # PDFs linked from the About page
 │   └── assets/
 │       ├── profile/               # sidebar headshot (+ close crop for phones)
 │       └── projects/<id>/         # each project's images and video clips
+├── scripts/                       # preview:live/dev builds, PDF portfolio generator
 ├── src/
 │   ├── main.ts                    # builds the layout, starts analytics and the router
 │   ├── router.ts                  # hash routes: #/, #/<section>, #/<section>/<project>, #/about
 │   ├── data/
-│   │   ├── profile.ts             # name, headshot, home hero text, email, analytics code
+│   │   ├── profile.ts             # name, headshot, home hero text, featured projects, links
 │   │   ├── sections.ts            # sidebar sections, hero highlights, groups, paragraph posts
 │   │   ├── about.md               # About page
 │   │   └── projects/
 │   │       ├── projects.ts        # every project's details (title, date, tags, links, ...)
-│   │       └── <id>/<Name>.md     # each project's write-up
+│   │       └── <id>/<Name>.md     # each project's write-up (loaded by folder name)
 │   ├── pages/                     # home, section feed, project page, about, resume, 404
 │   ├── components/                # sidebar + phone menu, right panel/strip, cards, links, tags
-│   ├── utils/                     # Markdown rendering, drafts, analytics, HTML escaping
-│   └── styles/                    # variables (palette), layout, components, pages, feed
+│   ├── utils/                     # Markdown rendering, URLs, drafts, analytics, HTML escaping
+│   └── styles/                    # variables, layout, components, markdown (write-ups), pages, feed
 ├── tests/                         # Vitest + happy-dom, one file per area
 ├── CLAUDE.md                      # detailed maintainer notes (structure, workflow, decisions)
 └── vite.config.ts, tsconfig.json
@@ -78,19 +81,13 @@ Page views are counted with [GoatCounter](https://www.goatcounter.com/) (no cook
 
 ## Editing content
 
-Content is written in Markdown and TypeScript data files:
-
-- **Home hero, name, email:** `src/data/profile.ts`
-- **Sections** (title, intro, links, groups like *Current / Completed*): `src/data/sections.ts`
+- **Home hero, featured projects, links:** `src/data/profile.ts`
+- **Sections** (title, intro, groups, highlight cards, paragraph posts): `src/data/sections.ts`
 - **About page:** `src/data/about.md`
-- **A project:**
-  1. Write `src/data/projects/<id>/<Name>.md`.
-  2. Import it in `src/data/projects/projects.ts` (with `?raw`) and add an entry: `id`,
-     `section` (`work`, `wpi`, `robotics`, `personal`), `group`, `title`, `summary`, `date`,
-     `sortDate` (`YYYY-MM`, newest first), `technologies`, `image`, `links`.
-  3. Put media in `public/assets/projects/<id>/`.
-  4. A `placeholder({...})` entry is a draft: listed locally, hidden on the live site.
-- **The home page** features the three most recent finished projects automatically.
+- **A project:** write `src/data/projects/<id>/<Name>.md` (the folder name is the project id),
+  add its entry to `src/data/projects/projects.ts`, and put media in
+  `public/assets/projects/<id>/`. A `placeholder({...})` entry is a draft: listed locally,
+  hidden on the live site.
 
 ### Media in write-ups
 
@@ -99,8 +96,10 @@ Content is written in Markdown and TypeScript data files:
 | `<figure class="figure-inline">` before a bullet list | image floats beside the list |
 | `<figure>` on its own | full-width image |
 | `<div class="figure-row">` of `<figure>`s (`no-crop` to show images whole) | side-by-side row |
-| `![Caption](/assets/projects/<id>/clip.mp4)` | silent, looping video clip |
+| `![Caption](/assets/projects/<id>/clip.mp4 "optional description")` | silent looping clip, with its `clip-poster.jpg` still |
 | `![Caption](https://www.youtube.com/watch?v=...)` | embedded YouTube player |
+| `> note` | highlighted callout box |
+| `$...$`, `$$...$$` | math (KaTeX) |
 
 `npm run test` checks, among other things, that every project belongs to a real section and
-that every image and video path exists.
+that every image, clip, and poster path exists. See `CLAUDE.md` for the full workflow.

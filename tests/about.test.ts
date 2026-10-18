@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { aboutLinks, renderAbout } from "../src/pages/about";
@@ -24,5 +24,10 @@ describe("about page", () => {
         expect(link?.getAttribute("href")).toBe(`/${profile.portfolioPdf}`);
         expect(link?.target).toBe("_blank");
         expect(existsSync(resolve("public", profile.portfolioPdf))).toBe(true);
+    });
+
+    it("is the file the portfolio generator writes", () => {
+        const script = readFileSync(resolve("scripts/portfolio.mjs"), "utf8");
+        expect(script).toContain(`"public/${profile.portfolioPdf}"`);
     });
 });

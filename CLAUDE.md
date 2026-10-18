@@ -28,7 +28,7 @@ Bundled npm 10 crashes on fresh installs (arborist "edgesOut"): use `npx npm@11 
 
 ```bash
 npm run dev          # localhost:5173, shows drafts/placeholders
-npm run test         # vitest (~80 tests, all must pass)
+npm run test         # vitest (~90 tests, all must pass; CI also runs tsc)
 npm run build        # tsc + vite build → dist/ (production: drafts hidden)
 npm run build:drafts # production build that still shows drafts
 npm run preview      # serve dist/
@@ -61,7 +61,8 @@ planning" / "reread planning" = read it and sync to the site.
   `robotics/` (Competitive Robotics, section id `robotics`; old `#/190` URLs redirect via
   `sectionAliases`), `personal/`, plus `_unsorted/`, `_archive/`.
 - `planning/<section>/<project>/website.md` = exact site text. YAML header → the entry in
-  `src/data/projects/projects.ts`; body → `src/data/projects/<id>/<Name>.md`.
+  `src/data/projects/projects.ts`; body → `src/data/projects/<id>/<Name>.md` (loaded by
+  `import.meta.glob`: the folder name must be the project id; no import line needed).
   Header fields: `title, status (live|draft), group, date, sort (YYYY-MM), order, role,
   summary, tags, image, links`. `type: paragraph` folders → `textPosts` in sections.ts
   (`before: <project-id>` positions one).
@@ -70,9 +71,13 @@ planning" / "reread planning" = read it and sync to the site.
   - single image on its own → plain `<figure>` (full width)
   - consecutive image lines → `<div class="figure-row">` (add `no-crop` for screenshots,
     charts, portrait photos, and videos)
-  - `![Caption](clip.mov|mp4)` → transcoded silent looping clip `<figure class="video-clip">`
-    (seamless: rounded border like images, no controls/fullscreen/PiP, not tappable; `makeSeamless()` in markdown.ts
-    applies to every `.video-clip video`, including hand-written HTML)
+  - `![Caption](clip.mov|mp4)` → transcode, then write `![Caption](/assets/projects/<id>/clip.mp4 "description")`
+    on its own line (also inside a `figure-row` div; caption may be empty, e.g. in a `figure-mosaic`).
+    The renderer makes the silent looping `<figure class="video-clip">`, adds `clip-poster.jpg`
+    automatically, and uses the optional quoted description as the aria-label (default: caption).
+    Seamless: rounded border like images, no controls/fullscreen/PiP, not tappable; `makeSeamless()`
+    applies to every `.video-clip video`. Hand-write the HTML only for extra classes
+    (`video-clip figure-inline`, `video-clip centered`).
   - `![Caption](youtube URL)` → YouTube embed (Markdown renderer handles it directly)
   - `> text` blockquote → highlighted note/callout box (e.g. the DEKA NDA note)
   - Math: `$...$` inline, `$$...$$` display (KaTeX, lazy-loaded only on pages with math;
@@ -95,23 +100,30 @@ planning" / "reread planning" = read it and sync to the site.
   - `profile.ts` — `featured` = hand-picked home Featured Projects (ids); name, headshots, hero text (`heroIntro`, `heroLinks`: optional multi-word
     `lead` for the dash bullet, and `highlight` = words anywhere that grow on hover, default lead), email, GoatCounter code, resume PDF path.
   - `sections.ts` — sidebar sections, their groups, `highlights`, `textPosts`,
-    `sectionAliases`, `logos`; `visibleTextPosts()`. Long paragraph posts can live in
-    `src/data/<section>/*.md` (e.g. `wpi/scholarship.md`).
-  - `projects/projects.ts` — `allProjects` (full entries + `placeholder({...})` drafts),
-    `projects` (drafts filtered), `sortNewestFirst`, `projectsById` (home Featured, from
-    `profile.featured`), `projectsInSection`, `findProject`.
+    `sectionAliases`, `logos`; `visibleTextPosts()`. Paragraph post bodies live in
+    `src/data/<section>/*.md` (`wpi/scholarship.md`, `robotics/frc-190.md`).
+  - `types.ts` — shared `Link` type.
+  - `projects/projects.ts` — `entries` (full entries + `placeholder({...})` drafts) →
+    `allProjects` (with write-ups from the `<id>/` folders), `projects` (drafts filtered),
+    `sortNewestFirst`, `projectsById` (home Featured, from `profile.featured`),
+    `projectsInSection`, `findProject`, `projectMeta` ("date · role").
   - `about.md` — About page Markdown.
 - `src/pages/` — `home.ts` (hero + featured), `section.ts` (blog feed grouped like the right
   panel, newest first; text posts), `projectDetail.ts` (write-up + right panel), `about.ts`,
   `resume.ts`, `notFound.ts`.
 - `src/components/` — `sidebar.ts` (headshot, nav, phone ☰ menu), `projectNav.ts` (right
   panel; ≤1100px it becomes a "Jump to" swipe strip on section pages (hidden on phones ≤760px) and is hidden on project pages), `projectCard.ts` (home cards),
-  `contactLinks.ts` ("Email me" link), `linkList.ts`, `techTags.ts`.
+  `contactLinks.ts` ("Email me" link), `linkList.ts` (`createButtonLink`, `createLinkList`),
+  `techTags.ts` (null when no tags).
 - `src/utils/` — `markdown.ts` (showdown, highlight.js, YouTube + video-clip embeds,
-  reduced-motion), `drafts.ts`, `analytics.ts`, `html.ts` (escapeHtml).
-- `src/styles/` — `variables.css` (palette + sizes), `base.css`, `layout.css` (sidebar,
-  phone top bar/menu), `components.css` (buttons, cards, tags, Markdown figures/videos),
-  `pages.css` (hero, home one-screen fit, phone home), `feed.css` (posts, right panel/strip).
+  `clipPoster`, math, reduced-motion), `urls.ts` (`sectionHref`, `projectHref`, `assetUrl`:
+  use these instead of building `#/...` or `BASE_URL` strings), `drafts.ts`, `analytics.ts`,
+  `html.ts` (escapeHtml).
+- `src/styles/` — `variables.css` (palette, sizes, `--gutter-phone`, breakpoint list), `base.css`,
+  `layout.css` (sidebar, phone top bar/menu), `components.css` (buttons, cards, tags, link lists),
+  `markdown.css` (write-ups: text, figures/rows/mosaic, clips, YouTube, callouts, math; one phone
+  block at the end), `pages.css` (hero, home one-screen fit, phone home), `feed.css` (posts,
+  right panel/strip).
 - `scripts/preview.mjs` — `preview:live` exports the `live` branch with `git archive` into
   `node_modules/.cache/preview/` (works from any branch, ignores uncommitted changes).
 - `scripts/portfolio.mjs` + `scripts/portfolio/` (page: `main.ts`, `print.css`) — `npm run portfolio`:

@@ -19,7 +19,7 @@ const repo = process.cwd();
 const now = new Date();
 const stamp = `${now.getMonth() + 1}.${now.getDate()}.${String(now.getFullYear()).slice(2)}`;
 const out = resolve(process.argv[2] ?? `planning/MarcusPortfolio_${stamp}.pdf`);
-// Keep in sync with profile.portfolioPdf
+// Must match profile.portfolioPdf (tests/about.test.ts checks)
 const siteCopy = process.argv[2] ? null : resolve(repo, "public/portfolio/Marcus_Gafka_Portfolio.pdf");
 const cache = resolve(repo, "node_modules/.cache/portfolio");
 const outDir = resolve(cache, "dist");
