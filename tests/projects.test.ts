@@ -3,8 +3,22 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { projects } from "../src/data/projects/projects";
 import { sections } from "../src/data/sections";
+import { profile } from "../src/data/profile";
+import aboutMd from "../src/data/about.md?raw";
 
 const publicDir = resolve(__dirname, "../public");
+
+/** Site files a write-up points at: HTML src/poster attributes and Markdown images or clips */
+function mediaPaths(markdown: string): string[] {
+    return [
+        ...[...markdown.matchAll(/\b(?:src|poster)="([^"]+)"/g)].map(match => match[1]),
+        ...[...markdown.matchAll(/!\[[^\]]*\]\(([^)\s]+)\)/g)].map(match => match[1]),
+    ].filter(path => !/^https?:/.test(path));
+}
+
+function expectInPublic(path: string, where: string) {
+    expect(existsSync(resolve(publicDir, path.replace(/^\//, ""))), `${where}: ${path}`).toBe(true);
+}
 
 describe("sections data", () => {
     it("puts every text post in a real group", () => {
@@ -64,13 +78,28 @@ describe("projects data", () => {
         projects.forEach(project => expect(project.content.trim()).not.toBe(""));
     });
 
-    it("only references images that exist", () => {
+    it("only references images and clips that exist", () => {
         for (const project of projects) {
-            const paths = [
-                ...(project.image ? [`/${project.image}`] : []),
-                ...[...project.content.matchAll(/src="([^"]+)"/g)].map(match => match[1]),
-            ];
-            paths.forEach(path => expect(existsSync(`${publicDir}${path}`), `${project.id}: ${path}`).toBe(true));
+            if (project.image) expectInPublic(project.image, project.id);
+            mediaPaths(project.content).forEach(path => expectInPublic(path, project.id));
         }
+    });
+});
+
+describe("site media", () => {
+    it("has every file the sections, text posts, and profile point at", () => {
+        for (const section of sections) {
+            section.logos?.forEach(logo => expectInPublic(logo.src, section.id));
+            section.textPosts?.forEach(post => mediaPaths(post.body).forEach(path => expectInPublic(path, post.id)));
+        }
+        mediaPaths(aboutMd).forEach(path => expectInPublic(path, "about"));
+        [profile.headshot, profile.headshotSmall, profile.resumePdf, profile.portfolioPdf]
+            .filter(Boolean)
+            .forEach(path => expectInPublic(path, "profile"));
+    });
+
+    it("finds paths in every form a write-up uses", () => {
+        const md = '<video src="/a.mp4" poster="/a-poster.jpg"></video>\n![Clip](/b.mp4)\n![Video](https://youtu.be/x)';
+        expect(mediaPaths(md)).toEqual(["/a.mp4", "/a-poster.jpg", "/b.mp4"]);
     });
 });
