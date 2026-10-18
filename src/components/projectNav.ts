@@ -3,8 +3,6 @@ import { projectsInSection, type Project } from "../data/projects/projects";
 import { escapeHtml } from "../utils/html";
 import { assetUrl, projectHref } from "../utils/urls";
 
-const HIGHLIGHT_MS = 1600;
-
 /**
  * Right-hand panel listing a section's projects as thumbnails, grouped when the
  * section has groups. On a section page (no activeId) clicking an item scrolls
@@ -86,7 +84,7 @@ function createNavItem(project: Project, active: boolean, scrollToPost: boolean)
             post.classList.remove("post-highlight");
             void post.offsetWidth; // restart the highlight animation
             post.classList.add("post-highlight");
-            window.setTimeout(() => post.classList.remove("post-highlight"), HIGHLIGHT_MS);
+            post.addEventListener("animationend", () => post.classList.remove("post-highlight"), { once: true });
         });
     }
 

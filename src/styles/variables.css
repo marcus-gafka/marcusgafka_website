@@ -31,7 +31,18 @@
     --space-3: 20px;
     --space-4: 40px;
     --space-5: 60px;
+    /* Side margin on phones (top bar, page content, featured cards) */
+    --gutter-phone: 16px;
 
     --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
+
+/*
+ * Breakpoints (media queries can't use variables, so they're written out):
+ *   760px   phones: top bar + menu, compact home, no "Jump to" strip
+ *   1100px  right project panel becomes the "Jump to" strip (hidden on project pages)
+ *   1140px  home page fills exactly one screen (min-height 560px; compact at max-height 760px)
+ *   640px, 560px  content tweaks: post photos stack, floated figures drop into the flow
+ *   @container 600px  post photos stack whenever the feed column itself is narrow
+ */

@@ -1,0 +1,325 @@
+/*
+ * Write-ups rendered from Markdown (.markdown-body): project pages, text posts, About.
+ * Order: text → images and figures → clips → YouTube embeds → phone tweaks.
+ */
+
+/* ---- Text ---- */
+.markdown-body h2 {
+    clear: both;
+    margin-top: var(--space-4);
+    padding-bottom: var(--space-1);
+    border-bottom: 2px solid var(--burgundy);
+}
+
+.markdown-body h3 {
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+}
+
+.markdown-body h3 + p em {
+    color: var(--muted);
+}
+
+/* Contain floated figures */
+.markdown-body::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.markdown-body pre {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-2);
+    overflow-x: auto;
+}
+
+.markdown-body code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+
+.markdown-body :not(pre) > code {
+    background: var(--panel-2);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.markdown-body pre code.hljs {
+    background: transparent;
+    padding: 0;
+}
+
+.markdown-body table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.markdown-body th,
+.markdown-body td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    text-align: left;
+}
+
+/* Header-less markdown tables (| | | header row) */
+.markdown-body thead:not(:has(th:not(:empty))) {
+    display: none;
+}
+
+.markdown-body td:first-child {
+    white-space: nowrap;
+}
+
+/* Callouts: a Markdown blockquote (> ...) renders as a highlighted note */
+.markdown-body blockquote {
+    margin: var(--space-3) 0;
+    padding: var(--space-2) var(--space-3);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--burgundy);
+    border-radius: var(--radius);
+    color: var(--text);
+}
+
+.markdown-body blockquote > :first-child {
+    margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+/* Math (KaTeX): display equations scroll sideways on narrow screens instead of overflowing */
+.markdown-body .math-display {
+    margin: var(--space-3) 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--space-1) 0;
+}
+
+.markdown-body .katex {
+    font-size: 1.05em;
+    color: var(--text);
+}
+
+/* ---- Images and figures ---- */
+.markdown-body img {
+    border-radius: var(--radius);
+}
+
+.markdown-body figure {
+    margin: 0;
+}
+
+.markdown-body figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background: #fff;
+}
+
+.markdown-body figcaption {
+    margin-top: var(--space-1);
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.markdown-body .figure-row {
+    /* Start below any floated figure instead of squeezing beside it */
+    clear: both;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-2);
+    margin: var(--space-3) 0;
+}
+
+.markdown-body .figure-row img {
+    aspect-ratio: 4 / 3;
+}
+
+/* Rows of screenshots or charts: show each image whole instead of cropping */
+.markdown-body .figure-row.no-crop {
+    align-items: start;
+}
+
+.markdown-body .figure-row.no-crop img {
+    aspect-ratio: auto;
+    object-fit: contain;
+    width: auto;
+    max-width: 100%;
+    max-height: 360px;
+    margin: 0 auto;
+}
+
+/* Several clips or photos sharing one caption */
+.markdown-body .figure-group {
+    clear: both;
+    margin: var(--space-3) 0;
+}
+
+/* Two landscape clips stacked beside one portrait clip (listed last), same total height */
+.markdown-body .figure-mosaic {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: var(--space-2);
+}
+
+.markdown-body .figure-mosaic > .video-clip {
+    margin: 0;
+}
+
+.markdown-body .figure-mosaic > :last-child {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.markdown-body .figure-mosaic video {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* A figure floated beside the bullet list that follows it */
+.markdown-body .figure-inline {
+    float: right;
+    width: min(260px, 40%);
+    margin: 0 0 var(--space-2) var(--space-3);
+}
+
+.markdown-body .figure-inline img {
+    object-fit: contain;
+}
+
+.markdown-body .figure-inline + p {
+    margin-top: 0;
+}
+
+/* A table after a floated figure fits beside it instead of dropping below */
+.markdown-body .figure-inline ~ table {
+    width: auto;
+}
+
+/* Logos: transparent, centered at a modest size, no frame or background */
+.markdown-body figure.logo img {
+    width: auto;
+    max-width: min(100%, 420px);
+    margin: 0 auto;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+/* A small logo floated beside a page's opening text */
+.markdown-body .figure-inline.logo-inline {
+    width: min(180px, 35%);
+}
+
+.markdown-body .figure-inline.logo-inline img {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+}
+
+/* ---- Short looping clips hosted on the site ---- */
+/* After .figure-inline: a floated clip takes these, then .figure-inline.video-clip below */
+.markdown-body .video-clip {
+    clear: both;
+    margin: var(--space-3) 0;
+}
+
+/* Seamless: no player chrome; rounded border matching the images */
+.markdown-body figure video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: transparent;
+    outline: none;
+}
+
+/* Autoplaying clips can't be tapped (no fullscreen / pause pop-ups on phones) */
+.markdown-body .video-clip video[autoplay] {
+    pointer-events: none;
+}
+
+/* Hide the iOS/Safari "start playback" overlay if autoplay is delayed (e.g. Low Power Mode) */
+.markdown-body .video-clip video[autoplay]::-webkit-media-controls,
+.markdown-body .video-clip video[autoplay]::-webkit-media-controls-start-playback-button,
+.markdown-body .video-clip video[autoplay]::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+    -webkit-appearance: none;
+}
+
+.markdown-body .figure-row .video-clip {
+    margin: 0;
+}
+
+.markdown-body .figure-inline.video-clip {
+    clear: none;
+    margin: 0 0 var(--space-2) var(--space-3);
+}
+
+.markdown-body .figure-row.no-crop video {
+    width: auto;
+    max-width: 100%;
+    max-height: 360px;
+    margin: 0 auto;
+}
+
+/* A square/portrait clip shown large but centered, not stretched to the full column */
+.markdown-body .video-clip.centered video {
+    max-width: min(100%, 560px);
+    margin: 0 auto;
+}
+
+/* ---- Embedded YouTube videos: full width, 16:9 ---- */
+.markdown-body .video-embed {
+    clear: both;
+    margin: var(--space-3) 0;
+}
+
+.markdown-body .video-frame {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+}
+
+.markdown-body .video-frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Side by side in a figure row */
+.markdown-body .figure-row .video-embed {
+    margin: 0;
+}
+
+/* ---- Phones: floated figures drop into the flow, centered ---- */
+@media (max-width: 560px) {
+    .markdown-body .figure-inline {
+        float: none;
+        width: 100%;
+        max-width: 360px;
+        margin: var(--space-2) auto;
+    }
+
+    .markdown-body .figure-inline.video-clip {
+        margin: var(--space-2) auto;
+    }
+
+    /* Portrait clips (e.g. a game board) stay within one screen */
+    .markdown-body .figure-inline.video-clip video {
+        width: auto;
+        max-height: 60vh;
+        margin: 0 auto;
+    }
+}
