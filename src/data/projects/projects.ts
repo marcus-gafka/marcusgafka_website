@@ -1,26 +1,6 @@
 import type { Link } from "../types";
 import { withoutDrafts } from "../../utils/drafts";
 
-import dekaMd from "./deka/Deka.md?raw";
-import nasaMd from "./nasa-jsc/NasaJsc.md?raw";
-import doomSpiralMd from "./doom-spiral-turnover/DoomSpiralTurnover.md?raw";
-import stackUpMd from "./stack-up-redundancy/StackUpRedundancy.md?raw";
-import funkyMd from "./funky/Funky.md?raw";
-import snapbackMd from "./snapback/Snapback.md?raw";
-import emberMd from "./ember/Ember.md?raw";
-import iqpMd from "./iqp/IQP.md?raw";
-import mqpMd from "./mqp/MQP.md?raw";
-import me3902Md from "./me3902/ME3902.md?raw";
-import rbe4540Md from "./rbe4540/RBE4540.md?raw";
-import rbe4701Md from "./rbe4701/RBE4701.md?raw";
-import frc118Md from "./frc-118/FRC118.md?raw";
-import rhoBetaEpsilonMd from "./rho-beta-epsilon/RhoBetaEpsilon.md?raw";
-import rbe3002Md from "./rbe3002/RBE3002.md?raw";
-import rbe3001Md from "./rbe3001/RBE3001.md?raw";
-import rbe2002Md from "./rbe2002/RBE2002.md?raw";
-import rbe1001Md from "./rbe1001/RBE1001.md?raw";
-import me3310Md from "./me3310/ME3310.md?raw";
-
 export interface Project {
     /** URL slug, e.g. #/wpi/rbe3002 */
     id: string;
@@ -34,7 +14,7 @@ export interface Project {
     /** Your role on the project */
     role?: string;
     technologies: string[];
-    /** Markdown body shown on the project's detail page */
+    /** Markdown body shown on the project's detail page, from <id>/<Name>.md */
     content: string;
     links?: Link[];
     /** Card image, a path under public/ */
@@ -47,16 +27,25 @@ export interface Project {
     draft?: boolean;
 }
 
+/** An entry below; its write-up comes from the folder named after its id */
+type ProjectEntry = Omit<Project, "content">;
+
 const COMING_SOON = "*Write-up coming soon.*";
 
-/** A titled entry with no write-up yet */
-function placeholder(fields: Pick<Project, "id" | "section" | "title"> & Partial<Project>): Project {
-    return { summary: "Write-up coming soon.", technologies: [], content: COMING_SOON, draft: true, ...fields };
+/** Every <id>/<Name>.md in this folder, keyed by id */
+const writeUps: Record<string, string> = Object.fromEntries(
+    Object.entries(import.meta.glob<string>("./*/*.md", { query: "?raw", import: "default", eager: true }))
+        .map(([path, markdown]) => [path.split("/")[1], markdown]),
+);
+
+/** A titled entry that isn't finished: shown locally as a reminder, hidden on the live site */
+function placeholder(fields: Pick<Project, "id" | "section" | "title"> & Partial<ProjectEntry>): ProjectEntry {
+    return { summary: "Write-up coming soon.", technologies: [], draft: true, ...fields };
 }
 
 // Within a section (and group), dated projects are shown newest first; undated
 // ones follow in the order listed here.
-export const allProjects: Project[] = [
+const entries: ProjectEntry[] = [
     // ---- Work ----
     {
         id: "deka",
@@ -67,7 +56,6 @@ export const allProjects: Project[] = [
         date: "Summer 2026",
         role: "Controls Engineering Intern · Manchester, NH",
         technologies: ["Arduino", "Python", "Kalman Filtering", "Controls"],
-        content: dekaMd,
         image: "assets/projects/deka/deka-card.jpg",
     },
     {
@@ -80,7 +68,6 @@ export const allProjects: Project[] = [
         date: "Summers 2023–2025",
         role: "Robotics Academy Intern / University Intern · Houston, TX",
         technologies: ["Mechanical Design", "Fabrication", "Sheet Metal", "3D Printing"],
-        content: nasaMd,
         image: "assets/projects/nasa-jsc/sev-door-handle.jpg",
     },
 
@@ -95,7 +82,6 @@ export const allProjects: Project[] = [
         role: "Prototyping Lead · V2 Hopper Lead · Drive Coach",
         summary: "2026 in-season robots. Held many roles at once: Prototyping Lead, V2 Hopper Lead, and Drive Coach.",
         technologies: ["Prototyping", "CAD", "Mechanism Design", "Leadership", "Strategy"],
-        content: doomSpiralMd,
         image: "assets/projects/doom-spiral-turnover/robot.jpg",
         links: [
             { label: "Reveal Video", url: "https://www.youtube.com/watch?v=5UeYLmUpsrY" },
@@ -112,7 +98,6 @@ export const allProjects: Project[] = [
         date: "2025 Season",
         role: "Funnel & Stick subsystem lead · Drive Coach",
         technologies: ["CAD", "Mechanism Design", "Strategy"],
-        content: stackUpMd,
         image: "assets/projects/stack-up-redundancy/robot.jpg",
         links: [
             { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190/2025" },
@@ -133,7 +118,6 @@ export const allProjects: Project[] = [
         date: "2024 Off-Season",
         role: "Designer & builder, alongside students",
         technologies: ["CAD", "Fabrication", "Electrical Integration"],
-        content: funkyMd,
         image: "assets/projects/funky/with-systems.jpg",
     },
     {
@@ -146,7 +130,6 @@ export const allProjects: Project[] = [
         date: "2024 Season",
         role: "Intake & Centralizer lead · Strategy Lead",
         technologies: ["CAD", "Pneumatics", "Mechanism Design"],
-        content: snapbackMd,
         image: "assets/projects/snapback/robot.jpg",
         links: [
             { label: "The Blue Alliance", url: "https://www.thebluealliance.com/team/190/2024" },
@@ -164,7 +147,6 @@ export const allProjects: Project[] = [
         date: "2023 Off-Season",
         role: "Project lead",
         technologies: ["Swerve Drive", "CAD", "Rapid Prototyping"],
-        content: emberMd,
         image: "assets/projects/ember/assembled.jpg",
         links: [
             { label: "Development Video", url: "https://youtu.be/5k3lEUqPrUw" },
@@ -183,7 +165,6 @@ export const allProjects: Project[] = [
         role: "Team Captain & Drive Team",
         summary: "I spent four seasons with the Robonauts, going from opening CAD for the first time to designing entire subsystems and captaining the team.",
         technologies: ["CAD", "Mechanical Design", "Leadership", "Drive Team"],
-        content: frc118Md,
         image: "assets/projects/frc-118/2023-echo.jpg",
         links: [{ label: "Robonauts Robots", url: "https://www.118robonauts.org/robots" }],
     },
@@ -200,7 +181,6 @@ export const allProjects: Project[] = [
         date: "September 2025 – present",
         role: "Elected officer",
         technologies: ["Leadership", "Interviewing", "Recruitment"],
-        content: rhoBetaEpsilonMd,
         image: "assets/projects/rho-beta-epsilon/card.jpg",
         links: [{ label: "Rho Beta Epsilon", url: "https://mywpi.wpi.edu/RBE/" }],
     },
@@ -213,7 +193,6 @@ export const allProjects: Project[] = [
         date: "2026–2027",
         role: "Senior capstone · Team project",
         technologies: ["Conceptual Design", "Path Planning", "Image Processing", "Axiomatic Design", "Simulation"],
-        content: mqpMd,
         image: "assets/projects/mqp/cover.jpg",
     },
     {
@@ -225,7 +204,6 @@ export const allProjects: Project[] = [
         date: "A-Term 2026",
         role: "In progress",
         technologies: ["Grasp Analysis", "ROS 2", "Gazebo", "OpenCV", "Visual Servoing", "Python"],
-        content: rbe4540Md,
         image: "assets/projects/rbe4540/pick-and-place-poster.jpg",
     },
     {
@@ -237,7 +215,6 @@ export const allProjects: Project[] = [
         date: "A-Term 2026",
         role: "In progress",
         technologies: ["Python", "A*", "Minimax", "MDPs", "Value Iteration", "Reinforcement Learning"],
-        content: rbe4701Md,
         image: "assets/projects/rbe4701/cover.jpg",
     },
     {
@@ -249,7 +226,6 @@ export const allProjects: Project[] = [
         date: "B-Term 2025",
         role: "Team of 4 · Venice, Italy",
         technologies: ["ArcGIS Pro", "Survey123", "Python", "GIS", "Linear Regression", "Fieldwork"],
-        content: iqpMd,
         image: "assets/projects/iqp/residential-use-3d.jpg",
         sortDate: "2025-12",
     },
@@ -263,7 +239,6 @@ export const allProjects: Project[] = [
         sortDate: "2026-05",
         role: "Team of 2",
         technologies: ["Raspberry Pi Pico", "MicroPython", "Stepper Motors", "Sensors", "3D Printing"],
-        content: me3902Md,
         image: "assets/projects/me3902/cover.jpg",
     }),
     {
@@ -276,7 +251,6 @@ export const allProjects: Project[] = [
         date: "D-Term 2025",
         role: "Team of 4",
         technologies: ["ROS", "Python", "Linux", "Git", "Path Planning"],
-        content: rbe3002Md,
         image: "assets/projects/rbe3002/mapping.jpg",
         links: [
             { label: "Lab Report", url: "https://docs.google.com/document/d/1mDyvq1uskRRFaA24FyfPsW9sb2k_1Rg79t1RZo6ixO8/edit?usp=sharing" },
@@ -292,7 +266,6 @@ export const allProjects: Project[] = [
         date: "C-Term 2025",
         role: "Team of 4",
         technologies: ["MATLAB", "Kinematics", "Computer Vision"],
-        content: rbe3001Md,
         image: "assets/projects/rbe3001/arm.jpg",
         links: [
             { label: "Project Video", url: "https://www.youtube.com/watch?v=MtlLjE3h1JU" },
@@ -309,7 +282,6 @@ export const allProjects: Project[] = [
         summary: "PID control, line following, AprilTag tracking, and state machines on a Pololu Romi. Worked on the first attempt.",
         role: "Team of 3",
         technologies: ["C++", "PID Control", "OpenMV", "State Machines"],
-        content: rbe2002Md,
         image: "assets/projects/rbe2002/final-robot.jpg",
         links: [
             { label: "Development Video", url: "https://youtu.be/CzaxPlEQpvg" },
@@ -325,7 +297,6 @@ export const allProjects: Project[] = [
         summary: "Designed, built, and programmed a VEX robot in Python that won the class-wide competition.",
         role: "Team of 3",
         technologies: ["Python", "VEX", "Sensors", "State Machines"],
-        content: rbe1001Md,
         image: "assets/projects/rbe1001/robot.jpg",
         links: [
             { label: "Lab Report", url: "https://docs.google.com/document/d/1JklVD2fkmJC6xfyGw0SMFfYot5r_s3oUnLOFl3DXKe4/edit?usp=sharing" },
@@ -341,7 +312,6 @@ export const allProjects: Project[] = [
         summary: "A foot-pedal-actuated six-bar linkage, prototyped at 1:3 scale for under $30 and pitched Shark Tank style.",
         role: "Team of 4",
         technologies: ["Linkage Synthesis", "CAD", "Laser Cutting", "3D Printing"],
-        content: me3310Md,
         image: "assets/projects/me3310/prototype.jpg",
         links: [
             { label: "Final Report", url: "https://docs.google.com/document/d/1sKprMgE6_HIPDpT7_m2_Se-KNmE6mpFDl1LxfM_augk/edit?usp=sharing" },
@@ -355,6 +325,12 @@ export const allProjects: Project[] = [
     placeholder({ id: "whiteboard-art-robot", section: "personal", title: "Whiteboard Art Robot" }),
     placeholder({ id: "frc-motor-controller", section: "personal", title: "FRC Motor Controller" }),
 ];
+
+/** Every entry with its write-up (or "coming soon" when its folder has none) */
+export const allProjects: Project[] = entries.map(entry => ({ ...entry, content: writeUps[entry.id] ?? COMING_SOON }));
+
+/** Project ids that have a write-up folder (checked by the tests) */
+export const writeUpIds: string[] = Object.keys(writeUps);
 
 /** What the site shows: everything locally, only finished projects on the live site */
 export const projects: Project[] = withoutDrafts(allProjects, project => !!project.draft);

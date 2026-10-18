@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { projects } from "../src/data/projects/projects";
+import { allProjects, projects, writeUpIds } from "../src/data/projects/projects";
 import { sections } from "../src/data/sections";
 import { profile } from "../src/data/profile";
 import aboutMd from "../src/data/about.md?raw";
@@ -74,8 +74,14 @@ describe("projects data", () => {
         });
     });
 
-    it("gives every project a write-up", () => {
+    it("gives every finished project its own write-up folder", () => {
         projects.forEach(project => expect(project.content.trim()).not.toBe(""));
+        allProjects.filter(project => !project.draft).forEach(project => expect(writeUpIds, project.id).toContain(project.id));
+    });
+
+    it("names every write-up folder after a project id", () => {
+        const ids = allProjects.map(project => project.id);
+        writeUpIds.forEach(id => expect(ids, `src/data/projects/${id}/`).toContain(id));
     });
 
     it("only references images and clips that exist", () => {
