@@ -34,6 +34,7 @@ npm run build:drafts # production build that still shows drafts
 npm run preview      # serve dist/
 npm run preview:live # build + serve the `live` branch as deployed (drafts hidden), :4174
 npm run preview:dev  # build + serve the working copy with drafts, :4173
+npm run portfolio    # PDF portfolio of the live content → planning/ + public/portfolio/
 ```
 
 ## Branches & deploy
@@ -113,6 +114,13 @@ planning" / "reread planning" = read it and sync to the site.
   `pages.css` (hero, home one-screen fit, phone home), `feed.css` (posts, right panel/strip).
 - `scripts/preview.mjs` — `preview:live` exports the `live` branch with `git archive` into
   `node_modules/.cache/preview/` (works from any branch, ignores uncommitted changes).
+- `scripts/portfolio.mjs` + `scripts/portfolio/` (page: `main.ts`, `print.css`) — `npm run portfolio`:
+  builds a print page from the site data (drafts hidden), prints it with headless Chrome, re-prints
+  until the contents has page numbers and no project spills a few lines onto a new page (shrinks
+  that project's images), then Ghostscript downsamples to 220 dpi (< 5 MB). Needs google-chrome,
+  pdftotext, gs. Clips become poster stills, YouTube embeds linked thumbnails. Writes the dated copy
+  to `planning/` and the site copy `public/portfolio/Marcus_Gafka_Portfolio.pdf` (`profile.portfolioPdf`,
+  About page "Portfolio" button, opens in a new tab). Rerun after content changes.
 - `tests/` — one file per area; `projects.test.ts` checks every image/video path exists.
 - `README.md` — human-facing overview (may lag behind this file).
 

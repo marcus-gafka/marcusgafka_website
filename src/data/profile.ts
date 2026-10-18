@@ -40,6 +40,8 @@ export const profile = {
     featured: ["deka", "nasa-jsc", "iqp"],
     /** Path under public/, e.g. "resume/Marcus_Gafka_Resume.pdf". Leave empty to hide. */
     resumePdf: "resume/Marcus_Gafka_Resume.pdf",
+    /** PDF portfolio (`npm run portfolio` writes it), a path under public/. Leave empty to hide. */
+    portfolioPdf: "portfolio/Marcus_Gafka_Portfolio.pdf",
     links: {
         github: "",
         linkedin: "https://www.linkedin.com/in/marcus-gafka/",

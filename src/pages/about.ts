@@ -10,7 +10,7 @@ interface AboutLink {
     external: boolean;
 }
 
-/** LinkedIn, YouTube, Email, Resume, in that order; unset ones are skipped. */
+/** LinkedIn, YouTube, Email, Resume, Portfolio, in that order; unset ones are skipped. */
 export function aboutLinks(): { links: AboutLink[]; missing: string[] } {
     const { linkedin, youtube, email } = profile.links;
     const candidates: [string, string, boolean][] = [
@@ -18,6 +18,7 @@ export function aboutLinks(): { links: AboutLink[]; missing: string[] } {
         ["YouTube", youtube, true],
         ["Email", email ? `mailto:${email}` : "", false],
         ["Resume", profile.resumePdf ? `${import.meta.env.BASE_URL}${profile.resumePdf}` : "", false],
+        ["Portfolio", profile.portfolioPdf ? `${import.meta.env.BASE_URL}${profile.portfolioPdf}` : "", true],
     ];
     return {
         links: candidates.filter(([, href]) => href).map(([label, href, external]) => ({ label, href, external })),

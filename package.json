@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "preview:live": "node scripts/preview.mjs live",
     "preview:dev": "node scripts/preview.mjs dev",
-    "test": "vitest run"
+    "test": "vitest run",
+    "portfolio": "node scripts/portfolio.mjs"
   },
   "devDependencies": {
     "@types/showdown": "^2.0.6",
