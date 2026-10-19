@@ -51,15 +51,15 @@ export function makeSeamless(video: HTMLVideoElement): void {
 }
 
 /**
- * Clips in a `<div class="video-sync">` play as one: they start once all can play,
- * and a clip that finishes first holds its last frame until the rest finish, then
- * all restart together. (Make them the same length for a seamless loop.)
+ * Clips in a `<div class="video-sync">` play as one: they restart together, and a
+ * clip that finishes first holds its last frame until the rest finish. (Make them
+ * the same length for a seamless loop.)
  */
 export function syncClips(videos: HTMLVideoElement[]): void {
     if (videos.length < 2) {
         return;
     }
-    const playAll = () =>
+    const restartAll = () =>
         videos.forEach(video => {
             video.currentTime = 0;
             void video.play().catch(() => {});
@@ -68,19 +68,18 @@ export function syncClips(videos: HTMLVideoElement[]): void {
         video.loop = false;
         video.autoplay = false;
         video.removeAttribute("autoplay");
-        video.preload = "auto";
         video.addEventListener("ended", () => {
             if (videos.every(v => v.ended)) {
-                playAll();
+                restartAll();
             }
         });
     }
-    const ready = videos.map(video =>
-        video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA
-            ? Promise.resolve()
-            : new Promise(resolve => video.addEventListener("canplay", resolve, { once: true })),
-    );
-    void Promise.all(ready).then(playAll);
+    // Start them right away: iOS Safari doesn't load a clip until play() is called,
+    // so waiting for them to be ready first would leave them stuck on their posters.
+    // Once every clip is actually playing, rewind them together.
+    const playing = videos.map(video => new Promise(resolve => video.addEventListener("playing", resolve, { once: true })));
+    void Promise.all(playing).then(restartAll);
+    videos.forEach(video => void video.play().catch(() => {}));
 }
 
 /** A clip's still frame, saved next to it: "clip.mp4" -> "clip-poster.jpg" */
