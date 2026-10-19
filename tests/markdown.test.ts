@@ -94,6 +94,17 @@ describe("seamless clips", () => {
         expect(video.hasAttribute("disableremoteplayback")).toBe(true);
         expect(video.tabIndex).toBe(-1);
     });
+
+    it("plays a video-sync group as one: no independent looping or autoplay", () => {
+        const el = renderMarkdown('<div class="video-sync">\n![A](/a.mp4)\n![B](/b.mp4)\n</div>');
+        const videos = [...el.querySelectorAll<HTMLVideoElement>(".video-sync video")];
+        expect(videos).toHaveLength(2);
+        for (const video of videos) {
+            expect(video.loop).toBe(false);
+            expect(video.hasAttribute("autoplay")).toBe(false);
+            expect(video.controls).toBe(false);
+        }
+    });
 });
 
 describe("math", () => {

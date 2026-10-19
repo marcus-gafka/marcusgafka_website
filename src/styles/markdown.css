@@ -243,14 +243,14 @@
 }
 
 /* Autoplaying clips can't be tapped (no fullscreen / pause pop-ups on phones) */
-.markdown-body .video-clip video[autoplay] {
+.markdown-body .video-clip video:not([controls]) {
     pointer-events: none;
 }
 
 /* Hide the iOS/Safari "start playback" overlay if autoplay is delayed (e.g. Low Power Mode) */
-.markdown-body .video-clip video[autoplay]::-webkit-media-controls,
-.markdown-body .video-clip video[autoplay]::-webkit-media-controls-start-playback-button,
-.markdown-body .video-clip video[autoplay]::-webkit-media-controls-overlay-play-button {
+.markdown-body .video-clip video:not([controls])::-webkit-media-controls,
+.markdown-body .video-clip video:not([controls])::-webkit-media-controls-start-playback-button,
+.markdown-body .video-clip video:not([controls])::-webkit-media-controls-overlay-play-button {
     display: none !important;
     -webkit-appearance: none;
 }

@@ -38,7 +38,49 @@ export function makeSeamless(video: HTMLVideoElement): void {
     video.tabIndex = -1;
     video.addEventListener("contextmenu", event => event.preventDefault());
     // Some browsers skip the autoplay attribute on videos added after load.
-    video.addEventListener("loadeddata", () => void video.play().catch(() => {}), { once: true });
+    // (Synced clips turn autoplay off and are started by syncClips instead.)
+    video.addEventListener(
+        "loadeddata",
+        () => {
+            if (video.autoplay) {
+                void video.play().catch(() => {});
+            }
+        },
+        { once: true },
+    );
+}
+
+/**
+ * Clips in a `<div class="video-sync">` play as one: they start once all can play,
+ * and a clip that finishes first holds its last frame until the rest finish, then
+ * all restart together. (Make them the same length for a seamless loop.)
+ */
+export function syncClips(videos: HTMLVideoElement[]): void {
+    if (videos.length < 2) {
+        return;
+    }
+    const playAll = () =>
+        videos.forEach(video => {
+            video.currentTime = 0;
+            void video.play().catch(() => {});
+        });
+    for (const video of videos) {
+        video.loop = false;
+        video.autoplay = false;
+        video.removeAttribute("autoplay");
+        video.preload = "auto";
+        video.addEventListener("ended", () => {
+            if (videos.every(v => v.ended)) {
+                playAll();
+            }
+        });
+    }
+    const ready = videos.map(video =>
+        video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA
+            ? Promise.resolve()
+            : new Promise(resolve => video.addEventListener("canplay", resolve, { once: true })),
+    );
+    void Promise.all(ready).then(playAll);
 }
 
 /** A clip's still frame, saved next to it: "clip.mp4" -> "clip-poster.jpg" */
@@ -166,6 +208,11 @@ export function renderMarkdown(source: string): HTMLElement {
         }
         makeSeamless(video);
     });
+    if (!reduceMotion) {
+        container.querySelectorAll(".video-sync").forEach(group => {
+            syncClips([...group.querySelectorAll<HTMLVideoElement>(".video-clip video")]);
+        });
+    }
 
     return container;
 }
