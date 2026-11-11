@@ -82,6 +82,7 @@ planning" / "reread planning" = read it and sync to the site.
   - `> text` blockquote → highlighted note/callout box (e.g. the DEKA NDA note)
   - Math: `$...$` inline, `$$...$$` display (KaTeX, lazy-loaded only on pages with math;
     a lone `$30` stays text). Course pages describe concepts learned, never specific homework.
+    Course overviews are first person ("In this class I learned…"), never opening with a question.
     Every WPI coursework page except the IQP must fit in ~2 screens: measured page height
     ≤ ~1,650px at 1440×800 (drafts build). Prefer concepts over equations; one strong visual row.
 - Planning references original filenames (e.g. `trophies/IMG_9703.MOV`); site copies get
@@ -161,11 +162,13 @@ planning" / "reread planning" = read it and sync to the site.
   serve `dist/` with `python3 -m http.server`); append `.page{opacity:1!important}` to the
   copied CSS so the fade-in doesn't blank screenshots.
 
-## Open items (as of 2026-09-29)
-- Many placeholders (drafts) await write-ups: MQP, RBE4540/4701, ME3902, RBE2001, art projects,
-  V3, Whiplash, Trophies (RRC), FRC 118, VEX 2373M, BEST, all Personal
-  projects, paragraph posts (Why I Love FRC, What Is the WPI RRC?, Early Robotics Interest,
-  Art in Engineering).
+## Open items (as of 2026-11-11)
+- Placeholders (drafts) awaiting write-ups: ME3902, RBE2001, art projects, V3, Whiplash,
+  Trophies (RRC), VEX 2373M, BEST, all Personal projects, paragraph posts (Why I Love FRC,
+  What Is the WPI RRC?, Early Robotics Interest, Art in Engineering).
+- RBE4815 (B-Term 2026, Coursework · Current) was written by Claude from the lecture slides and two
+  clips (no `website.md` from Marcus; Claude's draft is in planning). Unconfirmed: "Lab team of 5"
+  (from the syllabus) and that the FANUC delta clip is from his lab. Move it to Completed after B-Term.
 - WPI Dean's List isn't on the resume; ask Marcus for terms before adding a highlight.
 - RBE2002, RBE1001, ME3310 show dates but have no `sortDate` (kept in hand-set order, sorted last).
 - NASA page: bullet says ordering sheet for 40 trophies but photo shows 44 — ask before changing.
