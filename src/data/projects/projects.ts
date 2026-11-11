@@ -196,6 +196,18 @@ const entries: ProjectEntry[] = [
         image: "assets/projects/mqp/cover.jpg",
     },
     {
+        id: "rbe4815",
+        section: "wpi",
+        group: "current",
+        sortDate: "2026-12",
+        title: "RBE4815 – Industrial Robotics",
+        summary: "Kinematics of 6-DOF industrial arms: forward and inverse kinematics with a spherical wrist, Jacobians, singularities, and workspaces, with labs on a UR5e and a FANUC delta robot.",
+        date: "B-Term 2026",
+        role: "Lab team of 5",
+        technologies: ["Kinematics", "DH Parameters", "Inverse Kinematics", "Jacobians", "UR5e", "FANUC"],
+        image: "assets/projects/rbe4815/ur5e-pick-place-poster.jpg",
+    },
+    {
         id: "rbe4540",
         section: "wpi",
         group: "completed",
