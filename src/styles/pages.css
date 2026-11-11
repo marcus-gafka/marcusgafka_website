@@ -107,14 +107,27 @@
         min-height: 0;
         display: flex;
         flex-direction: column;
+        /* The photo cap below is measured from this width (cqi) */
+        container-type: inline-size;
     }
 
     /* Row 1 = photos (whatever height is left), row 2 = text (tallest card's).
-       Cards share both rows via subgrid, so photos and text line up. */
+       Cards share both rows via subgrid, so photos and text line up.
+       Photos stay between 12:5 and 4:3 (the card photos' own shape), so the
+       crop never cuts into the logo/subject:
+       - tall or very wide windows can't squeeze them into portrait strips; the
+         extra space just stays empty below the cards;
+       - very short windows can't flatten them into slivers; the page scrolls a
+         little instead of fitting one screen.
+       Three columns: at these widths auto-fill always makes exactly three. */
     .home .featured .project-grid {
+        --card-width: calc((100cqi - 2 * var(--space-3)) / 3);
         flex: 1;
         min-height: 0;
-        grid-template-rows: minmax(0, 1fr) auto;
+        grid-template-rows:
+            minmax(calc(var(--card-width) * 5 / 12), calc(var(--card-width) * 3 / 4))
+            auto;
+        align-content: start;
         row-gap: 0;
     }
 

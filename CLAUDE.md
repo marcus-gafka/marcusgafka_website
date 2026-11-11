@@ -150,7 +150,8 @@ planning" / "reread planning" = read it and sync to the site.
   Sidebar is sage with black text; active nav = black pill, white text, burgundy bar.
 - Home: hero lines link to sections; hovering grows/bolds the lead in sage. Line height is
   fixed so hover never shifts layout. ≥1140px wide the home page fills exactly one screen
-  (featured photos shrink via a subgrid so card titles/blurbs are never cut off; screens ≤760px tall
+  (featured photos shrink via a subgrid so card titles/blurbs are never cut off, kept between 12:5 and 4:3
+  so the crop never cuts a logo; screens ≤760px tall
   get a compact hero); on phones everything through "Featured Projects" fits one screen
   (tested down to iPhone SE 375×548). Hero lines aren't links on phones/touch.
 - Right panel: full-height, flush to the window's right edge, sticky; feed centered left of it.
