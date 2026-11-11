@@ -37,7 +37,7 @@ export const profile = {
         { text: "Tinkerer, maker, and curious problem solver", section: "personal" },
     ] satisfies HeroLink[],
     /** Home page Featured Projects, in order (project ids from projects.ts) */
-    featured: ["deka", "nasa-jsc", "iqp"],
+    featured: ["deka", "nasa-jsc", "rbe4540"],
     /** Path under public/, e.g. "resume/Marcus_Gafka_Resume.pdf". Leave empty to hide. */
     resumePdf: "resume/Marcus_Gafka_Resume.pdf",
     /** PDF portfolio (`npm run portfolio` writes it), a path under public/. Leave empty to hide. */

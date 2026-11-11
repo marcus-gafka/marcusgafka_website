@@ -71,7 +71,7 @@ describe("featured projects", () => {
         expect(titles).toHaveLength(profile.featured.length);
         expect(titles[0]).toContain("DEKA");
         expect(titles[1]).toContain("NASA");
-        expect(titles[2]).toContain("IQP");
+        expect(titles[2]).toContain("RBE4540");
     });
 });
 
