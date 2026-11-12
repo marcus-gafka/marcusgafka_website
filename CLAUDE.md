@@ -48,8 +48,8 @@ npm run portfolio    # PDF portfolio of the live content → planning/ + public/
 - Domain: GoDaddy DNS → GitHub Pages (A records 185.199.108–111.153, `www` CNAME →
   `marcus-gafka.github.io`), `public/CNAME`, HTTPS enforced. Repo:
   github.com/marcus-gafka/marcusgafka_website (public).
-- WPI's campus network blocks marcusgafka.com ("newly-registered-domain"); curl from this
-  machine fails/503s. Verify deploys via `gh run` / GitHub instead.
+- Verify deploys with `gh run`, then curl https://marcusgafka.com (check the bundle for the change).
+  WPI's campus network used to block the domain ("newly-registered-domain"); reachable as of 2026-11-11.
 - Analytics: GoatCounter (`marcusgafka.goatcounter.com`), code in `src/data/profile.ts`,
   per-route page views in `src/utils/analytics.ts`.
 
@@ -172,5 +172,4 @@ planning" / "reread planning" = read it and sync to the site.
 - WPI Dean's List isn't on the resume; ask Marcus for terms before adding a highlight.
 - RBE2002, RBE1001, ME3310 show dates but have no `sortDate` (kept in hand-set order, sorted last).
 - NASA page: bullet says ordering sheet for 40 trophies but photo shows 44 — ask before changing.
-- Ask WPI IT to unblock the domain (ticket link on the block page, `http://marcusgafka.com`).
 - Old commit `10b56f4` with the resume may still be cached by GitHub (support purge request).
