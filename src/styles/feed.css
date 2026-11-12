@@ -50,7 +50,9 @@
     margin: var(--space-5) 0 0;
     padding-bottom: var(--space-1);
     border-bottom: 2px solid var(--burgundy);
-    font-size: 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
@@ -155,8 +157,9 @@
 .project-nav h3 {
     margin: 0 0 var(--space-2);
     padding-bottom: var(--space-1);
-    border-bottom: 2px solid var(--burgundy);
-    font-size: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
@@ -220,7 +223,8 @@
 }
 
 .project-nav-date {
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     color: var(--muted);
 }
 
@@ -311,7 +315,7 @@
         margin: 0;
         padding: 0 0 0 var(--space-1);
         border-bottom: none;
-        border-left: 2px solid var(--burgundy);
+        border-left: 1px solid var(--border);
         font-size: 0.7rem;
         white-space: nowrap;
         /* A snap point too, so the strip rests with the first label visible */
@@ -379,4 +383,42 @@
     .post-highlight {
         animation: none;
     }
+}
+
+/* ---- Whole post clickable ---- */
+/* The title link stretches over the post; hovering lights up the post like a card */
+.post-card {
+    position: relative;
+    border-radius: var(--radius);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card .post-title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+}
+
+.post-card:hover {
+    background: var(--panel);
+    box-shadow: 0 0 0 var(--space-2) var(--panel);
+}
+
+.post-card:hover .post-title a {
+    text-decoration: none;
+}
+
+.post-card:hover .post-image img {
+    transform: scale(1.02);
+    border-color: var(--accent);
+}
+
+.post-card:hover .read-more span {
+    margin-left: 4px;
+}
+
+.read-more span {
+    display: inline-block;
+    transition: margin 0.2s ease;
 }

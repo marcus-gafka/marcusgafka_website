@@ -8,6 +8,7 @@ import { findSection, sectionAliases } from "./data/sections";
 import { findProject } from "./data/projects/projects";
 import { profile } from "./data/profile";
 import { trackPageView } from "./utils/analytics";
+import { observeReveals } from "./utils/reveal";
 
 export interface Route {
     /** Top-level section used to highlight the nav, e.g. "wpi" */
@@ -68,19 +69,65 @@ export function handleRoute(): void {
     }
 
     const { section, page, title } = resolveRoute(window.location.hash);
+    const [, newProjectId] = parseHash(window.location.hash);
+    const oldProjectId = content.querySelector<HTMLElement>("h1[data-project-title]")?.dataset.projectTitle;
 
-    page.classList.add("page");
-    content.replaceChildren(page);
-    window.scrollTo(0, 0);
+    const swap = (animate: boolean) => {
+        page.classList.add("page");
+        content.replaceChildren(page);
+        window.scrollTo(0, 0);
 
-    document.title = title ? `${title} | ${profile.name}` : profile.name;
-    trackPageView();
+        document.title = title ? `${title} | ${profile.name}` : profile.name;
+        trackPageView();
 
-    document.querySelectorAll<HTMLAnchorElement>(".nav-link").forEach(link => {
-        link.classList.toggle("active", link.dataset.section === section);
+        document.querySelectorAll<HTMLAnchorElement>(".nav-link").forEach(link => {
+            link.classList.toggle("active", link.dataset.section === section);
+        });
+
+        // The new page's title takes over the morph from the old one (see below)
+        tagMorphTitle(content, newProjectId ?? oldProjectId);
+        observeReveals(page);
+
+        if (animate) {
+            page.classList.add("visible");
+        } else {
+            requestAnimationFrame(() => page.classList.add("visible"));
+        }
+    };
+
+    // Smooth cross-fade between pages where supported; a project's title morphs
+    // from its card/post into the page heading (and back). Otherwise: the CSS fade-in.
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (typeof document.startViewTransition === "function" && !reduceMotion && content.firstElementChild) {
+        tagMorphTitle(content, newProjectId ?? oldProjectId);
+        document.startViewTransition(() => swap(true));
+    } else {
+        swap(false);
+    }
+}
+
+/**
+ * Gives the title of the given project (a card, feed post, or page heading) the
+ * shared view-transition name, and clears it from everything else. Only a
+ * title that's on screen morphs, so off-screen ones don't fly in from afar.
+ */
+function tagMorphTitle(root: HTMLElement, projectId: string | undefined): void {
+    root.querySelectorAll<HTMLElement>("[data-project-title]").forEach(el => {
+        el.style.viewTransitionName = "";
     });
-
-    requestAnimationFrame(() => page.classList.add("visible"));
+    if (!projectId) {
+        return;
+    }
+    const target = [...root.querySelectorAll<HTMLElement>("[data-project-title]")]
+        .find(el => el.dataset.projectTitle === projectId);
+    if (!target) {
+        return;
+    }
+    const box = target.getBoundingClientRect();
+    const onScreen = box.bottom > 0 && box.top < window.innerHeight;
+    if (onScreen || target.tagName === "H1") {
+        target.style.viewTransitionName = "project-title";
+    }
 }
 
 export function initRouter(): void {

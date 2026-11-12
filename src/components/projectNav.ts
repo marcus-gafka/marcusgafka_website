@@ -1,7 +1,8 @@
 import type { Section } from "../data/sections";
 import { projectsInSection, type Project } from "../data/projects/projects";
 import { escapeHtml } from "../utils/html";
-import { assetUrl, projectHref } from "../utils/urls";
+import { projectHref } from "../utils/urls";
+import { projectImageHtml } from "./projectImage";
 
 /**
  * Right-hand panel listing a section's projects as thumbnails, grouped when the
@@ -57,9 +58,8 @@ function createNavItem(project: Project, active: boolean, scrollToPost: boolean)
         link.setAttribute("aria-current", "page");
     }
 
-    const thumb = project.image
-        ? `<img class="project-nav-thumb" src="${assetUrl(project.image)}" alt="" loading="lazy" />`
-        : `<span class="project-nav-thumb project-nav-thumb-empty" aria-hidden="true">${escapeHtml(project.title.charAt(0))}</span>`;
+    const thumb = projectImageHtml(project, "project-nav-thumb")
+        || `<span class="project-nav-thumb project-nav-thumb-empty" aria-hidden="true">${escapeHtml(project.title.charAt(0))}</span>`;
 
     link.innerHTML = `
         ${thumb}

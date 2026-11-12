@@ -19,6 +19,11 @@ export interface Project {
     links?: Link[];
     /** Card image, a path under public/ */
     image?: string;
+    /** Transparent logo shown on site cards/thumbnails instead of `image`, on a soft
+        sage backdrop (the PDF portfolio keeps `image`, since it prints on white) */
+    cardLogo?: string;
+    /** One-line outcome (award, ranking, measurable result) shown on cards and feed posts */
+    result?: string;
     /** Sub-heading within the section (see `groups` in sections.ts) */
     group?: string;
     /** "YYYY-MM" when it finished; orders the section feed newest first */
@@ -57,6 +62,7 @@ const entries: ProjectEntry[] = [
         role: "Controls Engineering Intern · Manchester, NH",
         technologies: ["Arduino", "Python", "Kalman Filtering", "Controls"],
         image: "assets/projects/deka/deka-card.jpg",
+        cardLogo: "assets/projects/deka/deka-logo.png",
     },
     {
         id: "nasa-jsc",
@@ -95,6 +101,7 @@ const entries: ProjectEntry[] = [
         section: "robotics",
         title: "Stack Up / Redundancy",
         summary: "2025 in-season robots. Led the Funnel and Stick subsystems; 3x district event winner and ranked 1st in New England.",
+        result: "3x district event winner · Ranked 1st in New England",
         date: "2025 Season",
         role: "Funnel & Stick subsystem lead · Drive Coach",
         technologies: ["CAD", "Mechanism Design", "Strategy"],
@@ -127,6 +134,7 @@ const entries: ProjectEntry[] = [
         section: "robotics",
         title: "Snapback",
         summary: "2024 in-season robot. Led the Intake and Centralizer subsystems; World Championship Curie Division winner.",
+        result: "World Championship Curie Division winner",
         date: "2024 Season",
         role: "Intake & Centralizer lead · Strategy Lead",
         technologies: ["CAD", "Pneumatics", "Mechanism Design"],
@@ -144,6 +152,7 @@ const entries: ProjectEntry[] = [
         section: "robotics",
         title: "Ember",
         summary: "An experimental swerve-drive robot with a ground cube intake, taken from idea to competing in three weeks.",
+        result: "Idea to competing in three weeks",
         date: "2023 Off-Season",
         role: "Project lead",
         technologies: ["Swerve Drive", "CAD", "Rapid Prototyping"],
@@ -260,6 +269,7 @@ const entries: ProjectEntry[] = [
         section: "wpi",
         title: "RBE3002 – Unified Robotics IV: Navigation",
         summary: "Programmed a TurtleBot3 with ROS to explore, map, and localize in an unknown arena. Finished in 6 of 15 allotted minutes.",
+        result: "Finished in 6 of 15 allotted minutes",
         date: "D-Term 2025",
         role: "Team of 4",
         technologies: ["ROS", "Python", "Linux", "Git", "Path Planning"],
@@ -307,6 +317,7 @@ const entries: ProjectEntry[] = [
         title: "RBE1001 – Introduction to Robotics",
         date: "B-Term 2023",
         summary: "Designed, built, and programmed a VEX robot in Python that won the class-wide competition.",
+        result: "Won the class-wide competition",
         role: "Team of 3",
         technologies: ["Python", "VEX", "Sensors", "State Machines"],
         image: "assets/projects/rbe1001/robot.jpg",

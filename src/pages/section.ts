@@ -6,6 +6,7 @@ import { createLinkList } from "../components/linkList";
 import { renderMarkdown } from "../utils/markdown";
 import { escapeHtml } from "../utils/html";
 import { assetUrl, projectHref } from "../utils/urls";
+import { projectImageHtml, projectResultHtml } from "../components/projectImage";
 
 /**
  * A section as a blog: posts in the middle (grouped like the right panel, newest
@@ -105,17 +106,18 @@ function createPost(project: Project): HTMLElement {
     const meta = escapeHtml(projectMeta(project));
 
     const post = document.createElement("article");
-    post.className = "post";
+    // The whole post is clickable: the title link stretches over it (see .post-card in feed.css)
+    post.className = "post post-card";
     post.id = `post-${project.id}`;
+    const image = projectImageHtml(project, "post-image-img");
     post.innerHTML = `
-        ${project.image ? `
-            <a class="post-image" href="${href}" tabindex="-1" aria-hidden="true">
-                <img src="${assetUrl(project.image)}" alt="" loading="lazy" />
-            </a>` : ""}
+        ${image ? `
+            <a class="post-image" href="${href}" tabindex="-1" aria-hidden="true">${image}</a>` : ""}
         <div class="post-body">
             ${meta ? `<span class="project-date">${meta}</span>` : ""}
-            <h2 class="post-title"><a href="${href}">${escapeHtml(project.title)}</a></h2>
+            <h2 class="post-title" data-project-title="${escapeHtml(project.id)}"><a href="${href}">${escapeHtml(project.title)}</a></h2>
             <p class="post-summary">${escapeHtml(project.summary)}</p>
+            ${projectResultHtml(project)}
         </div>
     `;
 

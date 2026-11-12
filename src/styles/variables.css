@@ -13,7 +13,9 @@
     /* Sidebar keeps sage and white the other way round */
     --sidebar-bg: #8daa9d;  /* sage */
     --sidebar-text: #0f0e0e;
-    --sidebar-hover: #7e978c;
+    --sidebar-hover: rgba(15, 14, 14, 0.1);
+    /* A soft top-to-bottom shade so the sage column isn't one flat block */
+    --sidebar-gradient: linear-gradient(180deg, #9ab5a9 0%, #8daa9d 45%, #7d998c 100%);
     --sidebar-active: #fbf5f3;  /* white text on the black active pill */
 
     /* Details. Too dark for text on black, so use as fills and rules only */
@@ -34,8 +36,11 @@
     /* Side margin on phones (top bar, page content, featured cards) */
     --gutter-phone: 16px;
 
-    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    /* Self-hosted (@fontsource, imported in main.ts): Inter for text, Space Grotesk
+       for headings, JetBrains Mono for small "datasheet" labels (dates, roles, groups) */
+    --font: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-display: "Space Grotesk Variable", "Inter Variable", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 /*

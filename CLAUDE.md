@@ -23,7 +23,8 @@ DEKA/NASA intern). Live at https://marcusgafka.com. Modeled on a friend's repo i
 
 ## Stack
 Vite 8 + vanilla TypeScript (no framework), plain CSS, `showdown` (Markdown) + `highlight.js`,
-Vitest + happy-dom. Node 22 via nvm (`export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"`).
+Vitest + happy-dom. Self-hosted fonts via `@fontsource-variable/*` (imported in `main.ts`): Inter (text),
+Space Grotesk (headings, `--font-display`), JetBrains Mono (small labels, `--font-mono`). Node 22 via nvm (`export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"`).
 Bundled npm 10 crashes on fresh installs (arborist "edgesOut"): use `npx npm@11 install <pkg>`.
 
 ```bash
@@ -63,7 +64,9 @@ planning" / "reread planning" = read it and sync to the site.
   `src/data/projects/projects.ts`; body → `src/data/projects/<id>/<Name>.md` (loaded by
   `import.meta.glob`: the folder name must be the project id; no import line needed).
   Header fields: `title, status (live|draft), group, date, sort (YYYY-MM), order, role,
-  summary, tags, image, links`. `type: paragraph` folders → `textPosts` in sections.ts
+  summary, tags, image, links`. Site-only optional fields in projects.ts: `result` (one-line outcome
+  on cards/feed posts, never on the project page; only claims already in the write-up) and `cardLogo`
+  (transparent logo for site cards on a sage backdrop; the PDF portfolio keeps `image`). `type: paragraph` folders → `textPosts` in sections.ts
   (`before: <project-id>` positions one).
 - Media conventions in planning Markdown (translate to site HTML when syncing):
   - single image before a bullet list → `<figure class="figure-inline">` (floats beside list)
@@ -95,7 +98,9 @@ planning" / "reread planning" = read it and sync to the site.
 - `index.html`, `src/main.ts` — builds `.layout` = sidebar + `<main id="content">`, starts
   analytics + router.
 - `src/router.ts` — hash routes: `#/` home, `#/<section>`, `#/<section>/<project-id>`,
-  `#/about`, `#/resume`; sets title, highlights nav, reports page views.
+  `#/about`, `#/resume`; sets title, highlights nav, reports page views. Page swaps use the View
+  Transitions API where supported (crossfade; the project title morphs between card/post `[data-project-title]`
+  and the page `h1`), else the CSS fade-in.
 - `src/data/`
   - `profile.ts` — `featured` = hand-picked home Featured Projects (ids); name, headshots, hero text (`heroIntro`, `heroLinks`: optional multi-word
     `lead` for the dash bullet, and `highlight` = words anywhere that grow on hover, default lead), email, GoatCounter code, resume PDF path.
@@ -109,14 +114,16 @@ planning" / "reread planning" = read it and sync to the site.
     `projectsInSection`, `findProject`, `projectMeta` ("date · role").
   - `about.md` — About page Markdown.
 - `src/pages/` — `home.ts` (hero + featured), `section.ts` (blog feed grouped like the right
-  panel, newest first; text posts), `projectDetail.ts` (write-up + right panel), `about.ts`,
+  panel, newest first; text posts; whole post clickable), `projectDetail.ts` (write-up + right panel,
+  "spec sheet" Role/Tools row under the title, prev/next pager shown only ≤1100px), `about.ts`,
   `resume.ts`, `notFound.ts`.
 - `src/components/` — `sidebar.ts` (headshot, nav, phone ☰ menu), `projectNav.ts` (right
   panel; ≤1100px it becomes a "Jump to" swipe strip on section pages (hidden on phones ≤760px) and is hidden on project pages), `projectCard.ts` (home cards),
-  `contactLinks.ts` ("Email me" link), `linkList.ts` (`createButtonLink`, `createLinkList`),
+  `contactLinks.ts` ("Email me" link), `projectImage.ts` (card/thumb image incl. `cardLogo`, result line), `linkList.ts` (`createButtonLink`, `createLinkList`),
   `techTags.ts` (null when no tags).
 - `src/utils/` — `markdown.ts` (showdown, highlight.js, YouTube + video-clip embeds,
-  `clipPoster`, math, reduced-motion), `urls.ts` (`sectionHref`, `projectHref`, `assetUrl`:
+  `clipPoster`, math, reduced-motion), `lightbox.ts` (click a write-up photo → full-size `<dialog>`),
+  `reveal.ts` (feed posts fade in on scroll), `urls.ts` (`sectionHref`, `projectHref`, `assetUrl`:
   use these instead of building `#/...` or `BASE_URL` strings), `drafts.ts`, `analytics.ts`,
   `html.ts` (escapeHtml).
 - `src/styles/` — `variables.css` (palette, sizes, `--gutter-phone`, breakpoint list), `base.css`,
@@ -146,8 +153,9 @@ planning" / "reread planning" = read it and sync to the site.
   by group: FRC 190 season → FRC 190 off-season → WPI RRC → high school FRC 118 → VEX 2373M →
   "Where It Started" (early/BEST). Honor society entry has no `sortDate` so it's never featured.
 - Palette: bg `#0f0e0e`, text `#fbf5f3`, accent sage `#8daa9d` (headings/links/hover word),
-  details plum `#522b47` (tags) and burgundy `#7b0828` (rules, active-nav bar; never text).
-  Sidebar is sage with black text; active nav = black pill, white text, burgundy bar.
+  details plum `#522b47` (tags) and burgundy `#7b0828` (section group rules, callouts, active states;
+  never text; write-up h2s and right-panel group headers use the plain border color).
+  Sidebar is sage (soft vertical gradient) with black text; active nav = black pill, white text, burgundy bar.
 - Home: hero lines link to sections; hovering grows/bolds the lead in sage. Line height is
   fixed so hover never shifts layout. ≥1140px wide the home page fills exactly one screen
   (featured photos shrink via a subgrid so card titles/blurbs are never cut off, kept between 12:5 and 4:3
@@ -158,8 +166,10 @@ planning" / "reread planning" = read it and sync to the site.
 - Breakpoints: 760px (phone top bar + menu), 1100px (right panel → strip), 1140px (home
   one-screen mode).
 - Verify visual changes with headless Chrome screenshots (`google-chrome --headless=new`,
-  serve `dist/` with `python3 -m http.server`); append `.page{opacity:1!important}` to the
-  copied CSS so the fade-in doesn't blank screenshots.
+  serve `dist/` with `python3 -m http.server`); append `.page{opacity:1!important}.reveal{opacity:1!important;transform:none!important}`
+  to the copied CSS so fade-ins don't blank screenshots. Use a separate `--user-data-dir` and
+  `--timeout=3000`: `--virtual-time-budget` hangs on these pages. Measure page heights with a small
+  Chrome DevTools-protocol script (`--remote-debugging-port`, evaluate `scrollHeight`).
 
 ## Open items (as of 2026-11-11)
 - Placeholders (drafts) awaiting write-ups: ME3902, RBE2001, art projects, V3, Whiplash,
@@ -169,6 +179,8 @@ planning" / "reread planning" = read it and sync to the site.
   clips (no `website.md` from Marcus; Claude's draft is in planning). Unconfirmed: "Lab team of 5"
   (from the syllabus) and that the FANUC delta clip is from his lab. Move it to Completed after B-Term.
 - WPI Dean's List isn't on the resume; ask Marcus for terms before adding a highlight.
+- Over the ~1,650px coursework limit (already before the 2026-11-11 UI pass): RBE4701 (~1,690px) and
+  RBE4540 (~3,350px).
 - RBE2002, RBE1001, ME3310 show dates but have no `sortDate` (kept in hand-set order, sorted last).
 - NASA page: bullet says ordering sheet for 40 trophies but photo shows 44 — ask before changing.
 - Old commit `10b56f4` with the resume may still be cached by GitHub (support purge request).

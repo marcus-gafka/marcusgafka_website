@@ -1,9 +1,13 @@
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/jetbrains-mono";
 import "./styles/main.css";
 import "highlight.js/styles/github-dark.css";
 
 import { createSidebar } from "./components/sidebar";
 import { initRouter } from "./router";
 import { initAnalytics } from "./utils/analytics";
+import { initLightbox } from "./utils/lightbox";
 
 const app = document.getElementById("app");
 
@@ -21,4 +25,5 @@ layout.append(createSidebar(), content);
 app.appendChild(layout);
 
 initAnalytics();
+initLightbox(content);
 initRouter();

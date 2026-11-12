@@ -103,7 +103,8 @@
 }
 
 .project-date {
-    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     color: var(--text);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -119,4 +120,152 @@
 .link-list .btn {
     padding: 6px 14px;
     font-size: 0.9rem;
+}
+
+/* Card photo frame: the photo zooms a little inside it on hover */
+.project-card-media {
+    overflow: hidden;
+    background: var(--panel-2);
+}
+
+.project-card-image {
+    display: block;
+    transition: transform 0.35s ease;
+}
+
+.project-card:hover .project-card-image {
+    transform: scale(1.04);
+}
+
+/* Transparent logos (project.cardLogo) sit on a soft sage-tinted backdrop */
+img.is-logo {
+    object-fit: contain;
+    padding: 10%;
+    background: radial-gradient(ellipse at 50% 45%, #2a3631 0%, #171a19 75%);
+}
+
+.project-nav-thumb.is-logo,
+.pager-thumb.is-logo {
+    padding: 6px;
+}
+
+/* One-line outcome on cards and posts (project.result) */
+.project-result {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: var(--space-2) 0 0;
+    color: var(--accent);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.project-result::before {
+    content: "";
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: rotate(45deg) translateY(-2px);
+}
+
+/* ---- Photo lightbox (src/utils/lightbox.ts) ---- */
+.markdown-body figure:not(.logo):not(.logo-inline) img {
+    cursor: zoom-in;
+}
+
+.lightbox {
+    max-width: 96vw;
+    max-height: 96vh;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: visible;
+    cursor: zoom-out;
+}
+
+.lightbox[open] {
+    animation: lightbox-in 0.2s ease;
+}
+
+.lightbox::backdrop {
+    background: rgba(8, 8, 8, 0.9);
+    backdrop-filter: blur(4px);
+}
+
+.lightbox figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+}
+
+.lightbox img {
+    display: block;
+    max-width: 92vw;
+    max-height: 86vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+}
+
+.lightbox figcaption {
+    max-width: 70ch;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--panel-2);
+    color: var(--text);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+@keyframes lightbox-in {
+    from { opacity: 0; transform: scale(0.97); }
+}
+
+/* ---- Motion: scroll reveal (src/utils/reveal.ts) and page transitions (router) ---- */
+.reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.22s;
+}
+
+::view-transition-group(project-title) {
+    animation-duration: 0.38s;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-card-image,
+    .lightbox[open] {
+        transition: none;
+        animation: none;
+    }
+
+    .project-card:hover .project-card-image {
+        transform: none;
+    }
 }
