@@ -49,7 +49,6 @@ npm run portfolio    # PDF portfolio of the live content → planning/ + public/
   `marcus-gafka.github.io`), `public/CNAME`, HTTPS enforced. Repo:
   github.com/marcus-gafka/marcusgafka_website (public).
 - Verify deploys with `gh run`, then curl https://marcusgafka.com (check the bundle for the change).
-  WPI's campus network used to block the domain ("newly-registered-domain"); reachable as of 2026-11-11.
 - Analytics: GoatCounter (`marcusgafka.goatcounter.com`), code in `src/data/profile.ts`,
   per-route page views in `src/utils/analytics.ts`.
 
