@@ -131,6 +131,9 @@ planning" / "reread planning" = read it and sync to the site.
   `markdown.css` (write-ups: text, figures/rows/mosaic, clips, YouTube, callouts, math; one phone
   block at the end), `pages.css` (hero, home one-screen fit, phone home), `feed.css` (posts,
   right panel/strip).
+- Link previews: Open Graph + Twitter tags in `index.html` (same card for every page, since routes are
+  hash-based) → `public/og-image.jpg` (1200×630), drawn by `scripts/og/og-image.html` with the site fonts.
+  Regenerate: `OG_PYTHON=<python with Pillow> node scripts/og-image.mjs`.
 - `scripts/preview.mjs` — `preview:live` exports the `live` branch with `git archive` into
   `node_modules/.cache/preview/` (works from any branch, ignores uncommitted changes).
 - `scripts/portfolio.mjs` + `scripts/portfolio/` (page: `main.ts`, `print.css`) — `npm run portfolio`:

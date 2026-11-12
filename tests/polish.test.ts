@@ -59,3 +59,16 @@ describe("card logos", () => {
         }
     });
 });
+
+describe("link previews", () => {
+    it("index.html points og:image and twitter:image at the card in public/", async () => {
+        const { readFileSync } = await import("node:fs");
+        const html = readFileSync(resolve("index.html"), "utf8");
+        for (const tag of ['property="og:image"', 'name="twitter:image"']) {
+            const match = html.match(new RegExp(`${tag} content="https://marcusgafka\\.com/([^"]+)"`));
+            expect(match, tag).not.toBeNull();
+            expect(existsSync(resolve("public", match![1])), match![1]).toBe(true);
+        }
+        expect(html).toContain('name="twitter:card" content="summary_large_image"');
+    });
+});

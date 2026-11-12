@@ -47,7 +47,7 @@
 
 /* Group headings inside the feed mirror the right panel's groups */
 .feed-group-title {
-    margin: var(--space-5) 0 0;
+    margin: var(--space-4) 0 0;
     padding-bottom: var(--space-1);
     border-bottom: 2px solid var(--burgundy);
     font-family: var(--font-mono);
@@ -55,6 +55,11 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+}
+
+/* The last post of a group needs less room before the next group's heading */
+.post:has(+ .feed-group-title) {
+    padding-bottom: var(--space-3);
 }
 
 .feed > .feed-group-title:first-child {
