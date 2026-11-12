@@ -19,8 +19,8 @@ export interface Project {
     links?: Link[];
     /** Card image, a path under public/ */
     image?: string;
-    /** Transparent logo shown on site cards/thumbnails instead of `image`, on a soft
-        sage backdrop (the PDF portfolio keeps `image`, since it prints on white) */
+    /** Transparent logo shown on site cards/thumbnails instead of `image`, on solid
+        black (the PDF portfolio keeps `image`, since it prints on white) */
     cardLogo?: string;
     /** One-line outcome (award, ranking, measurable result) shown on cards and feed posts */
     result?: string;

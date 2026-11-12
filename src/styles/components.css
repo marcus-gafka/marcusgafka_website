@@ -137,14 +137,14 @@
     transform: scale(1.04);
 }
 
-/* Transparent logos (project.cardLogo) sit on a soft sage-tinted backdrop.
+/* Transparent logos (project.cardLogo) sit on solid black.
    Specific enough to beat the photo rules (e.g. .post-image img crops with cover). */
 img.is-logo,
 .post-image img.is-logo,
 .project-card .project-card-image.is-logo {
     object-fit: contain;
     padding: 10%;
-    background: radial-gradient(ellipse at 50% 45%, #2a3631 0%, #171a19 75%);
+    background: var(--bg);
 }
 
 .project-nav-thumb.is-logo,

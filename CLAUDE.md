@@ -66,7 +66,7 @@ planning" / "reread planning" = read it and sync to the site.
   Header fields: `title, status (live|draft), group, date, sort (YYYY-MM), order, role,
   summary, tags, image, links`. Site-only optional fields in projects.ts: `result` (one-line outcome
   on cards/feed posts, never on the project page; only claims already in the write-up) and `cardLogo`
-  (transparent logo for site cards on a sage backdrop; the PDF portfolio keeps `image`). `type: paragraph` folders → `textPosts` in sections.ts
+  (transparent logo for site cards on solid black; the PDF portfolio keeps `image`). `type: paragraph` folders → `textPosts` in sections.ts
   (`before: <project-id>` positions one).
 - Media conventions in planning Markdown (translate to site HTML when syncing):
   - single image before a bullet list → `<figure class="figure-inline">` (floats beside list)
