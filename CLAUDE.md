@@ -115,7 +115,7 @@ planning" / "reread planning" = read it and sync to the site.
   - `about.md` — About page Markdown.
 - `src/pages/` — `home.ts` (hero + featured), `section.ts` (blog feed grouped like the right
   panel, newest first; text posts; whole post clickable), `projectDetail.ts` (write-up + right panel,
-  "spec sheet" Role/Tools row under the title, prev/next pager shown only ≤1100px), `about.ts`,
+  "spec sheet" under the title (Role row above Tools row), prev/next pager shown only ≤1100px), `about.ts`,
   `resume.ts`, `notFound.ts`.
 - `src/components/` — `sidebar.ts` (headshot, nav, phone ☰ menu), `projectNav.ts` (right
   panel; ≤1100px it becomes a "Jump to" swipe strip on section pages (hidden on phones ≤760px) and is hidden on project pages), `projectCard.ts` (home cards),

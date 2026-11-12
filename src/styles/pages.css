@@ -419,10 +419,8 @@
     margin-top: var(--space-1);
 }
 
-/* One row on wide screens (label above value in each cell); stacked on phones */
+/* Role above Tools: label column on the left, value on the right */
 .spec-sheet {
-    display: flex;
-    flex-wrap: wrap;
     margin: var(--space-3) 0 0;
     background: var(--panel);
     border: 1px solid var(--border);
@@ -430,19 +428,15 @@
 }
 
 .spec-row {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
-    padding: 8px var(--space-3) 10px;
-}
-
-.spec-row:last-child {
-    flex: 1;
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-2);
+    padding: 7px var(--space-3);
 }
 
 .spec-row + .spec-row {
-    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
 }
 
 .spec-row dt {
@@ -539,12 +533,8 @@
         display: none;
     }
 
-    .spec-sheet {
-        flex-direction: column;
-    }
-
-    .spec-row + .spec-row {
-        border-left: none;
-        border-top: 1px solid var(--border);
+    .spec-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
     }
 }
